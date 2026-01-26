@@ -1,0 +1,121 @@
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+/* Navbar */
+.active-tag {
+  background-color: #d9f2d9;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+/* Hero */
+.hero-section {
+  background: linear-gradient(90deg, #ff6a00, #ff3d00);
+  padding: 80px 20px;
+}
+
+.hero-text {
+  max-width: 850px;
+  margin: auto;
+  font-size: 1rem;
+}
+
+/* Feature bar */
+.feature-bar {
+  background-color: #fff;
+  padding: 20px 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.feature-item i {
+  background-color: #ff6a00;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Location */
+.location-section {
+  background-color: #e5e5e5;
+  padding: 60px 20px;
+}
+
+.map-card {
+  position: relative;
+  border-radius: 22px;
+  overflow: hidden;
+  height: 100%;
+  min-height: 340px;
+}
+
+.map-bg {
+  background:
+    linear-gradient(rgba(210, 216, 222, 0.88), rgba(210, 216, 222, 0.88)),
+    url("../images/download.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.map-overlay {
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.map-pin {
+  font-size: 40px;
+  color: #ff6a00;
+  margin-bottom: 12px;
+}
+
+.map-overlay h5 {
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.map-overlay p {
+  margin-bottom: 18px;
+  color: #111;
+}
+
+/* Info cards */
+.info-card {
+  background-color: white;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.info-card i {
+  font-size: 22px;
+  color: #ff6a00;
+}
+
+/* Buttons */
+.btn-orange {
+  background-color: #ff6a00;
+  color: white;
+  border: none;
+}
+
+.btn-orange:hover {
+  background-color: #e85d00;
+}
