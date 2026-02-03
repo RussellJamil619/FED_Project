@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Hygiene Officer Login | SG Hawker Centre</title>
+  <link rel="stylesheet" href="css/hygiene.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🍜 SG Hawker Centre</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="hygiene-inspection.html" data-nav="inspection">Hygiene info</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card" style="max-width:520px;margin:24px auto">
+      <h2 style="text-align:center;margin-bottom:6px">Hygiene Officer Sign In</h2>
+      <div class="small" style="text-align:center">Demo login: officer@sg-hawker.com / password123</div>
+
+      <div class="hr"></div>
+
+      <label for="email">Email Address</label>
+      <input id="email" type="email" placeholder="e.g. officer@sg-hawker.com"/>
+
+      <div style="height:10px"></div>
+
+      <label for="pw">Password</label>
+      <input id="pw" type="password" placeholder="Enter password"/>
+
+      <div style="height:12px"></div>
+
+      <button class="btn primary" id="loginBtn" style="width:100%">Login</button>
+
+      <div style="height:10px"></div>
+      <a href="hygiene-reset.html" class="small">Forgot password?</a>
+
+      <div style="height:12px"></div>
+      <div id="msg"></div>
+    </div>
+  </main>
+
+  <script>
+    document.getElementById("loginBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+      window.location.href = "./hygiene-feedback.html";
+    });
+  </script>
+
+
+
+
+</body>
+</html>

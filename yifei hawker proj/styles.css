@@ -1,5 +1,7 @@
 /* =========================
-   styles.css (FULL) - NO FIREBASE
+   styles.css (FULL)
+   - Thai Food sits central in the tab strip (tabs centered)
+   - Food options spaced evenly (space-between)
 ========================= */
 *{ box-sizing:border-box; }
 
@@ -20,7 +22,7 @@ body{
   color: var(--text);
 }
 
-/* TOP BAR */
+/* ===== TOP BAR ===== */
 .topbar{
   background: var(--bg);
   border-bottom:2px solid var(--border);
@@ -51,11 +53,9 @@ body{
   padding:6px 8px;
 }
 
-/* ✅ underline current page */
 .navlink.is-active{
   font-weight:900;
   text-decoration:underline;
-  text-underline-offset: 6px;
 }
 
 .cartbtn{
@@ -74,11 +74,11 @@ body{
   margin-left:6px;
 }
 
-/* pages */
+/* ===== pages ===== */
 .page{ display:none; }
 .page.show{ display:block; }
 
-/* HOME hero */
+/* ===== HOME hero ===== */
 .hero{
   width:100%;
   min-height: calc(100vh - 66px);
@@ -90,12 +90,7 @@ body{
   padding:40px 60px;
 }
 
-.hero-left{
-  width:45%;
-  display:flex;
-  justify-content:center;
-}
-
+.hero-left{ width:45%; display:flex; justify-content:center; }
 .hero-img{
   width:100%;
   max-width:520px;
@@ -107,19 +102,16 @@ body{
 }
 
 .hero-right{ width:55%; }
-
 .hero-right h1{
   font-size:40px;
   line-height:1.15;
   margin:0 0 14px;
 }
-
 .hero-right p{
   font-size:16px;
   margin:0 0 20px;
   color: var(--muted);
 }
-
 .big-cart{
   background: var(--accent);
   border:none;
@@ -129,7 +121,7 @@ body{
   cursor:pointer;
 }
 
-/* stage + panel */
+/* ===== MENU / CART stage ===== */
 .stage{
   min-height: calc(100vh - 66px);
   display:flex;
@@ -148,16 +140,18 @@ body{
   position:relative;
 }
 
-/* cuisine strip */
+/* Cuisine strip */
 .cuisine-strip{
   border: 2px solid #111;
   padding: 10px;
   margin-bottom: 18px;
+  background: transparent;
 }
 
+/* ✅ Center ALL tabs so "Thai Food" ends up in the middle of the strip */
 .cuisine-inner{
   display:flex;
-  justify-content:center;
+  justify-content:center;  /* <--- important */
   gap:22px;
   flex-wrap:wrap;
   align-items:center;
@@ -175,16 +169,18 @@ body{
   background: var(--accent);
 }
 
-/* ✅ food cards evenly spaced */
+/* ✅ Food options spaced evenly */
 .stall-grid{
   display:flex;
-  justify-content:space-between;
-  flex-wrap:nowrap;
-  padding-right: 110px;
+  justify-content:space-between; /* <--- even spacing across row */
+  gap:0;                         /* use space-between instead of gaps */
+  flex-wrap:nowrap;              /* keep 4 in one row on wide screens */
+  padding-right: 110px;          /* space for floating cart */
 }
 
+/* ✅ Bigger cards + fixed width so space-between works nicely */
 .foodcard{
-  width: 23%;
+  width: 23%;                    /* 4 cards + spacing */
   background:#fff;
   border:2px solid var(--cardBorder);
   border-radius:14px;
@@ -234,6 +230,7 @@ body{
   font-size:16px;
 }
 
+/* floating cart button */
 .floating-cart{
   position:absolute;
   right:22px;
@@ -247,7 +244,7 @@ body{
   cursor:pointer;
 }
 
-/* cart/payment */
+/* ===== Cart/Payment shared ===== */
 .cartpanel{
   background:#fff;
   border:1px solid #ddd;
@@ -360,3 +357,4 @@ input{
   .hero-left,.hero-right{ width:100%; text-align:center; }
   .hero-right h1{ font-size:30px; }
 }
+

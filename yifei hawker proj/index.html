@@ -1,5 +1,5 @@
 <!-- =========================
-     index.html (FULL) - NO FIREBASE
+     index.html (FULL)
 ========================= -->
 <!DOCTYPE html>
 <html lang="en">
@@ -15,9 +15,9 @@
   <div class="brand">🍜 SG Hawker Centre</div>
 
   <nav class="nav">
-    <button class="navlink is-active" id="navHome">Home</button>
-    <button class="navlink" id="navStall">Stall</button>
-    <button class="navlink" id="navOrders">Orders</button>
+    <button class="navlink is-active" data-page="home">Home</button>
+    <button class="navlink" data-page="menu">Stall</button>
+    <button class="navlink" data-page="cart">Orders</button>
     <button class="navlink">Feedback</button>
     <button class="navlink">Hygiene info</button>
     <button class="navlink">Analytics</button>
@@ -60,7 +60,7 @@
     </div>
   </section>
 
-  <!-- CART / ORDERS -->
+  <!-- CART -->
   <section class="page" id="cart">
     <div class="stage">
       <div class="panel cartpanel">
@@ -133,5 +133,7 @@
 <script src="app.js"></script>
 </body>
 </html>
+
+
 
 

@@ -58,53 +58,53 @@
   </main>
 
   <script type="module">
-    import { setActiveNav, fillStallSelect, rememberStall, prettyDate, gradeMeaning } from "./js/hygiene-ui.js";
-    import { getLatestInspectionForStall } from "./js/hygiene-store.js";
-
-    setActiveNav("inspection");
+    const stalls = [
+      "Chicken Rice",
+      "Nasi Lemak",
+      "Drinks",
+      "Curry",
+      "Thai Food"
+    ];
 
     const stallSelect = document.getElementById("stallSelect");
     const gradeBadge = document.getElementById("gradeBadge");
     const gradeMeaningEl = document.getElementById("gradeMeaning");
     const lastInspectedEl = document.getElementById("lastInspected");
 
-    fillStallSelect(stallSelect, { useRemembered:true });
+    stalls.forEach(stall => {
+      const option = document.createElement("option");
+      option.value = stall;
+      option.textContent = stall;
+      stallSelect.appendChild(option);
+    });
 
-    function render(){
-      const stallId = stallSelect.value;
-      rememberStall(stallId);
-
-      if(!stallId){
+    function render() {
+      if (!stallSelect.value) {
         gradeBadge.textContent = "-";
         gradeMeaningEl.textContent = "-";
         lastInspectedEl.textContent = "-";
         return;
       }
 
-      const latest = getLatestInspectionForStall(stallId);
-      if(!latest){
-        gradeBadge.textContent = "-";
-        gradeMeaningEl.textContent = "No inspection record yet";
-        lastInspectedEl.textContent = "-";
-        return;
-      }
-
-      gradeBadge.textContent = latest.grade;
-      gradeMeaningEl.textContent = gradeMeaning(latest.grade);
-      lastInspectedEl.textContent = prettyDate(latest.date);
+      gradeBadge.textContent = "A";
+      gradeMeaningEl.textContent = "Excellence – Outstanding hygiene standard";
+      lastInspectedEl.textContent = "15/01/2026";
     }
 
     stallSelect.addEventListener("change", render);
     render();
 
     document.getElementById("goFeedback").addEventListener("click", () => {
-      const id = stallSelect.value || "";
-      location.href = "hygiene-feedback.html" + (id ? `?stall=${encodeURIComponent(id)}` : "");
+      if (!stallSelect.value) return;
+
+      localStorage.setItem("after_login_redirect", "hygiene-feedback.html");
+      location.href = "hygiene-login.html";
     });
 
+
     document.getElementById("goHistory").addEventListener("click", () => {
-      const id = stallSelect.value || "";
-      location.href = "hygiene-history.html" + (id ? `?stall=${encodeURIComponent(id)}` : "");
+      if (!stallSelect.value) return;
+      location.href = "hygiene-history.html";
     });
   </script>
 </body>
