@@ -1,0 +1,235 @@
+/* Global */
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: #f6f6f6;
+  margin: 0;
+}
+
+/* Navbar */
+.active-tag {
+  background-color: #d9f2d9;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+
+/* Hero */
+.hero-section {
+  background: linear-gradient(90deg, #ff6a00, #ff3d00);
+  padding: 80px 20px;
+}
+
+.hero-text {
+  max-width: 850px;
+  margin: auto;
+  font-size: 1rem;
+}
+
+/* Feature bar */
+.feature-bar {
+  background-color: #ffffff;
+  padding: 20px 0;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.feature-item i {
+  background-color: #ff6a00;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Location section */
+.location-section {
+  background-color: #e5e5e5;
+  padding: 90px 20px;
+}
+
+/* Make left + right columns same height */
+.location-section .row {
+  align-items: stretch;
+}
+
+/* LEFT MAP AREA (map image behind white box) */
+.map-card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+  border-radius: 22px;
+  overflow: hidden;
+
+  background: url("images/download.jpg");
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Dark overlay on map */
+.map-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(210, 216, 222, 0.85);
+  z-index: 1;
+}
+
+/* White content box */
+.map-overlay {
+  position: relative;
+  z-index: 2;
+  background-color: white;
+  border-radius: 18px;
+  padding: 40px 50px;
+  text-align: center;
+  max-width: 420px;
+  width: 100%;
+}
+
+.map-pin {
+  font-size: 40px;
+  color: #ff6a00;
+  margin-bottom: 12px;
+}
+
+.map-overlay h5 {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.map-overlay p {
+  margin-bottom: 18px;
+  color: #111;
+}
+
+/* Info cards (right side) */
+.info-card {
+  background-color: white;
+  border-radius: 14px;
+  padding: 16px;
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.info-card i {
+  font-size: 22px;
+  color: #ff6a00;
+}
+
+/* Buttons */
+.btn-orange {
+  background-color: #ff6a00;
+  color: white;
+  border: none;
+}
+
+.btn-orange:hover {
+  background-color: #e85d00;
+  color: white;
+}
+
+/* Profile icon */
+.profile-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+}
+
+.profile-icon:hover {
+  background-color: #e0e0e0;
+  color: #000;
+}
+
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 50px 16px;
+  }
+
+  .hero-section h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .hero-text {
+    font-size: 0.95rem;
+    padding: 0 8px;
+  }
+
+  .feature-item {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
+  .feature-item span {
+    font-size: 0.95rem;
+  }
+
+  .map-card {
+    min-height: 360px;
+  }
+
+  .map-overlay {
+    max-width: 90%;
+    padding: 26px 18px;
+  }
+
+  .info-card {
+    width: 100%;
+  }
+
+  .feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.feature-item i {
+  background-color: #ff6a00;
+  color: white;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.feature-text {
+  text-align: left;
+}
+
+.feature-title {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #111;
+}
+
+.feature-desc {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  color: #555;
+  max-width: 260px;
+}
+
+}

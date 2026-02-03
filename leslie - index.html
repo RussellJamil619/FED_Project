@@ -9,7 +9,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="assets/style.css">
 </head>
 
 <body>
@@ -17,7 +17,7 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg bg-light border-bottom">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="#">
+    <a class="navbar-brand fw-bold" href="../html/index.html">
       🍜 SG Hawker Centre
     </a>
 
@@ -25,47 +25,42 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-<ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2 align-items-lg-center">
-  <li class="nav-item">
-    <a class="nav-link active-tag" href="index.html">Home</a>
-  </li>
+    <div class="collapse navbar-collapse" id="mainNav">
+  <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2 align-items-lg-center flex-nowrap">
 
-  <li class="nav-item">
-    <a class="nav-link" href="stall.html">Stall</a>
-  </li>
+    <li class="nav-item">
+      <a class="nav-link active-tag" href="../html/index.html">Home</a>
+    </li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="orders.html">Orders</a>
-  </li>
+    <li class="nav-item">
+      <a class="nav-link" href="../stall.html">Stalls</a>
+    </li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="feedback.html">Feedback</a>
-  </li>
+    <li class="nav-item">
+      <a class="nav-link" href="../orders.html">Orders</a>
+    </li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="hygiene.html">Hygiene info</a>
-  </li>
+    <li class="nav-item">
+      <a class="nav-link" href="../feedback.html">Feedback</a>
+    </li>
 
-  <li class="nav-item">
-    <a class="nav-link" href="analytics.html">Analytics</a>
-  </li>
+    <li class="nav-item">
+      <a class="nav-link" href="../hygiene.html">Hygiene info</a>
+    </li>
 
-  <!-- Profile Icon -->
-  <li class="nav-item ms-lg-3">
-    <a class="nav-link profile-icon" href="#" title="Profile">
-      <i class="fa-solid fa-user"></i>
-    </a>
-  </li>
-</ul>
+    <li class="nav-item">
+      <a class="nav-link" href="../analytics.html">Analytics</a>
+    </li>
 
-        <!-- Profile Icon -->
-        <li class="nav-item ms-lg-3">
-          <a class="nav-link profile-icon" href="#" title="Profile">
-            <i class="fa-solid fa-user"></i>
-          </a>
-        </li>
-      </ul>
-    </div>
+    <!-- Profile icon -->
+    <li class="nav-item ms-lg-3">
+      <a class="nav-link profile-icon" href="#" title="Profile">
+        <i class="fa-solid fa-user"></i>
+      </a>
+    </li>
+
+  </ul>
+</div>
   </div>
 </nav>
 
@@ -80,39 +75,60 @@
     </p>
 
     <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
-      <button class="btn btn-light btn-lg">
+      <a href="stall.html" class="btn btn-light btn-lg">
         <i class="fa-solid fa-cart-shopping me-2"></i>
         Browse stalls
-      </button>
-      <button class="btn btn-outline-light btn-lg">
+      </a>
+      <a href="stall.html" class="btn btn-outline-light btn-lg">
         View Menu
-      </button>
+      </a>
     </div>
   </div>
 </section>
 
-<!-- Feature Icons -->
 <section class="feature-bar">
   <div class="container">
     <div class="row text-center">
+
+      <!-- Diverse Cuisines -->
       <div class="col-md-4 mb-3 mb-md-0">
         <div class="feature-item">
           <i class="fa-solid fa-utensils"></i>
-          <span>Diverse Cuisines</span>
+          <div class="feature-text">
+            <h5 class="feature-title">Diverse Cuisines</h5>
+            <p class="feature-desc">
+              Explore a wide range of unique local and international hawker cuisines.
+            </p>
+          </div>
         </div>
       </div>
+
+      <!-- Quality Rated -->
       <div class="col-md-4 mb-3 mb-md-0">
         <div class="feature-item">
           <i class="fa-solid fa-star"></i>
-          <span>Quality Rated</span>
+          <div class="feature-text">
+            <h5 class="feature-title">Quality Rated</h5>
+            <p class="feature-desc">
+              Highly rated stalls serving consistently great-tasting meals.
+            </p>
+          </div>
         </div>
       </div>
+
+      <!-- Easy to Find -->
       <div class="col-md-4">
         <div class="feature-item">
           <i class="fa-solid fa-location-dot"></i>
-          <span>Easy to find</span>
+          <div class="feature-text">
+            <h5 class="feature-title">Easy to Find</h5>
+            <p class="feature-desc">
+              Conveniently located with easy access and plenty of seating.
+            </p>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>
@@ -127,21 +143,26 @@
 
     <div class="row g-4">
       <div class="col-lg-8">
-        <div class="map-card map-bg">
+        <div class="map-card">
           <div class="map-overlay">
             <i class="fa-solid fa-location-dot map-pin"></i>
 
             <h5 class="mt-2">Singapore Hawker Centre</h5>
             <p>123 Orchard Road, Singapore 238858</p>
 
-            <a href="#" class="btn btn-orange mt-2">
+            <!-- ✅ Updated to your specific directions link -->
+            <a
+              href="https://www.google.com.sg/maps/dir/Bukit+Timah/4Fingers+Crispy+Chicken,+277+Orchard+Road,+Gateway,+%2301-04%2F05,+Orchard,+238858/@1.3148831,103.7799981,13z/data=!3m1!4b1!4m13!4m12!1m5!1m1!1s0x31da0fd41e996daf:0x3485ce3101def927!2m2!1d103.8020777!2d1.3294113!1m5!1m1!1s0x31da19972b337d4d:0x72ffd5ab25ca5661!2m2!1d103.8392447!2d1.3005412?hl=en&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              class="btn btn-orange mt-2"
+            >
               View on Google Maps
             </a>
           </div>
         </div>
       </div>
 
-      <div class="col-lg-4">
+      <div class="col-lg-4 d-flex flex-column">
         <div class="info-card mb-3">
           <i class="fa-solid fa-location-dot"></i>
           <div>
@@ -176,11 +197,13 @@
             </p>
           </div>
         </div>
-
-        <button class="btn btn-orange w-100 btn-lg">
-          <i class="fa-solid fa-paper-plane me-2"></i>
+        <a
+          href="https://www.google.com.sg/maps/dir/Bukit+Timah/4Fingers+Crispy+Chicken,+277+Orchard+Road,+Gateway,+%2301-04%2F05,+Orchard,+238858/@1.3148831,103.7799981,13z/data=!3m1!4b1!4m13!4m12!1m5!1m1!1s0x31da0fd41e996daf:0x3485ce3101def927!2m2!1d103.8020777!2d1.3294113!1m5!1m1!1s0x31da19972b337d4d:0x72ffd5ab25ca5661!2m2!1d103.8392447!2d1.3005412?hl=en&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
+          target="_blank"
+          class="btn btn-orange mt-2 align-self-start"
+        >
           Get Directions
-        </button>
+        </a>
       </div>
     </div>
   </div>
