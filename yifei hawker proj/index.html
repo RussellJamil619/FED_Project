@@ -1,0 +1,137 @@
+<!-- =========================
+     index.html (FULL) - NO FIREBASE
+========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SG Hawker Centre</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">🍜 SG Hawker Centre</div>
+
+  <nav class="nav">
+    <button class="navlink is-active" id="navHome">Home</button>
+    <button class="navlink" id="navStall">Stall</button>
+    <button class="navlink" id="navOrders">Orders</button>
+    <button class="navlink">Feedback</button>
+    <button class="navlink">Hygiene info</button>
+    <button class="navlink">Analytics</button>
+  </nav>
+
+  <button class="cartbtn" id="topCartBtn" title="Cart">
+    🛒 <span id="cartCount">0</span>
+  </button>
+</header>
+
+<main>
+
+  <!-- HOME -->
+  <section class="page show" id="home">
+    <div class="hero">
+      <div class="hero-left">
+        <img class="hero-img" src="images/hero-food.jpg" alt="Hawker food image" />
+      </div>
+
+      <div class="hero-right">
+        <h1>Happy With Delicious Food And Get New Experiences With Hawker Food</h1>
+        <p>Delicious, Cheap Local Food.</p>
+        <button class="big-cart" id="homeShopBtn">🛒</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MENU -->
+  <section class="page" id="menu">
+    <div class="stage">
+      <div class="panel">
+        <div class="cuisine-strip">
+          <div class="cuisine-inner" id="tabs"></div>
+        </div>
+
+        <div class="stall-grid" id="foodGrid"></div>
+
+        <button class="floating-cart" id="floatCartBtn" title="Cart">🛒</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CART / ORDERS -->
+  <section class="page" id="cart">
+    <div class="stage">
+      <div class="panel cartpanel">
+        <h2 class="panel-title">Shopping Cart</h2>
+
+        <div class="carthead">
+          <div>Food</div>
+          <div class="right">Qty</div>
+          <div class="right">Price</div>
+        </div>
+
+        <div id="cartList" class="cartlist"></div>
+
+        <div class="cartfoot">
+          <span>Total</span>
+          <strong id="total">$0.00</strong>
+        </div>
+
+        <button class="btn checkout" id="checkoutBtn">Checkout</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT METHOD -->
+  <section class="page" id="paymethod">
+    <div class="stage">
+      <div class="panel cartpanel">
+        <h2 class="panel-title">Payment method</h2>
+
+        <div class="payrow">
+          <button class="paychip">PayNow</button>
+          <button class="paychip">Apple Pay</button>
+          <button class="paychip">GPay</button>
+          <button class="paychip" id="cardBtn">Card</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAYMENT -->
+  <section class="page" id="payment">
+    <div class="stage">
+      <div class="panel cartpanel">
+        <h2 class="panel-title">Payment</h2>
+
+        <form id="payForm" novalidate>
+          <input id="cardNumber" placeholder="Card Number (16 digits)" />
+          <input id="expiry" placeholder="MM/YY" />
+          <input id="cvv" placeholder="CVV" />
+          <input id="name" placeholder="Card Holder Name" />
+          <button class="btn pay" type="submit">Pay Now</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- THANK YOU -->
+  <section class="page" id="thankyou">
+    <div class="stage">
+      <div class="panel cartpanel center">
+        <h2>Thank you for ordering from us!</h2>
+        <div class="muted">Your order number is</div>
+        <div id="orderNo">#0000</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="app.js"></script>
+</body>
+</html>
+
+
