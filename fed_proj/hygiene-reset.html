@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Reset Password | SG Hawker Centre</title>
+  <link rel="stylesheet" href="css/hygiene.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🍜 SG Hawker Centre</div>
+    <nav class="nav">
+      <a href="hygiene-login.html">Back to Login</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card" style="max-width:520px;margin:24px auto">
+      <h2 style="text-align:center;margin-bottom:6px">Reset Password</h2>
+      <div class="small" style="text-align:center">Demo account email: officer@sg-hawker.com</div>
+
+      <div class="hr"></div>
+
+      <label for="email">Email Address</label>
+      <input id="email" type="email" placeholder="Enter your officer email"/>
+
+      <div style="height:10px"></div>
+
+      <label for="newpw">New Password</label>
+      <input id="newpw" type="password" placeholder="Enter new password"/>
+
+      <div style="height:10px"></div>
+
+      <label for="conf">Confirm new password</label>
+      <input id="conf" type="password" placeholder="Confirm new password"/>
+
+      <div style="height:12px"></div>
+
+      <button class="btn primary" id="resetBtn" style="width:100%">Reset</button>
+
+      <div style="height:12px"></div>
+      <div id="msg"></div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { resetPassword } from "./js/hygiene-store.js";
+
+    const email = document.getElementById("email");
+    const newpw = document.getElementById("newpw");
+    const conf = document.getElementById("conf");
+    const msg = document.getElementById("msg");
+
+    function setMsg(type, text){
+      msg.innerHTML = "";
+      const div = document.createElement("div");
+      div.className = "alert " + (type === "error" ? "error" : "success");
+      div.textContent = text;
+      msg.appendChild(div);
+    }
+
+    document.getElementById("resetBtn").addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const em = email.value.trim();
+      const np = newpw.value;
+      const cp = conf.value;
+
+      if(!em || !np || !cp){
+        setMsg("error","Please fill in all fields.");
+        return;
+      }
+
+      if(np.length < 6){
+        setMsg("error","Password must be at least 6 characters.");
+        return;
+      }
+
+      if(np !== cp){
+        setMsg("error","Passwords do not match.");
+        return;
+      }
+
+      const ok = resetPassword(em, np);
+      if(!ok){
+        setMsg("error","Email not found for officer account.");
+        return;
+      }
+
+      setMsg("success","Password reset successful! Go back to login.");
+      setTimeout(() => location.href = "hygiene-login.html", 700);
+    });
+  </script>
+</body>
+</html>
