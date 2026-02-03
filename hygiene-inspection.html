@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Hygiene Inspection | SG Hawker Centre</title>
+  <link rel="stylesheet" href="./hygiene.css">
+
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🍜 SG Hawker Centre</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="#">Stall</a>
+      <a href="#">Orders</a>
+      <a href="#">Feedback</a>
+      <a href="hygiene-inspection.html" data-nav="inspection">Hygiene info</a>
+      <a href="#">Analytics</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <h2>Hygiene Inspection</h2>
+
+      <div class="gradeGrid">
+        <div>
+          <label for="stallSelect">Choose a Stall</label>
+          <select id="stallSelect"></select>
+
+          <div class="hr"></div>
+
+          <button class="btn" id="goFeedback">Hygiene Form</button>
+        </div>
+
+        <div class="gradePanel">
+          <div class="small">Current Hygiene Grade</div>
+          <div class="badge" id="gradeBadge">-</div>
+          <div class="gradeMeaning" id="gradeMeaning">-</div>
+          <div class="gradeDate">
+            Last inspected - <span id="lastInspected">-</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <button class="btn" id="goHistory">Inspection History</button>
+
+      <div class="legend">
+        <div class="item"><div class="mini">A</div><div class="small">90–100: Excellence</div></div>
+        <div class="item"><div class="mini">B</div><div class="small">80–89: Good</div></div>
+        <div class="item"><div class="mini">C</div><div class="small">70–79: Fair</div></div>
+        <div class="item"><div class="mini">D</div><div class="small">Below 70: Poor</div></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { setActiveNav, fillStallSelect, rememberStall, prettyDate, gradeMeaning } from "./js/hygiene-ui.js";
+    import { getLatestInspectionForStall } from "./js/hygiene-store.js";
+
+    setActiveNav("inspection");
+
+    const stallSelect = document.getElementById("stallSelect");
+    const gradeBadge = document.getElementById("gradeBadge");
+    const gradeMeaningEl = document.getElementById("gradeMeaning");
+    const lastInspectedEl = document.getElementById("lastInspected");
+
+    fillStallSelect(stallSelect, { useRemembered:true });
+
+    function render(){
+      const stallId = stallSelect.value;
+      rememberStall(stallId);
+
+      if(!stallId){
+        gradeBadge.textContent = "-";
+        gradeMeaningEl.textContent = "-";
+        lastInspectedEl.textContent = "-";
+        return;
+      }
+
+      const latest = getLatestInspectionForStall(stallId);
+      if(!latest){
+        gradeBadge.textContent = "-";
+        gradeMeaningEl.textContent = "No inspection record yet";
+        lastInspectedEl.textContent = "-";
+        return;
+      }
+
+      gradeBadge.textContent = latest.grade;
+      gradeMeaningEl.textContent = gradeMeaning(latest.grade);
+      lastInspectedEl.textContent = prettyDate(latest.date);
+    }
+
+    stallSelect.addEventListener("change", render);
+    render();
+
+    document.getElementById("goFeedback").addEventListener("click", () => {
+      const id = stallSelect.value || "";
+      location.href = "hygiene-feedback.html" + (id ? `?stall=${encodeURIComponent(id)}` : "");
+    });
+
+    document.getElementById("goHistory").addEventListener("click", () => {
+      const id = stallSelect.value || "";
+      location.href = "hygiene-history.html" + (id ? `?stall=${encodeURIComponent(id)}` : "");
+    });
+  </script>
+</body>
+</html>
+
