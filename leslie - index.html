@@ -1,213 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SG Hawker Centre</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="assets/style.css">
 </head>
 
-<body>
+<body class="site">
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg bg-light border-bottom">
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
   <div class="container">
-    <a class="navbar-brand fw-bold" href="../html/index.html">
-      🍜 SG Hawker Centre
-    </a>
+    <a class="navbar-brand fw-bold" href="index.html">🍜 SG Hawker Centre</a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
       <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="mainNav">
-  <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2 align-items-lg-center flex-nowrap">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link nav-pill active" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="stall.html">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="../sg-hawker-project-leslie/feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="hygiene.html">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link" href="analytics.html">Analytics</a></li>
 
-    <li class="nav-item">
-      <a class="nav-link active-tag" href="../html/index.html">Home</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="../stall.html">Stalls</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="../orders.html">Orders</a>
-    </li>
-
-    <div class="collapse navbar-collapse" id="mainNav">
-    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2 align-items-lg-center flex-nowrap">
-
-    <li class="nav-item">
-      <a class="nav-link" href="../feedback.html">Feedback</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="../hygiene.html">Hygiene info</a>
-    </li>
-
-    <li class="nav-item">
-      <a class="nav-link" href="../analytics.html">Analytics</a>
-    </li>
-
-    <!-- Profile icon -->
-    <li class="nav-item ms-lg-3">
-      <a class="nav-link profile-icon" href="#" title="Profile">
-        <i class="fa-solid fa-user"></i>
-      </a>
-    </li>
-
-  </ul>
-</div>
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link icon-btn" href="#"><i class="fa-regular fa-user"></i></a>
+        </li>
+      </ul>
+    </div>
   </div>
 </nav>
 
-<!-- Hero -->
-<section class="hero-section text-center text-white">
-  <div class="container">
-    <h1 class="fw-bold">Welcome to Singapore Hawker Centre</h1>
-    <p class="hero-text mt-3">
-      Discover authentic flavors from Singapore's finest hawker stalls. Browse
-      through our diverse selection of stalls, explore delicious menu items, and
-      order your favorite local delicacies all in one place.
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner text-center">
+    <h1 class="hero-title">Welcome to Singapore Hawker Centre</h1>
+    <p class="hero-sub">
+      Discover authentic flavors from Singapore's finest hawker stalls. Browse through our diverse selection of stalls,
+      explore delicious menu items, and order your favorite local delicacies all in one place.
     </p>
 
-    <div class="d-flex justify-content-center gap-3 mt-4 flex-wrap">
-      <a href="stall.html" class="btn btn-light btn-lg">
-        <i class="fa-solid fa-cart-shopping me-2"></i>
-        Browse stalls
+    <div class="d-flex justify-content-center gap-3 mt-4">
+      <a href="stall.html" class="btn btn-light btn-lg hero-btn">
+        <i class="fa-solid fa-cart-shopping me-2"></i>Browse stalls
       </a>
-      <a href="stall.html" class="btn btn-outline-light btn-lg">
+      <a href="stall.html" class="btn btn-outline-light btn-lg hero-btn">
         View Menu
       </a>
     </div>
   </div>
 </section>
 
-<section class="feature-bar">
+<!-- FEATURE STRIP -->
+<section class="feature-strip">
   <div class="container">
-    <div class="row text-center">
-
-      <!-- Diverse Cuisines -->
-      <div class="col-md-4 mb-3 mb-md-0">
-        <div class="feature-item">
-          <i class="fa-solid fa-utensils"></i>
-          <div class="feature-text">
-            <h5 class="feature-title">Diverse Cuisines</h5>
-            <p class="feature-desc">
-              Explore a wide range of unique local and international hawker cuisines.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Quality Rated -->
-      <div class="col-md-4 mb-3 mb-md-0">
-        <div class="feature-item">
-          <i class="fa-solid fa-star"></i>
-          <div class="feature-text">
-            <h5 class="feature-title">Quality Rated</h5>
-            <p class="feature-desc">
-              Highly rated stalls serving consistently great-tasting meals.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- Easy to Find -->
+    <div class="row text-center g-4">
       <div class="col-md-4">
         <div class="feature-item">
-          <i class="fa-solid fa-location-dot"></i>
-          <div class="feature-text">
-            <h5 class="feature-title">Easy to Find</h5>
-            <p class="feature-desc">
-              Conveniently located with easy access and plenty of seating.
-            </p>
-          </div>
+          <span class="feature-icon"><i class="fa-solid fa-utensils"></i></span>
+          <span class="feature-title">Diverse Cuisines</span>
         </div>
       </div>
-
+      <div class="col-md-4">
+        <div class="feature-item">
+          <span class="feature-icon"><i class="fa-solid fa-star"></i></span>
+          <span class="feature-title">Quality Rated</span>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-item">
+          <span class="feature-icon"><i class="fa-solid fa-location-dot"></i></span>
+          <span class="feature-title">Easy to find</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- Location & Directions -->
-<section class="location-section">
+<!-- LOCATION -->
+<section class="location py-5">
   <div class="container">
-    <h2 class="text-center fw-bold">Location & Directions</h2>
-    <p class="text-center text-muted mb-4">
-      Find us and enjoy authentic Singaporean hawker food
-    </p>
+    <div class="text-center mb-4">
+      <h2 class="location-title">Location & Directions</h2>
+      <p class="text-muted">Find us and enjoy authentic Singaporean hawker food</p>
+    </div>
 
-    <div class="row g-4">
-      <div class="col-lg-8">
-        <div class="map-card">
+    <div class="row g-4 align-items-stretch">
+
+      <!-- MAP -->
+      <div class="col-lg-8 d-flex">
+        <div class="map-card map-bg w-100">
+          <div class="map-pin">
+            <i class="fa-solid fa-location-dot"></i>
+          </div>
+
           <div class="map-overlay">
-            <i class="fa-solid fa-location-dot map-pin"></i>
-
-            <h5 class="mt-2">Singapore Hawker Centre</h5>
-            <p>123 Orchard Road, Singapore 238858</p>
-
-            <!-- ✅ Updated to your specific directions link -->
-            <a
-              href="https://www.google.com.sg/maps/dir/Bukit+Timah/4Fingers+Crispy+Chicken,+277+Orchard+Road,+Gateway,+%2301-04%2F05,+Orchard,+238858/@1.3148831,103.7799981,13z/data=!3m1!4b1!4m13!4m12!1m5!1m1!1s0x31da0fd41e996daf:0x3485ce3101def927!2m2!1d103.8020777!2d1.3294113!1m5!1m1!1s0x31da19972b337d4d:0x72ffd5ab25ca5661!2m2!1d103.8392447!2d1.3005412?hl=en&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
-              target="_blank"
-              class="btn btn-orange mt-2"
-            >
-              View on Google Maps
+            <i class="fa-solid fa-location-dot map-overlay-icon"></i>
+            <h5 class="fw-bold mb-1">Singapore Hawker Centre</h5>
+            <p class="mb-3">123 Orchard Road, Singapore 238858</p>
+            <a class="btn btn-orange btn-sm" target="_blank" href="https://www.google.com/maps">
+              📍 View on Google Maps
             </a>
           </div>
         </div>
       </div>
 
+      <!-- INFO -->
       <div class="col-lg-4 d-flex flex-column">
-        <div class="info-card mb-3">
-          <i class="fa-solid fa-location-dot"></i>
+        <div class="info-card">
+          <div class="info-ic"><i class="fa-solid fa-location-dot"></i></div>
           <div>
-            <h6>Address</h6>
-            <p>
+            <div class="info-title">Address</div>
+            <div class="info-text">
               123 Orchard Road<br>
               Singapore 238858<br>
               Near Orchard MRT Station
-            </p>
+            </div>
           </div>
         </div>
 
-        <div class="info-card mb-3">
-          <i class="fa-solid fa-clock"></i>
+        <div class="info-card">
+          <div class="info-ic"><i class="fa-solid fa-clock"></i></div>
           <div>
-            <h6>Opening Hours</h6>
-            <p>
-              Mon - Fri: 8:00 AM - 10:00 PM<br>
-              Sat - Sun: 7:00 AM - 11:00 PM
-            </p>
-            <span class="text-success fw-bold">Open Now</span>
+            <div class="info-title">Opening Hours</div>
+            <div class="info-text">
+              Mon – Fri: 8:00 AM – 10:00 PM<br>
+              Sat – Sun: 7:00 AM – 11:00 PM<br>
+              <span class="text-success fw-bold">Open Now</span>
+            </div>
           </div>
         </div>
 
-        <div class="info-card mb-3">
-          <i class="fa-solid fa-phone"></i>
+        <div class="info-card">
+          <div class="info-ic"><i class="fa-solid fa-phone"></i></div>
           <div>
-            <h6>Contact</h6>
-            <p>
+            <div class="info-title">Contact</div>
+            <div class="info-text">
               Phone: +65 1234 5678<br>
               Email: info@sghawker.sg
-            </p>
+            </div>
           </div>
         </div>
-        <a
-          href="https://www.google.com.sg/maps/dir/Bukit+Timah/4Fingers+Crispy+Chicken,+277+Orchard+Road,+Gateway,+%2301-04%2F05,+Orchard,+238858/@1.3148831,103.7799981,13z/data=!3m1!4b1!4m13!4m12!1m5!1m1!1s0x31da0fd41e996daf:0x3485ce3101def927!2m2!1d103.8020777!2d1.3294113!1m5!1m1!1s0x31da19972b337d4d:0x72ffd5ab25ca5661!2m2!1d103.8392447!2d1.3005412?hl=en&entry=ttu&g_ep=EgoyMDI2MDEyOC4wIKXMDSoASAFQAw%3D%3D"
-          target="_blank"
-          class="btn btn-orange mt-2 align-self-start"
-        >
+
+        <a class="btn btn-orange mt-auto align-self-start" target="_blank" href="https://www.google.com/maps">
           Get Directions
         </a>
       </div>
+
     </div>
   </div>
 </section>
