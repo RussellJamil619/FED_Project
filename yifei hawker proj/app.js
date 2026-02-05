@@ -1,49 +1,64 @@
 // =========================
-// app.js (FULL)
+// app.js (UPDATED)
+// ✅ New stall names matching dropdown
+// ✅ Dropdown functionality implemented
 // =========================
 const pages = document.querySelectorAll(".page");
 
+// Menu data organized by stall name
 const MENU = {
-  "Chicken Rice": [
-    { name:"Chicken Rice", price: 5.00, img:"images/chicken1.jpg" },
-    { name:"Roasted Chicken", price: 5.00, img:"images/chicken2.jpg" },
-    { name:"Chicken Soup", price: 6.00, img:"images/chicken3.jpg" },
-    { name:"Chicken Noodles", price: 2.00, img:"images/chicken4.jpg" }
+  "Uncle Tan's Chicken Rice": [
+    { name:"Hainanese Chicken Rice", price: 5.00, img:"images/chicken1.jpg" },
+    { name:"Roasted Chicken Rice", price: 5.50, img:"images/chicken2.jpg" },
+    { name:"Chicken Soup", price: 3.00, img:"images/chicken3.jpg" },
+    { name:"Chicken Noodles", price: 4.50, img:"images/chicken4.jpg" }
   ],
-  "Curry": [
+  "Aunty Rose's Curry House": [
     { name:"Curry Chicken", price: 5.00, img:"images/curry1.jpg" },
     { name:"Fish Curry", price: 5.50, img:"images/curry2.jpg" },
-    { name:"Curry Veg", price: 6.00, img:"images/curry3.jpg" },
+    { name:"Vegetable Curry", price: 4.00, img:"images/curry3.jpg" },
     { name:"Curry Noodles", price: 4.50, img:"images/curry4.jpg" }
   ],
-  "Thai Food": [
-    { name:"Pad Thai", price: 5.00, img:"images/thai1.jpg" },
-    { name:"Tom Yum Soup", price: 5.00, img:"images/thai2.jpg" },
-    { name:"Basil Chicken", price: 6.00, img:"images/thai3.jpg" },
-    { name:"Thai Dessert", price: 2.00, img:"images/thai4.jpg" }
+  "Bangkok Street Thai": [
+    { name:"Pad Thai", price: 6.00, img:"images/thai1.jpg" },
+    { name:"Tom Yum Soup", price: 5.50, img:"images/thai2.jpg" },
+    { name:"Basil Chicken Rice", price: 6.50, img:"images/thai3.jpg" },
+    { name:"Mango Sticky Rice", price: 3.00, img:"images/thai4.jpg" }
   ],
-  "Nasi Lemak": [
+  "Malay Corner Nasi Lemak": [
     { name:"Nasi Lemak Set", price: 5.00, img:"images/nasilemak1.jpg" },
-    { name:"Nasi Lemak Chicken", price: 6.00, img:"images/nasilemak2.jpg" },
-    { name:"Nasi Lemak Fish", price: 6.50, img:"images/nasilemak3.jpg" },
-    { name:"Nasi Lemak Special", price: 7.00, img:"images/nasilemak4.jpg" }
+    { name:"Nasi Lemak with Chicken", price: 6.00, img:"images/nasilemak2.jpg" },
+    { name:"Nasi Lemak with Fish", price: 6.50, img:"images/nasilemak3.jpg" },
+    { name:"Nasi Lemak Special", price: 7.50, img:"images/nasilemak4.jpg" }
   ],
-  "Drinks": [
-    { name:"Kopi", price: 2.00, img:"images/drinks1.jpg" },
-    { name:"Teh", price: 2.00, img:"images/drinks2.jpg" },
-    { name:"Milo", price: 2.50, img:"images/drinks3.jpg" },
-    { name:"Orange Juice", price: 3.50, img:"images/drinks4.jpg" }
+  "Kopi & Teh Station": [
+    { name:"Kopi O", price: 1.50, img:"images/drinks1.jpg" },
+    { name:"Teh Tarik", price: 2.00, img:"images/drinks2.jpg" },
+    { name:"Milo Dinosaur", price: 2.50, img:"images/drinks3.jpg" },
+    { name:"Fresh Orange Juice", price: 3.00, img:"images/drinks4.jpg" }
   ]
 };
 
 const CART_KEY = "hawker_cart_v4";
 let cart = loadCart();
-let activeCuisine = Object.keys(MENU)[0];
+let selectedStall = "";
 
 function showPage(id){
   pages.forEach(p => p.classList.remove("show"));
   document.getElementById(id).classList.add("show");
-  if (id === "cart") renderCart();
+  
+  // Update nav links
+  document.querySelectorAll(".navlink").forEach(link => {
+    link.classList.remove("is-active");
+  });
+  
+  if (id === "home") {
+    document.getElementById("navHome").classList.add("is-active");
+  } else if (id === "menu") {
+    document.getElementById("navStall").classList.add("is-active");
+  } else if (id === "cart") {
+    renderCart();
+  }
 }
 
 function loadCart(){
@@ -75,7 +90,19 @@ function calcTotal(){
   return sum;
 }
 
-/* nav / buttons */
+/* Navigation buttons */
+document.getElementById("navHome").addEventListener("click", function(){
+  showPage("home");
+});
+
+document.getElementById("navStall").addEventListener("click", function(){
+  showPage("menu");
+});
+
+document.getElementById("navOrders").addEventListener("click", function(){
+  alert("Orders page - Coming soon!");
+});
+
 document.getElementById("homeShopBtn").addEventListener("click", function(){
   showPage("menu");
 });
@@ -100,7 +127,7 @@ document.getElementById("cardBtn").addEventListener("click", function(){
   showPage("payment");
 });
 
-document.querySelectorAll(".paychip").forEach(btn => {
+document.querySelectorAll(".payBtn").forEach(btn => {
   btn.addEventListener("click", function(){
     showPage("payment");
   });
@@ -120,50 +147,51 @@ document.getElementById("payForm").addEventListener("submit", function(e){
   showPage("thankyou");
 });
 
-/* Tabs + Menu */
-const tabs = document.getElementById("tabs");
-const grid = document.getElementById("foodGrid");
+/* Stall Dropdown */
+const stallSelect = document.getElementById("stallSelect");
+const stallTitle = document.getElementById("stallTitle");
+const foodGrid = document.getElementById("foodGrid");
 
-function buildTabs(){
-  tabs.innerHTML = "";
-  const cuisines = Object.keys(MENU);
-
-  for (let i = 0; i < cuisines.length; i++){
-    const btn = document.createElement("button");
-    btn.className = "tab" + (cuisines[i] === activeCuisine ? " active" : "");
-    btn.textContent = cuisines[i];
-
-    btn.addEventListener("click", function(){
-      activeCuisine = cuisines[i];
-      buildTabs();
-      renderMenu(activeCuisine);
-    });
-
-    tabs.appendChild(btn);
+stallSelect.addEventListener("change", function(){
+  selectedStall = this.value;
+  
+  if (selectedStall === "") {
+    stallTitle.textContent = "Please select a stall";
+    foodGrid.innerHTML = "";
+  } else {
+    stallTitle.textContent = selectedStall;
+    renderMenu(selectedStall);
   }
-}
+});
 
-function renderMenu(cuisine){
-  grid.innerHTML = "";
-  const items = MENU[cuisine];
+function renderMenu(stallName){
+  foodGrid.innerHTML = "";
+  
+  if (!MENU[stallName]) {
+    foodGrid.innerHTML = '<p class="muted">No items available.</p>';
+    return;
+  }
+  
+  const items = MENU[stallName];
 
   for (let i = 0; i < items.length; i++){
     const card = document.createElement("div");
-    card.className = "foodcard";
+    card.className = "food";
 
     card.innerHTML = `
       <div class="foodimg">
         <img src="${items[i].img}" alt="${items[i].name}">
       </div>
-      <div class="pricepill">$${items[i].price.toFixed(2)}</div>
-      <button class="addbtn">Add to cart</button>
+      <p class="foodname">${items[i].name}</p>
+      <p class="foodprice">$${items[i].price.toFixed(2)}</p>
+      <button class="addBtn">Add to cart</button>
     `;
 
-    card.querySelector(".addbtn").addEventListener("click", function(){
+    card.querySelector(".addBtn").addEventListener("click", function(){
       addToCart(items[i]);
     });
 
-    grid.appendChild(card);
+    foodGrid.appendChild(card);
   }
 }
 
@@ -176,6 +204,16 @@ function addToCart(item){
   }
   saveCart();
   updateCartCount();
+  
+  // Visual feedback
+  const btn = event.target;
+  const originalText = btn.textContent;
+  btn.textContent = "Added! ✓";
+  btn.style.background = "#4CAF50";
+  setTimeout(() => {
+    btn.textContent = originalText;
+    btn.style.background = "";
+  }, 800);
 }
 
 /* Cart */
@@ -203,9 +241,7 @@ function renderCart(){
   document.getElementById("total").textContent = "$" + calcTotal().toFixed(2);
 }
 
-/* init */
-buildTabs();
-renderMenu(activeCuisine);
+/* Initialize */
 updateCartCount();
 
 

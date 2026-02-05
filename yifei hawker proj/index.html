@@ -1,13 +1,14 @@
 <!-- =========================
-     index.html (FULL)
+     index.html (UPDATED)
+     ✅ New stall names in dropdown
 ========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SG Hawker Centre</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
@@ -15,124 +16,124 @@
   <div class="brand">🍜 SG Hawker Centre</div>
 
   <nav class="nav">
-    <button class="navlink is-active" data-page="home">Home</button>
-    <button class="navlink" data-page="menu">Stall</button>
-    <button class="navlink" data-page="cart">Orders</button>
+    <button class="navlink is-active" id="navHome">Home</button>
+    <button class="navlink" id="navStall">Stall</button>
+    <button class="navlink" id="navOrders">Orders</button>
     <button class="navlink">Feedback</button>
     <button class="navlink">Hygiene info</button>
     <button class="navlink">Analytics</button>
   </nav>
 
-  <button class="cartbtn" id="topCartBtn" title="Cart">
+  <button class="cartbtn" id="topCartBtn">
     🛒 <span id="cartCount">0</span>
   </button>
 </header>
 
 <main>
 
-  <!-- HOME -->
-  <section class="page show" id="home">
-    <div class="hero">
-      <div class="hero-left">
-        <img class="hero-img" src="images/hero-food.jpg" alt="Hawker food image" />
-      </div>
-
-      <div class="hero-right">
-        <h1>Happy With Delicious Food And Get New Experiences With Hawker Food</h1>
-        <p>Delicious, Cheap Local Food.</p>
-        <button class="big-cart" id="homeShopBtn">🛒</button>
-      </div>
+<!-- HOME -->
+<section class="page show" id="home">
+  <div class="hero">
+    <div class="hero-left">
+      <img src="images/hero-food.jpg" class="hero-img" alt="Hawker food">
     </div>
-  </section>
 
-  <!-- MENU -->
-  <section class="page" id="menu">
-    <div class="stage">
-      <div class="panel">
-        <div class="cuisine-strip">
-          <div class="cuisine-inner" id="tabs"></div>
-        </div>
+    <div class="hero-right">
+      <h1>Happy With Delicious Food And Get New Experiences With Hawker Food</h1>
+      <p>Delicious, Cheap Local Food.</p>
 
-        <div class="stall-grid" id="foodGrid"></div>
-
-        <button class="floating-cart" id="floatCartBtn" title="Cart">🛒</button>
-      </div>
+      <button class="big-cart" id="homeShopBtn">🛒</button>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- CART -->
-  <section class="page" id="cart">
-    <div class="stage">
-      <div class="panel cartpanel">
-        <h2 class="panel-title">Shopping Cart</h2>
+<!-- STALL (DROPDOWN PAGE) -->
+<section class="page" id="menu">
+  <div class="panel">
+    <div class="stall-top">
+      <label class="stall-label" for="stallSelect">Choose a stall...</label>
 
-        <div class="carthead">
-          <div>Food</div>
-          <div class="right">Qty</div>
-          <div class="right">Price</div>
-        </div>
-
-        <div id="cartList" class="cartlist"></div>
-
-        <div class="cartfoot">
-          <span>Total</span>
-          <strong id="total">$0.00</strong>
-        </div>
-
-        <button class="btn checkout" id="checkoutBtn">Checkout</button>
-      </div>
+      <select id="stallSelect" class="stall-select">
+        <option value="" selected>Choose a stall...</option>
+        <option value="Uncle Tan's Chicken Rice">Uncle Tan's Chicken Rice</option>
+        <option value="Aunty Rose's Curry House">Aunty Rose's Curry House</option>
+        <option value="Bangkok Street Thai">Bangkok Street Thai</option>
+        <option value="Malay Corner Nasi Lemak">Malay Corner Nasi Lemak</option>
+        <option value="Kopi & Teh Station">Kopi & Teh Station</option>
+      </select>
     </div>
-  </section>
 
-  <!-- PAYMENT METHOD -->
-  <section class="page" id="paymethod">
-    <div class="stage">
-      <div class="panel cartpanel">
-        <h2 class="panel-title">Payment method</h2>
+    <!-- This area shows the selected stall name -->
+    <h2 class="stall-title" id="stallTitle">Please select a stall</h2>
 
-        <div class="payrow">
-          <button class="paychip">PayNow</button>
-          <button class="paychip">Apple Pay</button>
-          <button class="paychip">GPay</button>
-          <button class="paychip" id="cardBtn">Card</button>
-        </div>
-      </div>
+    <!-- Food grid will be populated by JavaScript -->
+    <div class="food-grid" id="foodGrid"></div>
+
+    <button class="floating-cart" id="floatCartBtn">🛒</button>
+  </div>
+</section>
+
+<!-- CART -->
+<section class="page" id="cart">
+  <div class="panel">
+    <h2>Shopping Cart</h2>
+
+    <div class="cart-header">
+      <span>Food</span>
+      <span>Qty</span>
+      <span>Price</span>
     </div>
-  </section>
 
-  <!-- PAYMENT -->
-  <section class="page" id="payment">
-    <div class="stage">
-      <div class="panel cartpanel">
-        <h2 class="panel-title">Payment</h2>
+    <div id="cartList"></div>
 
-        <form id="payForm" novalidate>
-          <input id="cardNumber" placeholder="Card Number (16 digits)" />
-          <input id="expiry" placeholder="MM/YY" />
-          <input id="cvv" placeholder="CVV" />
-          <input id="name" placeholder="Card Holder Name" />
-          <button class="btn pay" type="submit">Pay Now</button>
-        </form>
-      </div>
-    </div>
-  </section>
+    <p>Total: <strong id="total">$0.00</strong></p>
 
-  <!-- THANK YOU -->
-  <section class="page" id="thankyou">
-    <div class="stage">
-      <div class="panel cartpanel center">
-        <h2>Thank you for ordering from us!</h2>
-        <div class="muted">Your order number is</div>
-        <div id="orderNo">#0000</div>
-      </div>
-    </div>
-  </section>
+    <button id="checkoutBtn">Checkout</button>
+  </div>
+</section>
+
+<!-- PAYMENT METHOD -->
+<section class="page" id="paymethod">
+  <div class="panel">
+    <h2>Payment method</h2>
+
+    <button class="payBtn">PayNow</button>
+    <button class="payBtn">Apple Pay</button>
+    <button class="payBtn">GPay</button>
+    <button class="payBtn" id="cardBtn">Card</button>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="page" id="payment">
+  <div class="panel">
+    <h2>Payment</h2>
+
+    <form id="payForm">
+      <input placeholder="Card Number">
+      <input placeholder="MM/YY">
+      <input placeholder="CVV">
+      <input placeholder="Card Holder Name">
+      <button>Pay Now</button>
+    </form>
+  </div>
+</section>
+
+<!-- THANK YOU -->
+<section class="page" id="thankyou">
+  <div class="panel center">
+    <h2>Thank you for ordering from us!</h2>
+    <p>Your order number is</p>
+    <div id="orderNo">#0000</div>
+  </div>
+</section>
 
 </main>
 
-<script src="app.js"></script>
+<script src="./app.js"></script>
 </body>
 </html>
+
 
 
 
