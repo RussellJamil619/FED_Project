@@ -1,3 +1,4 @@
+// ===== ALL COMPLAINTS PAGE JAVASCRIPT WITH LOCALSTORAGE =====
 
 let allComplaints = [];
 
@@ -7,10 +8,23 @@ document.addEventListener('DOMContentLoaded', function() {
     setupComplaintFilters();
 });
 
-// ===== LOAD ALL COMPLAINTS =====
+// ===== LOAD ALL COMPLAINTS FROM LOCALSTORAGE =====
 function loadAllComplaints() {
-    // Sample complaints data
-    allComplaints = [
+    // Load from localStorage
+    const storedComplaints = localStorage.getItem('hawkerComplaints');
+    
+    if (storedComplaints) {
+        allComplaints = JSON.parse(storedComplaints);
+    } else {
+        // Fallback to default complaints
+        allComplaints = getDefaultComplaints();
+    }
+    
+    displayAllComplaints(allComplaints);
+}
+
+function getDefaultComplaints() {
+    return [
         {
             id: 1,
             stallName: "Laksa Paradise",
@@ -76,8 +90,6 @@ function loadAllComplaints() {
             status: "Under Review"
         }
     ];
-    
-    displayAllComplaints(allComplaints);
 }
 
 // ===== DISPLAY ALL COMPLAINTS =====

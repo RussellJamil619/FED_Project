@@ -1,4 +1,4 @@
-// ===== FEEDBACK PAGE JAVASCRIPT =====
+// ===== FEEDBACK PAGE JAVASCRIPT WITH LOCALSTORAGE =====
 
 let reviews = [];
 let complaints = [];
@@ -74,7 +74,7 @@ function setupFormSubmission() {
         
         // Create new review object
         const newReview = {
-            id: reviews.length + 1,
+            id: Date.now(), // Use timestamp as unique ID
             stallName: stallSelect.value,
             author: 'You',
             rating: parseInt(ratingValue.value),
@@ -85,6 +85,9 @@ function setupFormSubmission() {
         
         // Add to reviews array at the beginning
         reviews.unshift(newReview);
+        
+        // Save to localStorage
+        saveReviewsToLocalStorage();
         
         // Show success message
         showSuccessMessage();
@@ -117,17 +120,44 @@ function showSuccessMessage() {
     }, 5000);
 }
 
-// ===== LOAD REVIEWS FROM JSON =====
+// ===== LOCALSTORAGE FUNCTIONS FOR REVIEWS =====
+function saveReviewsToLocalStorage() {
+    localStorage.setItem('hawkerReviews', JSON.stringify(reviews));
+}
+
+function loadReviewsFromLocalStorage() {
+    const storedReviews = localStorage.getItem('hawkerReviews');
+    if (storedReviews) {
+        return JSON.parse(storedReviews);
+    }
+    return null;
+}
+
+// ===== LOAD REVIEWS =====
 async function loadReviews() {
-    try {
-        const response = await fetch('reviews.json');
-        reviews = await response.json();
+    // First, try to load from localStorage
+    const storedReviews = loadReviewsFromLocalStorage();
+    
+    if (storedReviews && storedReviews.length > 0) {
+        // Use stored reviews
+        reviews = storedReviews;
         displayReviews(reviews);
-    } catch (error) {
-        console.error('Error loading reviews:', error);
-        // Fallback to default reviews if JSON fails
-        reviews = getDefaultReviews();
-        displayReviews(reviews);
+    } else {
+        // If no stored reviews, try to load from JSON file
+        try {
+            const response = await fetch('reviews.json');
+            const jsonReviews = await response.json();
+            reviews = jsonReviews;
+            // Save initial reviews to localStorage
+            saveReviewsToLocalStorage();
+            displayReviews(reviews);
+        } catch (error) {
+            console.error('Error loading reviews:', error);
+            // Fallback to default reviews
+            reviews = getDefaultReviews();
+            saveReviewsToLocalStorage();
+            displayReviews(reviews);
+        }
     }
 }
 
@@ -294,7 +324,7 @@ function setupComplaintSubmission() {
         
         // Create new complaint object
         const newComplaint = {
-            id: complaints.length + 1,
+            id: Date.now(), // Use timestamp as unique ID
             stallName: stallSelect.value,
             category: categoryRadio.value,
             description: complaintText.value,
@@ -304,6 +334,9 @@ function setupComplaintSubmission() {
         
         // Add to complaints array at the beginning
         complaints.unshift(newComplaint);
+        
+        // Save to localStorage
+        saveComplaintsToLocalStorage();
         
         // Show success message
         showComplaintSuccessMessage();
@@ -333,27 +366,49 @@ function showComplaintSuccessMessage() {
     }, 5000);
 }
 
+// ===== LOCALSTORAGE FUNCTIONS FOR COMPLAINTS =====
+function saveComplaintsToLocalStorage() {
+    localStorage.setItem('hawkerComplaints', JSON.stringify(complaints));
+}
+
+function loadComplaintsFromLocalStorage() {
+    const storedComplaints = localStorage.getItem('hawkerComplaints');
+    if (storedComplaints) {
+        return JSON.parse(storedComplaints);
+    }
+    return null;
+}
+
 // ===== LOAD COMPLAINTS =====
 function loadComplaints() {
-    // Default complaints for display
-    complaints = [
-        {
-            id: 1,
-            stallName: "Laksa Paradise",
-            category: "Long Wait Time",
-            description: "Waited over 30 minutes for my order despite ordering early. Multiple customers who came after me received their food first.",
-            date: "2026-02-05",
-            status: "Under Review"
-        },
-        {
-            id: 2,
-            stallName: "Char Kway Teow House",
-            category: "Service Issue",
-            description: "Staff was rude when I asked for extra chili. They ignored my request and served other customers first.",
-            date: "2026-02-04",
-            status: "Under Review"
-        }
-    ];
+    // Try to load from localStorage first
+    const storedComplaints = loadComplaintsFromLocalStorage();
+    
+    if (storedComplaints && storedComplaints.length > 0) {
+        complaints = storedComplaints;
+    } else {
+        // Default complaints if none stored
+        complaints = [
+            {
+                id: 1,
+                stallName: "Laksa Paradise",
+                category: "Long Wait Time",
+                description: "Waited over 30 minutes for my order despite ordering early. Multiple customers who came after me received their food first.",
+                date: "2026-02-05",
+                status: "Under Review"
+            },
+            {
+                id: 2,
+                stallName: "Char Kway Teow House",
+                category: "Service Issue",
+                description: "Staff was rude when I asked for extra chili. They ignored my request and served other customers first.",
+                date: "2026-02-04",
+                status: "Under Review"
+            }
+        ];
+        // Save initial complaints to localStorage
+        saveComplaintsToLocalStorage();
+    }
     
     displayComplaints(complaints);
 }

@@ -1,3 +1,5 @@
+// ===== ALL REVIEWS PAGE JAVASCRIPT WITH LOCALSTORAGE =====
+
 let allReviews = [];
 
 // Load reviews when page loads
@@ -6,17 +8,19 @@ document.addEventListener('DOMContentLoaded', function() {
     setupFilters();
 });
 
-// ===== LOAD ALL REVIEWS =====
-async function loadAllReviews() {
-    try {
-        const response = await fetch('reviews.json');
-        allReviews = await response.json();
-        displayAllReviews(allReviews);
-    } catch (error) {
-        console.error('Error loading reviews:', error);
+// ===== LOAD ALL REVIEWS FROM LOCALSTORAGE =====
+function loadAllReviews() {
+    // Load from localStorage
+    const storedReviews = localStorage.getItem('hawkerReviews');
+    
+    if (storedReviews) {
+        allReviews = JSON.parse(storedReviews);
+    } else {
+        // Fallback to default reviews
         allReviews = getDefaultReviews();
-        displayAllReviews(allReviews);
     }
+    
+    displayAllReviews(allReviews);
 }
 
 function getDefaultReviews() {
@@ -55,42 +59,6 @@ function getDefaultReviews() {
             rating: 5,
             text: "Best chicken rice in Singapore! The rice is so fragrant and the chicken is tender. A must-try!",
             date: "2026-01-31",
-            isTopReview: true
-        },
-        {
-            id: 5,
-            stallName: "Satay King",
-            author: "Leslie T.",
-            rating: 4,
-            text: "Good satay with nice char. The peanut sauce is flavorful. Would come back again!",
-            date: "2026-01-30",
-            isTopReview: false
-        },
-        {
-            id: 6,
-            stallName: "Nasi Lemak Delight",
-            author: "Yifei W.",
-            rating: 5,
-            text: "Crispy fried chicken and fragrant coconut rice. The sambal is spicy and addictive!",
-            date: "2026-01-29",
-            isTopReview: true
-        },
-        {
-            id: 7,
-            stallName: "Laksa Paradise",
-            author: "Arri K.",
-            rating: 3,
-            text: "Decent laksa but could use more cockles. The broth is good though.",
-            date: "2026-01-28",
-            isTopReview: false
-        },
-        {
-            id: 8,
-            stallName: "Char Kway Teow House",
-            author: "Russell M.",
-            rating: 5,
-            text: "Absolutely love the smoky flavor! Generous portion and great value for money.",
-            date: "2026-01-27",
             isTopReview: true
         }
     ];
