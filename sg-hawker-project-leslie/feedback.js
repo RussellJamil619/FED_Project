@@ -1,11 +1,16 @@
+// ===== FEEDBACK PAGE JAVASCRIPT =====
+
 let reviews = [];
+let complaints = [];
 let selectedRating = 0;
 
 // Load reviews when page loads
 document.addEventListener('DOMContentLoaded', function() {
     loadReviews();
+    loadComplaints();
     setupStarRating();
     setupFormSubmission();
+    setupComplaintSubmission();
     setupTabs();
     setupSortingFilter();
 });
@@ -265,7 +270,135 @@ function setupTabs() {
     complaintTab.addEventListener('click', function() {
         complaintTab.classList.add('active');
         feedbackTab.classList.remove('active');
-        complaintContent.style.display = 'block';
+        complaintContent.style.display = 'flex';
         feedbackContent.style.display = 'none';
     });
+}
+
+// ===== COMPLAINT SUBMISSION =====
+function setupComplaintSubmission() {
+    const form = document.getElementById('complaintForm');
+    
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // Get form values
+        const stallSelect = document.getElementById('complaintStallSelect');
+        const complaintText = document.getElementById('complaintText');
+        const categoryRadio = document.querySelector('input[name="category"]:checked');
+        
+        if (!categoryRadio) {
+            alert('Please select a complaint category!');
+            return;
+        }
+        
+        // Create new complaint object
+        const newComplaint = {
+            id: complaints.length + 1,
+            stallName: stallSelect.value,
+            category: categoryRadio.value,
+            description: complaintText.value,
+            date: new Date().toISOString().split('T')[0],
+            status: 'Under Review'
+        };
+        
+        // Add to complaints array at the beginning
+        complaints.unshift(newComplaint);
+        
+        // Show success message
+        showComplaintSuccessMessage();
+        
+        // Clear form
+        clearComplaintForm();
+        
+        // Reload complaints display
+        displayComplaints(complaints);
+        
+        // Scroll to success message
+        document.getElementById('complaintSuccessMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+}
+
+function clearComplaintForm() {
+    document.getElementById('complaintForm').reset();
+}
+
+function showComplaintSuccessMessage() {
+    const successMsg = document.getElementById('complaintSuccessMessage');
+    successMsg.style.display = 'block';
+    
+    // Auto-hide after 5 seconds
+    setTimeout(() => {
+        successMsg.style.display = 'none';
+    }, 5000);
+}
+
+// ===== LOAD COMPLAINTS =====
+function loadComplaints() {
+    // Default complaints for display
+    complaints = [
+        {
+            id: 1,
+            stallName: "Laksa Paradise",
+            category: "Long Wait Time",
+            description: "Waited over 30 minutes for my order despite ordering early. Multiple customers who came after me received their food first.",
+            date: "2026-02-05",
+            status: "Under Review"
+        },
+        {
+            id: 2,
+            stallName: "Char Kway Teow House",
+            category: "Service Issue",
+            description: "Staff was rude when I asked for extra chili. They ignored my request and served other customers first.",
+            date: "2026-02-04",
+            status: "Under Review"
+        }
+    ];
+    
+    displayComplaints(complaints);
+}
+
+// ===== DISPLAY COMPLAINTS =====
+function displayComplaints(complaintsToDisplay) {
+    const container = document.getElementById('complaintsContainer');
+    container.innerHTML = '';
+    
+    // Show only first 3 complaints
+    const complaintsToShow = complaintsToDisplay.slice(0, 3);
+    
+    if (complaintsToShow.length === 0) {
+        container.innerHTML = '<p class="text-muted text-center py-4">No complaints submitted yet.</p>';
+        return;
+    }
+    
+    complaintsToShow.forEach(complaint => {
+        const complaintCard = createComplaintCard(complaint);
+        container.appendChild(complaintCard);
+    });
+}
+
+function createComplaintCard(complaint) {
+    const card = document.createElement('div');
+    card.className = 'complaint-item';
+    
+    const statusClass = complaint.status === 'Under Review' ? 'under-review' : 
+                       complaint.status === 'Resolved' ? 'resolved' : 'pending';
+    
+    card.innerHTML = `
+        <div class="complaint-status ${statusClass}">
+            <i class="fas fa-circle" style="font-size: 8px;"></i>
+            ${complaint.status}
+        </div>
+        <div class="complaint-category-badge">
+            ${complaint.category}
+        </div>
+        <div class="complaint-stall-name">${complaint.stallName}</div>
+        <div class="complaint-date">
+            <i class="far fa-calendar me-1"></i>
+            ${formatDate(complaint.date)}
+        </div>
+        <div class="complaint-description">${complaint.description}</div>
+    `;
+    
+    return card;
 }

@@ -9,13 +9,15 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/assets/style.css?v=1">
-  <link rel="stylesheet" href="/sg-hawker-project-leslie/feedback.css?v=1">
-
+  <!-- Group's shared styles -->
+  <link rel="stylesheet" href="../assets/style.css">
+  <!-- Your feature styles -->
+  <link rel="stylesheet" href="feedback.css">
 </head>
 
 <body class="site">
 
+<!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg bg-white border-bottom">
   <div class="container">
     <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
@@ -44,9 +46,9 @@
 <!-- HERO -->
 <section class="hero">
   <div class="container hero-inner text-center">
-    <h1 class="hero-title">Feedback & Ratings</h1>
+    <h1 class="hero-title">Feedback & Complaints</h1>
     <p class="hero-sub">
-      Share your dining experience with us! Your feedback helps us maintain quality standards and improve our hawker stalls. Rate your favorite dishes and help others discover the best food.
+      Share your dining experience with us! Your feedback helps us maintain quality standards and improve our hawker stalls.
     </p>
   </div>
 </section>
@@ -64,10 +66,15 @@
     </button>
   </div>
 
-  <!-- Success Message  -->
+  <!-- Success Messages -->
   <div class="alert alert-success success-message" id="successMessage" style="display: none;">
     <i class="fas fa-check-circle me-2"></i>
     <strong>Success!</strong> Your feedback has been submitted.
+  </div>
+
+  <div class="alert alert-success success-message" id="complaintSuccessMessage" style="display: none;">
+    <i class="fas fa-check-circle me-2"></i>
+    <strong>Complaint Submitted!</strong> Your complaint has been received and is under review.
   </div>
 
   <!-- Feedback Content -->
@@ -136,9 +143,7 @@
           </div>
         </div>
 
-        <div id="reviewsContainer">
-          <!-- Reviews will be loaded here by JavaScript -->
-        </div>
+        <div id="reviewsContainer"></div>
 
         <div class="text-center mt-3">
           <a href="recent-reviews.html" class="btn btn-outline-primary">
@@ -149,11 +154,110 @@
     </div>
   </div>
 
-  <!-- Complaint Content (Hidden by default) -->
-  <div id="complaintContent" style="display: none;">
-    <div class="feedback-card">
-      <h3 class="section-title">Submit a Complaint</h3>
-      <p class="text-muted">This feature is currently under development. Please use the feedback form for now.</p>
+  <!-- Complaint Content -->
+  <div class="row" id="complaintContent" style="display: none;">
+    <!-- Left: Submit Complaint Form -->
+    <div class="col-lg-6 mb-4">
+      <div class="feedback-card complaint-card">
+        <div class="complaint-header">
+          <i class="fas fa-exclamation-triangle"></i>
+          <h3 class="section-title">Submit Complaint</h3>
+        </div>
+        
+        <div class="alert alert-warning mb-3">
+          <small>
+            <i class="fas fa-info-circle me-1"></i>
+            Use this form to report serious issues such as hygiene concerns, food safety problems, or unsatisfactory service. All complaints are reviewed by management and linked to the specific stall.
+          </small>
+        </div>
+
+        <form id="complaintForm">
+          <div class="mb-3">
+            <label for="complaintStallSelect" class="form-label">Select Stall</label>
+            <select class="form-select" id="complaintStallSelect" required>
+              <option value="" selected disabled>Choose a stall...</option>
+              <option value="Ah Meng's Chicken Rice">Ah Meng's Chicken Rice</option>
+              <option value="Laksa Paradise">Laksa Paradise</option>
+              <option value="Roti Prata Corner">Roti Prata Corner</option>
+              <option value="Satay King">Satay King</option>
+              <option value="Char Kway Teow House">Char Kway Teow House</option>
+              <option value="Nasi Lemak Delight">Nasi Lemak Delight</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Complaint Category</label>
+            <div class="complaint-categories">
+              <div class="form-check category-option">
+                <input class="form-check-input" type="radio" name="category" id="cat1" value="Hygiene/Food Quality Issue" required>
+                <label class="form-check-label" for="cat1">
+                  <i class="fas fa-shield-virus me-2"></i>Hygiene/Food Quality Issue
+                </label>
+              </div>
+              <div class="form-check category-option">
+                <input class="form-check-input" type="radio" name="category" id="cat2" value="Service Issue">
+                <label class="form-check-label" for="cat2">
+                  <i class="fas fa-user-times me-2"></i>Service Issue
+                </label>
+              </div>
+              <div class="form-check category-option">
+                <input class="form-check-input" type="radio" name="category" id="cat3" value="Overcharging/Pricing Issue">
+                <label class="form-check-label" for="cat3">
+                  <i class="fas fa-dollar-sign me-2"></i>Overcharging/Pricing Issue
+                </label>
+              </div>
+              <div class="form-check category-option">
+                <input class="form-check-input" type="radio" name="category" id="cat4" value="Long Wait Time">
+                <label class="form-check-label" for="cat4">
+                  <i class="fas fa-clock me-2"></i>Long Wait Time
+                </label>
+              </div>
+              <div class="form-check category-option">
+                <input class="form-check-input" type="radio" name="category" id="cat5" value="Wrong Order/Missing Items">
+                <label class="form-check-label" for="cat5">
+                  <i class="fas fa-box-open me-2"></i>Wrong Order/Missing Items
+                </label>
+              </div>
+              <div class="form-check category-option">
+                <input class="form-check-input" type="radio" name="category" id="cat6" value="Other">
+                <label class="form-check-label" for="cat6">
+                  <i class="fas fa-ellipsis-h me-2"></i>Other
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="complaintText" class="form-label">Complaint Description</label>
+            <textarea 
+              class="form-control" 
+              id="complaintText" 
+              rows="5" 
+              placeholder="Please provide detailed information about your complaint..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-danger w-100">
+            <i class="fas fa-paper-plane me-2"></i>Submit Complaint
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Right: Submitted Complaints -->
+    <div class="col-lg-6">
+      <div class="feedback-card">
+        <h3 class="section-title">Submitted Complaints</h3>
+        
+        <div id="complaintsContainer"></div>
+
+        <div class="text-center mt-3">
+          <a href="all-complaints.html" class="btn btn-outline-danger">
+            View All Complaints
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </div>
