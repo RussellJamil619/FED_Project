@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Analytics - SG Hawker Centre</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="assets/style.css">
+</head>
+
+<body class="site">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">🍜 SG Hawker Centre</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link nav-pill" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="stall.html">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" href="orders.html">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="sg-hawker-project-leslie/feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="hygiene.html">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill active" href="analytics.html">Analytics</a></li>
+
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link icon-btn" href="#"><i class="fa-regular fa-user"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner text-center">
+    <h1 class="hero-title">Analytics</h1>
+    <p class="hero-sub">
+      View insights and statistics about our hawker centre performance.
+    </p>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <div class="maintenance-card">
+        <i class="fas fa-tools maintenance-icon"></i>
+        <h2 class="maintenance-title">Under Maintenance</h2>
+        <p class="maintenance-text">
+          We're currently upgrading our analytics dashboard to bring you better insights and data visualization. This page is temporarily unavailable while we implement the following improvements:
+        </p>
+        
+        <div class="features-list">
+          <div class="feature-item-maint">
+            <i class="fas fa-chart-line feature-icon-maint"></i>
+            <div>
+              <h5>Real-time Sales Analytics</h5>
+              <p>Track daily revenue, peak hours, and best-selling items across all stalls</p>
+            </div>
+          </div>
+          
+          <div class="feature-item-maint">
+            <i class="fas fa-star feature-icon-maint"></i>
+            <div>
+              <h5>Customer Feedback Insights</h5>
+              <p>Visualize ratings trends, complaint patterns, and customer satisfaction scores</p>
+            </div>
+          </div>
+          
+          <div class="feature-item-maint">
+            <i class="fas fa-users feature-icon-maint"></i>
+            <div>
+              <h5>Visitor Traffic Reports</h5>
+              <p>Analyze foot traffic patterns, busiest days, and customer demographics</p>
+            </div>
+          </div>
+          
+          <div class="feature-item-maint">
+            <i class="fas fa-utensils feature-icon-maint"></i>
+            <div>
+              <h5>Stall Performance Metrics</h5>
+              <p>Compare individual stall performance with comprehensive KPI dashboards</p>
+            </div>
+          </div>
+        </div>
+
+        <p class="text-muted mt-4">
+          <i class="fas fa-clock me-2"></i>
+          Expected completion: End of February 2026
+        </p>
+        
+        <div class="d-flex gap-3 justify-content-center mt-4">
+          <a href="index.html" class="btn btn-orange">
+            <i class="fas fa-home me-2"></i>Back to Home
+          </a>
+          <a href="sg-hawker-project-leslie/feedback.html" class="btn btn-outline-primary">
+            <i class="fas fa-comments me-2"></i>Leave Feedback
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.maintenance-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 50px 40px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.maintenance-icon {
+  font-size: 5rem;
+  color: #ff6a00;
+  margin-bottom: 30px;
+  animation: rotate 3s linear infinite;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.maintenance-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 20px;
+}
+
+.maintenance-text {
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+.features-list {
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.feature-item-maint {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 25px;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #ff6a00;
+}
+
+.feature-icon-maint {
+  font-size: 2rem;
+  color: #ff6a00;
+  min-width: 40px;
+}
+
+.feature-item-maint h5 {
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 5px;
+  font-size: 1rem;
+}
+
+.feature-item-maint p {
+  color: #666;
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.btn-outline-primary {
+  color: #ff6a00;
+  border-color: #ff6a00;
+  padding: 10px 20px;
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #ff6a00;
+  border-color: #ff6a00;
+  color: #fff;
+}
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
