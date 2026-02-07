@@ -395,3 +395,7 @@ textarea{min-height:110px;resize:vertical}
   .gradeGrid{grid-template-columns:1fr}
 }
 
+.badge{
+  color:#1f1f1f;
+}
+

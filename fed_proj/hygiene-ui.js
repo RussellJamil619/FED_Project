@@ -1,99 +1,111 @@
-import { getStalls } from "./hygiene-store.js";
+// js/hygiene-store.js
 
 const STALLS_KEY = "hygiene_stalls";
+const INSPECTIONS_KEY = "hygiene_inspections";
+const LOGIN_KEY = "hygiene_login_creds";
 
-const FALLBACK_STALLS = [
+const DEFAULT_STALLS = [
   { id: "stall-01", name: "Ah Meng Chicken Rice" },
   { id: "stall-02", name: "Nasi Lemak" },
   { id: "stall-03", name: "Roasted Chicken Rice" },
   { id: "stall-04", name: "Traditional Desserts" }
 ];
 
-function ensureStallsExist(){
-  // If store returns empty, seed localStorage stalls
-  let stalls = [];
+const DEFAULT_INSPECTIONS = [
+  { stallId: "stall-01", date: "2026-01-05", grade: "A", score: 95, remarks: "Excellent hygiene standard" },
+  { stallId: "stall-01", date: "2025-12-10", grade: "A", score: 93, remarks: "Very good, minor improvement" }
+];
+
+const DEFAULT_LOGIN = { email: "officer@sg-hawker.com", password: "password123" };
+
+function load(key, fallback){
+  const raw = localStorage.getItem(key);
+  if(!raw) return fallback;
   try{
-    stalls = getStalls() || [];
+    return JSON.parse(raw);
   }catch{
-    stalls = [];
-  }
-
-  if(Array.isArray(stalls) && stalls.length > 0) return stalls;
-
-  // If localStorage has empty/invalid stalls, fix it
-  const raw = localStorage.getItem(STALLS_KEY);
-  try{
-    const parsed = raw ? JSON.parse(raw) : null;
-    if(Array.isArray(parsed) && parsed.length > 0){
-      return parsed;
-    }
-  }catch{}
-
-  localStorage.setItem(STALLS_KEY, JSON.stringify(FALLBACK_STALLS));
-  return FALLBACK_STALLS;
-}
-
-export function setActiveNav(current){
-  const links = document.querySelectorAll("[data-nav]");
-  links.forEach(a => {
-    a.classList.toggle("active", a.getAttribute("data-nav") === current);
-  });
-}
-
-export function fillStallSelect(selectEl, opts = {}){
-  const stalls = ensureStallsExist();
-
-  selectEl.innerHTML = "";
-
-  const placeholder = document.createElement("option");
-  placeholder.value = "";
-  placeholder.textContent = opts.placeholder || "Choose a Stall...";
-  selectEl.appendChild(placeholder);
-
-  stalls.forEach(s => {
-    // tolerate bad data shape
-    const id = s.id ?? s.stallId ?? "";
-    const name = s.name ?? s.stallName ?? "Unnamed Stall";
-    if(!id) return;
-
-    const op = document.createElement("option");
-    op.value = id;
-    op.textContent = name;
-    selectEl.appendChild(op);
-  });
-
-  const remembered = localStorage.getItem("selected_stall_id") || "";
-  if(opts.useRemembered && remembered){
-    selectEl.value = remembered;
+    return fallback;
   }
 }
 
-export function rememberStall(stallId){
-  localStorage.setItem("selected_stall_id", stallId || "");
+function save(key, value){
+  localStorage.setItem(key, JSON.stringify(value));
 }
 
-export function prettyDate(iso){
-  if(!iso) return "";
-  const [y,m,d] = String(iso).split("-");
-  if(!y || !m || !d) return String(iso);
-  return `${d}/${m}/${y.slice(2)}`;
+function ensureArray(key, fallback){
+  const v = load(key, null);
+  if(!Array.isArray(v) || v.length === 0){
+    save(key, fallback);
+    return fallback;
+  }
+  return v;
 }
 
-export function gradeMeaning(grade){
-  const map = {
-    A: "Excellence - Outstanding hygiene standard",
-    B: "Good - Meets hygiene standard",
-    C: "Fair - Needs improvement",
-    D: "Poor - Below hygiene standard"
+function ensureObject(key, fallback){
+  const v = load(key, null);
+  if(!v || typeof v !== "object"){
+    save(key, fallback);
+    return fallback;
+  }
+  return v;
+}
+
+// Auto-fix / seed every time (this is the important part)
+function init(){
+  ensureArray(STALLS_KEY, DEFAULT_STALLS);
+  const ins = load(INSPECTIONS_KEY, null);
+  if(!Array.isArray(ins)) save(INSPECTIONS_KEY, DEFAULT_INSPECTIONS);
+  ensureObject(LOGIN_KEY, DEFAULT_LOGIN);
+}
+init();
+
+export function getStalls(){
+  return ensureArray(STALLS_KEY, DEFAULT_STALLS);
+}
+
+export function verifyLogin(email, password){
+  const creds = ensureObject(LOGIN_KEY, DEFAULT_LOGIN);
+  return email === creds.email && password === creds.password;
+}
+
+export function setLoginPassword(newPassword){
+  const creds = ensureObject(LOGIN_KEY, DEFAULT_LOGIN);
+  save(LOGIN_KEY, { ...creds, password: String(newPassword) });
+}
+
+function getAllInspections(){
+  const v = load(INSPECTIONS_KEY, []);
+  return Array.isArray(v) ? v : [];
+}
+
+function setAllInspections(list){
+  save(INSPECTIONS_KEY, list);
+}
+
+export function addInspection(record){
+  const list = getAllInspections();
+
+  const clean = {
+    stallId: String(record.stallId || ""),
+    date: record.date ? String(record.date) : new Date().toISOString().slice(0,10),
+    grade: String(record.grade || "").toUpperCase(),
+    score: Number(record.score),
+    remarks: String(record.remarks || "")
   };
-  return map[String(grade || "").toUpperCase()] || "-";
+
+  list.unshift(clean);
+  setAllInspections(list);
+  return clean;
 }
 
-export function scoreToGrade(score){
-  const s = Number(score);
-  if(Number.isNaN(s)) return "";
-  if(s >= 90) return "A";
-  if(s >= 80) return "B";
-  if(s >= 70) return "C";
-  return "D";
+export function getInspectionHistoryForStall(stallId){
+  const list = getAllInspections().filter(x => x.stallId === stallId).slice();
+  list.sort((a,b) => String(b.date).localeCompare(String(a.date)));
+  return list;
 }
+
+export function getLatestInspectionForStall(stallId){
+  const list = getInspectionHistoryForStall(stallId);
+  return list.length ? list[0] : null;
+}
+
