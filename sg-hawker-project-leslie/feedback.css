@@ -1,0 +1,411 @@
+.page-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #333;
+}
+
+/* Tabs */
+.feedback-tabs {
+    display: flex;
+    gap: 10px;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 30px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    padding: 12px 24px;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #666;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    color: #ff6b35;
+}
+
+.tab-btn.active {
+    color: #ff6b35;
+    border-bottom-color: #ff6b35;
+}
+
+/* Cards */
+.feedback-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Star Rating */
+.star-rating {
+    display: flex;
+    gap: 8px;
+    font-size: 2rem;
+    margin-bottom: 10px;
+}
+
+.star-rating i {
+    color: #ddd;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.star-rating i:hover,
+.star-rating i.active {
+    color: #ffc107;
+}
+
+.star-rating i.fas {
+    color: #ffc107;
+}
+
+/* Form Elements */
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.form-select,
+.form-control {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 10px 15px;
+    transition: border-color 0.3s ease;
+}
+
+.form-select:focus,
+.form-control:focus {
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 53, 0.25);
+}
+
+/* Buttons */
+.btn-primary {
+    background-color: #ff6b35;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e55a2b;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+}
+
+.btn-outline-primary {
+    color: #ff6b35;
+    border-color: #ff6b35;
+    padding: 10px 30px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background-color: #ff6b35;
+    border-color: #ff6b35;
+    color: #fff;
+}
+
+/* Success Message */
+.success-message {
+    border-radius: 8px;
+    animation: slideDown 0.5s ease;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Review Cards */
+.review-card {
+    background: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.review-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.review-card.top-review {
+    background: #fffbea;
+    border-left: 4px solid #ffc107;
+}
+
+.top-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #ffc107;
+    color: #fff;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 10px;
+}
+
+.review-stall-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.review-author {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.review-stars {
+    display: flex;
+    gap: 3px;
+    font-size: 1rem;
+}
+
+.review-stars i {
+    color: #ffc107;
+}
+
+.review-stars i.far {
+    color: #ddd;
+}
+
+.review-text {
+    color: #555;
+    line-height: 1.6;
+    margin-top: 10px;
+}
+
+/* Sort Dropdown */
+#sortSelect {
+    min-width: 150px;
+}
+
+/* Complaint Section Styles */
+.complaint-card {
+    border-left: 4px solid #dc3545;
+}
+
+.complaint-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.complaint-header i {
+    color: #dc3545;
+    font-size: 1.5rem;
+}
+
+.complaint-categories {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.category-option {
+    background: #f8f9fa;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 12px 15px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.category-option:hover {
+    background: #fff;
+    border-color: #dc3545;
+}
+
+.category-option .form-check-input:checked ~ .form-check-label {
+    color: #dc3545;
+    font-weight: 600;
+}
+
+.category-option .form-check-input {
+    margin-top: 0.3rem;
+}
+
+.category-option .form-check-label {
+    cursor: pointer;
+    width: 100%;
+    margin-left: 5px;
+}
+
+/* Complaint Card */
+.complaint-item {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-left: 4px solid #dc3545;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.complaint-item:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+}
+
+.complaint-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.complaint-status.under-review {
+    background: #fff3cd;
+    color: #856404;
+}
+
+.complaint-status.resolved {
+    background: #d4edda;
+    color: #155724;
+}
+
+.complaint-status.pending {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.complaint-category-badge {
+    display: inline-block;
+    background: #e9ecef;
+    color: #495057;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.complaint-stall-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 4px;
+}
+
+.complaint-date {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.complaint-description {
+    color: #555;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(220, 53, 69, 0.3);
+}
+
+.btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+    padding: 10px 30px;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
+    color: #fff;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+    .feedback-card {
+        padding: 20px;
+    }
+    
+    .page-title {
+        font-size: 1.75rem;
+    }
+    
+    .section-title {
+        font-size: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .feedback-tabs {
+        flex-direction: column;
+    }
+    
+    .tab-btn {
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+        border-left: 3px solid transparent;
+    }
+    
+    .tab-btn.active {
+        border-left-color: #ff6b35;
+        border-bottom-color: #e0e0e0;
+    }
+    
+    .star-rating {
+        font-size: 1.75rem;
+    }
+    
+    .category-option {
+        padding: 10px 12px;
+    }
+}

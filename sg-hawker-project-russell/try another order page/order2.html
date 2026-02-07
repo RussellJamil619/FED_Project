@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders Management | SG Hawker Centre</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Our CSS -->
+    <link rel="stylesheet" href="order2.css">
+    
+    <!-- Print Styles -->
+    <style>
+        @media print {
+            .navbar, .filter-section, .table-actions, .action-buttons {
+                display: none !important;
+            }
+            
+            .orders-container {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+            
+            .page-header {
+                margin-bottom: 10px !important;
+                padding: 10px 0 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-utensils"></i> SG Hawker Centre
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="mainNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="fas fa-home me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="stall.html">
+                            <i class="fas fa-store me-1"></i> Stall
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="orders.html">
+                            <i class="fas fa-shopping-cart me-1"></i> Orders
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">
+                            <i class="fas fa-comment-alt me-1"></i> Feedback
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="hygiene.html">
+                            <i class="fas fa-clipboard-check me-1"></i> Hygiene
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="analytics.html">
+                            <i class="fas fa-chart-line me-1"></i> Analytics
+                        </a>
+                    </li>
+                    
+                    <li class="nav-item ms-3">
+                        <a class="icon-btn" href="#" title="User Profile">
+                            <i class="fas fa-user"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="container">
+        <!-- Page Header -->
+        <div class="page-header">
+            <h1 class="page-title">Orders Management</h1>
+            <p class="page-subtitle">Monitor, update, and manage customer orders in real-time</p>
+            
+            <div class="d-flex gap-3 mt-3">
+                <button class="btn btn-primary" onclick="addSampleOrder()">
+                    <i class="fas fa-plus me-2"></i> Add Sample Order
+                </button>
+                <button class="btn btn-outline-secondary" onclick="location.reload()">
+                    <i class="fas fa-sync-alt me-2"></i> Refresh
+                </button>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-row">
+            <div class="stat-card">
+                <div class="stat-value">18</div>
+                <div class="stat-label">Total Orders Today</div>
+                <span class="stat-change positive">
+                    <i class="fas fa-arrow-up me-1"></i> 12% from yesterday
+                </span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Pending Orders</div>
+                <span class="stat-change negative">
+                    <i class="fas fa-arrow-down me-1"></i> 2 from last hour
+                </span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">8</div>
+                <div class="stat-label">Preparing</div>
+                <span class="stat-change positive">
+                    <i class="fas fa-arrow-up me-1"></i> 3 in progress
+                </span>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">7</div>
+                <div class="stat-label">Ready to Collect</div>
+                <span class="stat-change positive">
+                    <i class="fas fa-check me-1"></i> All on time
+                </span>
+            </div>
+        </div>
+
+        <!-- Filters Section -->
+        <div class="filter-section">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <div class="filter-label">Order Status</div>
+                    <select class="form-select" id="statusFilter">
+                        <option value="all">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="preparing">Preparing</option>
+                        <option value="ready">Ready to Collect</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-label">Date Range</div>
+                    <input type="date" class="form-control" id="dateFilter" value="2024-01-15">
+                </div>
+                
+                <div class="filter-group">
+                    <div class="filter-label">Search Orders</div>
+                    <input type="text" class="form-control" id="searchFilter" placeholder="Order ID, Customer, or Items...">
+                </div>
+                
+                <div class="filter-group d-flex gap-2">
+                    <button class="btn-filter w-100" id="applyFilters">
+                        <i class="fas fa-filter me-2"></i> Apply Filters
+                    </button>
+                    <button class="btn-reset" id="resetFilters">
+                        <i class="fas fa-redo me-2"></i> Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Orders Table -->
+        <div class="orders-container">
+            <div class="table-header">
+                <div class="table-title">Recent Orders</div>
+                <div class="table-actions">
+                    <button class="btn-icon" id="exportCSV">
+                        <i class="fas fa-file-export"></i> Export CSV
+                    </button>
+                    <button class="btn-icon" id="printOrders">
+                        <i class="fas fa-print"></i> Print
+                    </button>
+                </div>
+            </div>
+            
+            <table class="orders-table">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Items</th>
+                        <th>Status</th>
+                        <th>Total</th>
+                        <th>Time</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="loading">
+                        <td><strong>ORD001</strong></td>
+                        <td>John Cena</td>
+                        <td>Chicken Rice (x1), Coke (x1)</td>
+                        <td><span class="status-badge status-ready">Ready to Collect</span></td>
+                        <td><strong>$6.50</strong></td>
+                        <td>10:30 AM</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-action btn-view">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <button class="btn-action btn-edit">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn-action btn-delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    
+                    <tr class="loading">
+                        <td><strong>ORD002</strong></td>
+                        <td>Speed</td>
+                        <td>Laksa (x2), Teh Tarik (x1)</td>
+                        <td><span class="status-badge status-preparing">Preparing</span></td>
+                        <td><strong>$14.00</strong></td>
+                        <td>11:15 AM</td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-action btn-view">
+                                    <i class="fas fa-eye"></i> View
+                                </button>
+                                <button class="btn-action btn-edit">
+                                    <i class="fas fa-edit"></i> Edit
+                                </button>
+                                <button class="btn-action btn-delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr

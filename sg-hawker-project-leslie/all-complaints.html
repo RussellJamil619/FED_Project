@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All Complaints - SG Hawker Centre</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Group's shared styles -->
+  <link rel="stylesheet" href="../assets/style.css">
+  <!-- Your feature styles -->
+  <link rel="stylesheet" href="feedback.css">
+</head>
+
+<body class="site">
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link nav-pill" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="../stall.html">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" href="../orders.html">Orders</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill active" href="feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="../hygiene.html">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link" href="../analytics.html">Analytics</a></li>
+
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link icon-btn" href="#"><i class="fa-regular fa-user"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container hero-inner text-center">
+    <h1 class="hero-title">All Submitted Complaints</h1>
+    <p class="hero-sub">
+      View and track all your complaint submissions. We take every complaint seriously and strive to resolve issues promptly.
+    </p>
+  </div>
+</section>
+
+<!-- MAIN CONTENT -->
+<div class="container my-5">
+  
+  <!-- Back Button + Filters -->
+  <div class="row mb-4">
+    <div class="col-12">
+      <a href="feedback.html" class="btn btn-outline-secondary mb-3">
+        <i class="fas fa-arrow-left me-2"></i>Back to Feedback
+      </a>
+    </div>
+  </div>
+
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <label for="filterComplaintStall" class="form-label fw-bold">Filter by Stall:</label>
+      <select class="form-select" id="filterComplaintStall">
+        <option value="all">All Stalls</option>
+        <option value="Ah Meng's Chicken Rice">Ah Meng's Chicken Rice</option>
+        <option value="Laksa Paradise">Laksa Paradise</option>
+        <option value="Roti Prata Corner">Roti Prata Corner</option>
+        <option value="Satay King">Satay King</option>
+        <option value="Char Kway Teow House">Char Kway Teow House</option>
+        <option value="Nasi Lemak Delight">Nasi Lemak Delight</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="filterComplaintCategory" class="form-label fw-bold">Filter by Category:</label>
+      <select class="form-select" id="filterComplaintCategory">
+        <option value="all">All Categories</option>
+        <option value="Hygiene/Food Quality Issue">Hygiene/Food Quality Issue</option>
+        <option value="Service Issue">Service Issue</option>
+        <option value="Overcharging/Pricing Issue">Overcharging/Pricing Issue</option>
+        <option value="Long Wait Time">Long Wait Time</option>
+        <option value="Wrong Order/Missing Items">Wrong Order/Missing Items</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+
+    <div class="col-md-4">
+      <label for="sortComplaintsBy" class="form-label fw-bold">Sort by:</label>
+      <select class="form-select" id="sortComplaintsBy">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Complaints Container -->
+  <div class="row">
+    <div class="col-12">
+      <div id="allComplaintsContainer">
+        <!-- All complaints will be loaded here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- No Results Message -->
+  <div id="noComplaintsResults" class="text-center py-5" style="display: none;">
+    <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+    <h4 class="text-muted">No complaints found</h4>
+    <p class="text-muted">Try changing your filters</p>
+  </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="all-complaints.js"></script>
+</body>
+</html>
