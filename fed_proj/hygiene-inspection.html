@@ -94,7 +94,18 @@
 </main>
 
 <script>
+<<<<<<< HEAD
   // Shared stall list
+=======
+  // FORCE login every time (demo / presentation mode)
+localStorage.removeItem("hygiene_logged_in");
+
+  /* =========================================================
+     HYGIENE INSPECTION (MANUAL LOCALSTORAGE VERSION)
+     ========================================================= */
+
+  //  Feature A: Shared stall list (must match feedback/history pages)
+>>>>>>> 589637ec3c290f48637648816f9adb7003ecad55
   const stalls = [
     { id: "stall-01", name: "Ah Meng's Chicken Rice" },
     { id: "stall-02", name: "Laksa Paradise" },
@@ -203,9 +214,29 @@
   document.getElementById("goFeedback").addEventListener("click", () => {
     const id = stallSelect.value || "";
     if(!id) return;
+<<<<<<< HEAD
     location.href = "hygiene-feedback.html?stall=" + encodeURIComponent(id);
   });
 
+=======
+
+    const loggedIn = localStorage.getItem("hygiene_logged_in") === "true";
+
+    if(!loggedIn){
+      // go login first, then return to feedback with stall selected
+      location.href =
+        "hygiene-login.html?redirect=hygiene-feedback.html&stall=" +
+        encodeURIComponent(id);
+      return;
+    }
+
+    // already logged in -> go straight to feedback
+    location.href = "hygiene-feedback.html?stall=" + encodeURIComponent(id);
+  });
+
+
+  //  Feature G: go to history page (passes stall id)
+>>>>>>> 589637ec3c290f48637648816f9adb7003ecad55
   document.getElementById("goHistory").addEventListener("click", () => {
     const id = stallSelect.value || "";
     if(!id) return;
