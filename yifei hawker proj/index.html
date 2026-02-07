@@ -1,6 +1,6 @@
 <!-- =========================
      index.html (UPDATED)
-     ✅ New stall names in dropdown
+     ✅ Orders page added
 ========================= -->
 <!DOCTYPE html>
 <html lang="en">
@@ -8,47 +8,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SG Hawker Centre</title>
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">🍜 SG Hawker Centre</div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="#">
+      🍜 SG Hawker Centre
+    </a>
 
-  <nav class="nav">
-    <button class="navlink is-active" id="navHome">Home</button>
-    <button class="navlink" id="navStall">Stall</button>
-    <button class="navlink" id="navOrders">Orders</button>
-    <button class="navlink">Feedback</button>
-    <button class="navlink">Hygiene info</button>
-    <button class="navlink">Analytics</button>
-  </nav>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <button class="cartbtn" id="topCartBtn">
-    🛒 <span id="cartCount">0</span>
-  </button>
-</header>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2">
+        <li class="nav-item"><a class="nav-link" id="navHome" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link active-tag" id="navStall" href="#">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" id="navOrders" href="#">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" id="navFeedback" href="#">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" id="navHygiene" href="#">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link" id="navAnalytics" href="#">Analytics</a></li>
+        <li class="nav-item">
+          <a class="nav-link user-profile-icon" href="#" id="profileIcon" title="User Profile">
+            <i class="fa-solid fa-user"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <main>
 
-<!-- HOME -->
-<section class="page show" id="home">
-  <div class="hero">
-    <div class="hero-left">
-      <img src="images/hero-food.jpg" class="hero-img" alt="Hawker food">
-    </div>
-
-    <div class="hero-right">
-      <h1>Happy With Delicious Food And Get New Experiences With Hawker Food</h1>
-      <p>Delicious, Cheap Local Food.</p>
-
-      <button class="big-cart" id="homeShopBtn">🛒</button>
-    </div>
-  </div>
-</section>
-
-<!-- STALL (DROPDOWN PAGE) -->
-<section class="page" id="menu">
+<!-- STALL (DROPDOWN PAGE) - NOW DEFAULT PAGE -->
+<section class="page show" id="menu">
   <div class="panel">
     <div class="stall-top">
       <label class="stall-label" for="stallSelect">Choose a stall...</label>
@@ -70,6 +74,18 @@
     <div class="food-grid" id="foodGrid"></div>
 
     <button class="floating-cart" id="floatCartBtn">🛒</button>
+  </div>
+</section>
+
+<!-- ORDERS HISTORY -->
+<section class="page" id="orders">
+  <div class="panel">
+    <h2>Order History</h2>
+    <p class="muted">Your past orders are saved locally on this device</p>
+    
+    <div id="orderList"></div>
+    
+    <button class="clear-btn" onclick="clearOrders()">Clear Order History</button>
   </div>
 </section>
 
@@ -125,15 +141,77 @@
     <h2>Thank you for ordering from us!</h2>
     <p>Your order number is</p>
     <div id="orderNo">#0000</div>
+    <button class="back-home-btn" onclick="showPage('home')">Back to Home</button>
+  </div>
+</section>
+
+<!-- LOGIN PAGE -->
+<section class="page" id="login">
+  <div class="panel center">
+    <div class="login-container">
+      <h2>🔐 Store Owner Login</h2>
+      <p class="muted">Login to manage your stall menu</p>
+      
+      <form id="loginForm" class="login-form">
+        <input type="text" id="loginUsername" placeholder="Username" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button type="submit" class="btn-login">Login</button>
+      </form>
+      
+      <p class="login-hint">Demo: username: <strong>admin</strong>, password: <strong>admin123</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- STORE MANAGEMENT PAGE -->
+<section class="page" id="storeManagement">
+  <div class="panel">
+    <div class="management-header">
+      <h2>🏪 Store Management</h2>
+      <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+    
+    <p class="muted">Welcome, <strong id="loggedInUser"></strong>! Manage your store menu below.</p>
+    
+    <!-- Select Store -->
+    <div class="store-select-section">
+      <h3>Select Your Store</h3>
+      <select id="manageStoreSelect" class="stall-select">
+        <option value="">Choose a store to manage...</option>
+        <option value="Uncle Tan's Chicken Rice">Uncle Tan's Chicken Rice</option>
+        <option value="Aunty Rose's Curry House">Aunty Rose's Curry House</option>
+        <option value="Bangkok Street Thai">Bangkok Street Thai</option>
+        <option value="Malay Corner Nasi Lemak">Malay Corner Nasi Lemak</option>
+        <option value="Kopi & Teh Station">Kopi & Teh Station</option>
+      </select>
+    </div>
+    
+    <!-- Current Menu Items -->
+    <div id="currentMenuSection" style="display:none;">
+      <h3>Current Menu Items</h3>
+      <div id="currentMenuItems" class="menu-items-list"></div>
+      
+      <!-- Add New Item Form -->
+      <div class="add-item-section">
+        <h3>Add New Menu Item</h3>
+        <form id="addItemForm" class="add-item-form">
+          <input type="text" id="newItemName" placeholder="Item Name (e.g., Chicken Rice)" required>
+          <input type="number" id="newItemPrice" placeholder="Price (e.g., 5.00)" step="0.01" min="0" required>
+          <input type="text" id="newItemImage" placeholder="Image filename (optional, e.g., chicken1.jpg)">
+          <button type="submit" class="btn-add-item">Add Item</button>
+        </form>
+      </div>
+    </div>
   </div>
 </section>
 
 </main>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
-
 
 
 

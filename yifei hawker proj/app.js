@@ -1,12 +1,13 @@
 // =========================
-// app.js (UPDATED)
-// ✅ New stall names matching dropdown
-// ✅ Dropdown functionality implemented
+// app.js (UPDATED with localStorage for Orders & Menu)
+// ✅ Store order history
+// ✅ Store menu (can be updated)
+// ✅ View past orders
 // =========================
 const pages = document.querySelectorAll(".page");
 
-// Menu data organized by stall name
-const MENU = {
+// Default menu data (used if nothing in localStorage)
+const DEFAULT_MENU = {
   "Uncle Tan's Chicken Rice": [
     { name:"Hainanese Chicken Rice", price: 5.00, img:"images/chicken1.jpg" },
     { name:"Roasted Chicken Rice", price: 5.50, img:"images/chicken2.jpg" },
@@ -39,28 +40,18 @@ const MENU = {
   ]
 };
 
+// localStorage keys
 const CART_KEY = "hawker_cart_v4";
+const MENU_KEY = "hawker_menu_v1";
+const ORDERS_KEY = "hawker_orders_v1";
+
+// Load data from localStorage
 let cart = loadCart();
+let MENU = loadMenu();
+let orderHistory = loadOrders();
 let selectedStall = "";
 
-function showPage(id){
-  pages.forEach(p => p.classList.remove("show"));
-  document.getElementById(id).classList.add("show");
-  
-  // Update nav links
-  document.querySelectorAll(".navlink").forEach(link => {
-    link.classList.remove("is-active");
-  });
-  
-  if (id === "home") {
-    document.getElementById("navHome").classList.add("is-active");
-  } else if (id === "menu") {
-    document.getElementById("navStall").classList.add("is-active");
-  } else if (id === "cart") {
-    renderCart();
-  }
-}
-
+// ===== LOAD FUNCTIONS =====
 function loadCart(){
   try{
     const raw = localStorage.getItem(CART_KEY);
@@ -70,8 +61,53 @@ function loadCart(){
   }
 }
 
+function loadMenu(){
+  try{
+    const raw = localStorage.getItem(MENU_KEY);
+    if (raw) {
+      return JSON.parse(raw);
+    } else {
+      // First time - save default menu to localStorage
+      saveMenu(DEFAULT_MENU);
+      return DEFAULT_MENU;
+    }
+  }catch{
+    return DEFAULT_MENU;
+  }
+}
+
+function loadOrders(){
+  try{
+    const raw = localStorage.getItem(ORDERS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  }catch{
+    return [];
+  }
+}
+
+// ===== SAVE FUNCTIONS =====
 function saveCart(){
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
+}
+
+function saveMenu(menuData){
+  localStorage.setItem(MENU_KEY, JSON.stringify(menuData));
+}
+
+function saveOrders(){
+  localStorage.setItem(ORDERS_KEY, JSON.stringify(orderHistory));
+}
+
+// ===== UTILITY FUNCTIONS =====
+function showPage(id){
+  pages.forEach(p => p.classList.remove("show"));
+  document.getElementById(id).classList.add("show");
+  
+  if (id === "cart") {
+    renderCart();
+  } else if (id === "orders") {
+    renderOrders();
+  }
 }
 
 function updateCartCount(){
@@ -90,25 +126,60 @@ function calcTotal(){
   return sum;
 }
 
-/* Navigation buttons */
-document.getElementById("navHome").addEventListener("click", function(){
-  showPage("home");
-});
+function generateOrderNumber(){
+  return Math.floor(1000 + Math.random() * 9000);
+}
 
-document.getElementById("navStall").addEventListener("click", function(){
+function getCurrentDateTime(){
+  const now = new Date();
+  const date = now.toLocaleDateString('en-SG');
+  const time = now.toLocaleTimeString('en-SG');
+  return { date, time };
+}
+
+// ===== NAVIGATION =====
+// Only Stall navigation is active
+document.getElementById("navStall").addEventListener("click", function(e){
+  e.preventDefault();
+  updateActiveNav(this);
   showPage("menu");
 });
 
-document.getElementById("navOrders").addEventListener("click", function(){
-  alert("Orders page - Coming soon!");
+// Disabled navigation items (do nothing)
+const disabledNavs = ["navHome", "navOrders", "navFeedback", "navHygiene", "navAnalytics"];
+disabledNavs.forEach(navId => {
+  const navElement = document.getElementById(navId);
+  if (navElement) {
+    navElement.addEventListener("click", function(e){
+      e.preventDefault();
+      // Do nothing - button is disabled
+    });
+  }
 });
 
-document.getElementById("homeShopBtn").addEventListener("click", function(){
-  showPage("menu");
-});
+// Update active nav link styling
+function updateActiveNav(activeLink) {
+  document.querySelectorAll(".nav-link").forEach(link => {
+    link.classList.remove("active-tag");
+  });
+  activeLink.classList.add("active-tag");
+}
 
-document.getElementById("topCartBtn").addEventListener("click", function(){
-  showPage("cart");
+// Profile icon click handler
+document.getElementById("profileIcon").addEventListener("click", function(e){
+  e.preventDefault();
+  
+  // Check if user is logged in
+  const loggedInUser = localStorage.getItem("loggedInUser");
+  
+  if (loggedInUser) {
+    // User is logged in, go to store management
+    showPage("storeManagement");
+    document.getElementById("loggedInUser").textContent = loggedInUser;
+  } else {
+    // User not logged in, show login page
+    showPage("login");
+  }
 });
 
 document.getElementById("floatCartBtn").addEventListener("click", function(){
@@ -133,12 +204,30 @@ document.querySelectorAll(".payBtn").forEach(btn => {
   });
 });
 
+// ===== PAYMENT & ORDER =====
 document.getElementById("payForm").addEventListener("submit", function(e){
   e.preventDefault();
 
-  const order = Math.floor(1000 + Math.random() * 9000);
-  document.getElementById("orderNo").textContent = "#" + order;
+  const orderNumber = generateOrderNumber();
+  const dateTime = getCurrentDateTime();
+  
+  // Create order object
+  const order = {
+    orderNumber: orderNumber,
+    date: dateTime.date,
+    time: dateTime.time,
+    items: [...cart], // Copy cart items
+    total: calcTotal()
+  };
+  
+  // Add to order history
+  orderHistory.push(order);
+  saveOrders();
+  
+  // Display order number
+  document.getElementById("orderNo").textContent = "#" + orderNumber;
 
+  // Clear cart
   cart = [];
   saveCart();
   updateCartCount();
@@ -147,7 +236,7 @@ document.getElementById("payForm").addEventListener("submit", function(e){
   showPage("thankyou");
 });
 
-/* Stall Dropdown */
+// ===== STALL DROPDOWN =====
 const stallSelect = document.getElementById("stallSelect");
 const stallTitle = document.getElementById("stallTitle");
 const foodGrid = document.getElementById("foodGrid");
@@ -164,6 +253,7 @@ stallSelect.addEventListener("change", function(){
   }
 });
 
+// ===== RENDER MENU =====
 function renderMenu(stallName){
   foodGrid.innerHTML = "";
   
@@ -195,6 +285,7 @@ function renderMenu(stallName){
   }
 }
 
+// ===== ADD TO CART =====
 function addToCart(item){
   const existing = cart.find(x => x.name === item.name);
   if (existing){
@@ -216,7 +307,7 @@ function addToCart(item){
   }, 800);
 }
 
-/* Cart */
+// ===== RENDER CART =====
 function renderCart(){
   const list = document.getElementById("cartList");
   list.innerHTML = "";
@@ -241,7 +332,206 @@ function renderCart(){
   document.getElementById("total").textContent = "$" + calcTotal().toFixed(2);
 }
 
-/* Initialize */
+// ===== RENDER ORDER HISTORY =====
+function renderOrders(){
+  const orderList = document.getElementById("orderList");
+  orderList.innerHTML = "";
+
+  if (orderHistory.length === 0){
+    orderList.innerHTML = `<div class="muted">No orders yet.</div>`;
+    return;
+  }
+
+  // Show most recent first
+  for (let i = orderHistory.length - 1; i >= 0; i--){
+    const order = orderHistory[i];
+    
+    const orderCard = document.createElement("div");
+    orderCard.className = "order-card";
+    
+    let itemsHTML = "";
+    for (let j = 0; j < order.items.length; j++){
+      itemsHTML += `
+        <div class="order-item">
+          <span>${order.items[j].name}</span>
+          <span>x${order.items[j].qty}</span>
+          <span>$${(order.items[j].price * order.items[j].qty).toFixed(2)}</span>
+        </div>
+      `;
+    }
+    
+    orderCard.innerHTML = `
+      <div class="order-header">
+        <h3>Order #${order.orderNumber}</h3>
+        <div class="order-date">${order.date} at ${order.time}</div>
+      </div>
+      <div class="order-items">
+        ${itemsHTML}
+      </div>
+      <div class="order-total">
+        <strong>Total: $${order.total.toFixed(2)}</strong>
+      </div>
+    `;
+    
+    orderList.appendChild(orderCard);
+  }
+}
+
+// ===== CLEAR DATA FUNCTIONS (for testing/development) =====
+function clearAllData(){
+  if (confirm("Are you sure you want to clear ALL data (cart, orders, menu)?")){
+    localStorage.removeItem(CART_KEY);
+    localStorage.removeItem(ORDERS_KEY);
+    localStorage.removeItem(MENU_KEY);
+    location.reload();
+  }
+}
+
+function clearOrders(){
+  if (confirm("Are you sure you want to clear order history?")){
+    orderHistory = [];
+    saveOrders();
+    renderOrders();
+    alert("Order history cleared!");
+  }
+}
+
+// Make functions available in console for testing
+window.clearAllData = clearAllData;
+window.clearOrders = clearOrders;
+
+// ===== LOGIN & STORE MANAGEMENT =====
+// Login form handler
+document.getElementById("loginForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  
+  const username = document.getElementById("loginUsername").value;
+  const password = document.getElementById("loginPassword").value;
+  
+  // Simple authentication (you can make this more secure)
+  if (username === "admin" && password === "admin123") {
+    localStorage.setItem("loggedInUser", username);
+    document.getElementById("loggedInUser").textContent = username;
+    showPage("storeManagement");
+    
+    // Clear form
+    document.getElementById("loginForm").reset();
+  } else {
+    alert("Invalid username or password!");
+  }
+});
+
+// Logout function
+function logout() {
+  if (confirm("Are you sure you want to logout?")) {
+    localStorage.removeItem("loggedInUser");
+    showPage("menu"); // Go to stall page instead of home
+    document.getElementById("navStall").click(); // Activate stall nav
+    alert("Logged out successfully!");
+  }
+}
+
+// Store selection handler
+let selectedStoreForManagement = "";
+
+document.getElementById("manageStoreSelect").addEventListener("change", function(){
+  selectedStoreForManagement = this.value;
+  
+  if (selectedStoreForManagement) {
+    document.getElementById("currentMenuSection").style.display = "block";
+    renderCurrentMenuItems();
+  } else {
+    document.getElementById("currentMenuSection").style.display = "none";
+  }
+});
+
+// Render current menu items for selected store
+function renderCurrentMenuItems() {
+  const container = document.getElementById("currentMenuItems");
+  container.innerHTML = "";
+  
+  if (!MENU[selectedStoreForManagement]) {
+    container.innerHTML = '<p class="muted">No items found.</p>';
+    return;
+  }
+  
+  const items = MENU[selectedStoreForManagement];
+  
+  for (let i = 0; i < items.length; i++) {
+    const itemCard = document.createElement("div");
+    itemCard.className = "menu-item-card";
+    itemCard.innerHTML = `
+      <img src="${items[i].img}" alt="${items[i].name}" class="menu-item-img">
+      <div class="menu-item-info">
+        <h4>${items[i].name}</h4>
+        <p class="item-price">$${items[i].price.toFixed(2)}</p>
+      </div>
+      <button class="btn-delete-item" onclick="deleteMenuItem(${i})">Delete</button>
+    `;
+    container.appendChild(itemCard);
+  }
+}
+
+// Add new menu item
+document.getElementById("addItemForm").addEventListener("submit", function(e){
+  e.preventDefault();
+  
+  if (!selectedStoreForManagement) {
+    alert("Please select a store first!");
+    return;
+  }
+  
+  const name = document.getElementById("newItemName").value;
+  const price = parseFloat(document.getElementById("newItemPrice").value);
+  const image = document.getElementById("newItemImage").value.trim();
+  
+  // Use placeholder image if no image provided
+  let imagePath;
+  if (image) {
+    imagePath = "images/" + image;
+  } else {
+    // Use a placeholder or default image
+    imagePath = "https://via.placeholder.com/200x200/f2c100/ffffff?text=No+Image";
+  }
+  
+  // Add to menu
+  const newItem = {
+    name: name,
+    price: price,
+    img: imagePath
+  };
+  
+  MENU[selectedStoreForManagement].push(newItem);
+  saveMenu(MENU);
+  
+  // Clear form
+  document.getElementById("addItemForm").reset();
+  
+  // Refresh display
+  renderCurrentMenuItems();
+  
+  alert(`"${name}" has been added to ${selectedStoreForManagement}!`);
+});
+
+// Delete menu item
+function deleteMenuItem(index) {
+  if (!selectedStoreForManagement) return;
+  
+  const item = MENU[selectedStoreForManagement][index];
+  
+  if (confirm(`Delete "${item.name}"?`)) {
+    MENU[selectedStoreForManagement].splice(index, 1);
+    saveMenu(MENU);
+    renderCurrentMenuItems();
+    alert("Item deleted successfully!");
+  }
+}
+
+// Make functions available globally
+window.logout = logout;
+window.deleteMenuItem = deleteMenuItem;
+
+// ===== INITIALIZE =====
 updateCartCount();
 
 
