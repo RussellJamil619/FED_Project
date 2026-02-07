@@ -1,8 +1,62 @@
-// script.js - Simple JavaScript for the orders page
+// ============ SAME CONFIG HERE ============
+const firebaseConfig = {
+  apiKey: "AIzaSyAQJ_5bvld7FvcJAgex7RPO0rPyXLxZOjc",
+  authDomain: "russellfedproject.firebaseapp.com",
+  projectId: "russellfedproject",
+  storageBucket: "russellfedproject.firebasestorage.app",
+  messagingSenderId: "645071996143",
+  appId: "1:645071996143:web:1942c9aa7902c5b200471a",
+  measurementId: "G-RCVB4JTSWG"
+};
+// ==========================================
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
+
+// Check if user is logged in
+auth.onAuthStateChanged((user) => {
+    const loginCheck = document.getElementById('loginCheck');
+    const mainContent = document.querySelector('main');
+    const userInfo = document.getElementById('userInfo');
+    const userName = document.getElementById('userName');
+    const loginLink = document.getElementById('loginLink');
+    
+    if (user) {
+        // User IS logged in
+        if (loginCheck) loginCheck.style.display = 'none';
+        if (mainContent) mainContent.style.display = 'block';
+        if (userInfo) {
+            userInfo.style.display = 'block';
+            if (userName) userName.textContent = `Hi, ${user.email.split('@')[0]}`;
+        }
+        if (loginLink) loginLink.style.display = 'none';
+    } else {
+        // User is NOT logged in
+        if (loginCheck) loginCheck.style.display = 'block';
+        if (mainContent) mainContent.style.display = 'none';
+        if (userInfo) userInfo.style.display = 'none';
+        if (loginLink) loginLink.style.display = 'flex';
+    }
+});
+
+// Logout function
+function logout() {
+    auth.signOut().then(() => {
+        alert('Logged out!');
+        window.location.href = 'index.html';
+    });
+}
 
 // Wait for page to load
 document.addEventListener('DOMContentLoaded', function() {
     console.log('Orders page loaded');
+    
+    // Add logout button event
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) {
+        logoutBtn.addEventListener('click', logout);
+    }
     
     // Add click handlers to Update buttons
     const updateButtons = document.querySelectorAll('.btn-edit');
@@ -23,14 +77,14 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Handle Update button click
+// Handle Update button click (keep your existing function)
 function handleUpdateClick(event) {
     // Find the order ID from the table row
     const orderId = this.closest('tr').querySelector('td strong').textContent;
     alert(`Update order ${orderId}: Select new status and save changes.`);
 }
 
-// Handle View button click
+// Handle View button click (keep your existing function)
 function handleViewClick(event) {
     // Find the order details from the table row
     const row = this.closest('tr');
@@ -43,7 +97,7 @@ function handleViewClick(event) {
     alert(`Order Details:\n\nOrder ID: ${orderId}\nCustomer: ${customer}\nItems: ${items}\nStatus: ${status}`);
 }
 
-// Handle Feedback link click
+// Handle Feedback link click (keep your existing function)
 function handleFeedbackClick(event) {
     event.preventDefault(); // Stop the link from navigating
     
