@@ -3,193 +3,322 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
   <title>Hygiene Feedback | SG Hawker Centre</title>
-  <link rel="stylesheet" href="css/hygiene.css"/>
+
+  <!--  Bootstrap + icons (same as main page) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!--  Hygiene theme CSS -->
+  <link rel="stylesheet" href="./hygiene.css">
 </head>
+
 <body>
-  <header class="topbar">
-    <div class="brand">🍜 SG Hawker Centre</div>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="#" >Stall</a>
-      <a href="#" >Orders</a>
-      <a href="#" >Feedback</a>
-      <a href="hygiene-inspection.html" data-nav="inspection">Hygiene info</a>
-      <a href="#" >Analytics</a>
-    </nav>
-  </header>
 
-  <main class="container">
-    <div class="card">
-      <h2>Hygiene Feedback</h2>
-      <div class="small">Submit a new inspection record for a stall.</div>
+<!--  Shared Navbar (consistent across group pages) -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">🍜 SG Hawker Centre</a>
 
-      <div class="hr"></div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="twoCol">
-        
-        <div>
-          <label for="stallSelect">Choose a Stall</label>
-          <select id="stallSelect"></select>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Feedback</a></li>
 
-          <div style="height:10px"></div>
+        <!-- Active tab for hygiene section -->
+        <li class="nav-item">
+          <a class="nav-link active-tag" href="hygiene-inspection.html">Hygiene info</a>
+        </li>
 
-          <label for="dateInput">Date of inspection</label>
-          <input id="dateInput" type="date"/>
+        <li class="nav-item"><a class="nav-link" href="#">Analytics</a></li>
 
-          <div style="height:10px"></div>
+        <li class="nav-item ms-lg-3">
+          <a class="nav-link profile-icon" href="#" title="Profile">
+            <i class="fa-solid fa-user"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-          <label>Grade</label>
-          <div class="gradeRow" id="gradeRow">
-            <button class="gradeBtn" type="button" data-grade="A">A</button>
-            <button class="gradeBtn" type="button" data-grade="B">B</button>
-            <button class="gradeBtn" type="button" data-grade="C">C</button>
-            <button class="gradeBtn" type="button" data-grade="D">D</button>
-          </div>
+<main class="container">
+  <div class="card">
 
-          <div style="height:10px"></div>
+    <!--  Feature 1: Page heading + short description -->
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:14px">
+      <div>
+        <h2 style="margin:0">Hygiene Feedback</h2>
+        <div class="small">Submit a new inspection record for a stall.</div>
+      </div>
 
-          <label for="scoreInput">Score (0–100)</label>
-          <input id="scoreInput" type="number" min="0" max="100" placeholder="e.g. 95"/>
+      <!--  Feature 2: Badge chip (small UI label) -->
+      <div class="badgeChip">🧾 Hygiene Officer Form</div>
+    </div>
 
-          <div class="hr"></div>
+    <div class="twoCol">
 
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
-            <button class="btn primary" id="submitBtn">Submit</button>
-            <button class="btn" id="viewHistoryBtn">View History</button>
-            <a class="btn" href="hygiene-inspection.html" style="text-decoration:none">Back</a>
-          </div>
+      <!--  LEFT PANEL: Main form fields -->
+      <div class="panel">
+        <div class="panelTitle">Inspection Details</div>
 
-          <div style="height:12px"></div>
-          <div id="msg"></div>
+        <!--  Feature 3: Stall dropdown -->
+        <label for="stallSelect">Choose a Stall</label>
+        <select id="stallSelect"></select>
+        <div class="hint">Dropdown is populated from our stall list array.</div>
+
+        <div style="height:12px"></div>
+
+        <!--  Feature 4: Date input -->
+        <label for="dateInput">Date of inspection</label>
+        <input id="dateInput" type="date"/>
+        <div class="hint">If blank, today will be used automatically.</div>
+
+        <div style="height:12px"></div>
+
+        <!--  Feature 5: Grade buttons -->
+        <label>Grade</label>
+        <div class="gradeRow" id="gradeRow">
+          <button class="gradeBtn" type="button" data-grade="A">A</button>
+          <button class="gradeBtn" type="button" data-grade="B">B</button>
+          <button class="gradeBtn" type="button" data-grade="C">C</button>
+          <button class="gradeBtn" type="button" data-grade="D">D</button>
+        </div>
+        <div class="hint">Click to select grade (A/B/C/D).</div>
+
+        <div style="height:12px"></div>
+
+        <!--  Feature 6: Score input -->
+        <label for="scoreInput">Score (0–100)</label>
+        <input id="scoreInput" type="number" min="0" max="100" placeholder="e.g. 95"/>
+        <div class="hint">Typing score auto-selects a suggested grade.</div>
+
+        <!--  Feature 7: Action buttons -->
+        <div class="actionsRow">
+          <button class="btn primary" id="submitBtn">Submit</button>
+          <a class="btn" href="hygiene-inspection.html" style="text-decoration:none">Back</a>
         </div>
 
-        
-        <div>
-          <label for="remarks">Remarks</label>
-          <textarea id="remarks" placeholder="Write short notes..."></textarea>
+        <!--  Feature 8: Message area (success / error alerts) -->
+        <div style="height:12px"></div>
+        <div id="msg"></div>
+      </div>
 
-          <div class="hr"></div>
+      <!--  RIGHT PANEL: Remarks + legend -->
+      <div class="panel">
+        <div class="panelTitle">Remarks & Guide</div>
 
-          <div class="alert">
-            <div style="font-weight:800;margin-bottom:6px">Legend</div>
-            <div class="small">A: 90–100 (Excellence)</div>
-            <div class="small">B: 80–89 (Good)</div>
-            <div class="small">C: 70–79 (Fair)</div>
-            <div class="small">D: Below 70 (Poor)</div>
-          </div>
+        <!--  Feature 9: Remarks textarea -->
+        <label for="remarks">Remarks</label>
+        <textarea id="remarks" placeholder="Write short notes..."></textarea>
+        <div class="hint">Optional field for officer notes.</div>
 
-          <div style="height:10px"></div>
+        <div class="hr"></div>
 
-          <div class="alert">
-            <div style="font-weight:800;margin-bottom:6px">Auto helper</div>
-            <div class="small">
-              Enter a score to auto-suggest grade (A/B/C/D).
-            </div>
-          </div>
+        <!--  Feature 10: Grade legend (helps user understand grading) -->
+        <div class="alert">
+          <div style="font-weight:900;margin-bottom:6px">Legend</div>
+          <div class="small">A: 90–100 (Excellence)</div>
+          <div class="small">B: 80–89 (Good)</div>
+          <div class="small">C: 70–79 (Fair)</div>
+          <div class="small">D: Below 70 (Poor)</div>
+        </div>
+
+        <div style="height:10px"></div>
+
+        <!--  Feature 11: Tip box -->
+        <div class="alert">
+          <div style="font-weight:900;margin-bottom:6px">Tip</div>
+          <div class="small">Enter a score to auto-suggest grade (A/B/C/D).</div>
         </div>
       </div>
     </div>
-  </main>
+  </div>
+</main>
 
+<script>
+  /* =========================================================
+     HYGIENE FEEDBACK (MANUAL LOCALSTORAGE VERSION)
+     ========================================================= */
 
-  <script type="module">
-    import { setActiveNav, fillStallSelect, rememberStall, scoreToGrade } from "./js/hygiene-ui.js";
-    import { addInspection } from "./js/hygiene-store.js";
+  //  Feature A: Shared stall list (must match inspection + history pages)
+  const stalls = [
+    { id: "stall-01", name: "Chicken Rice" },
+    { id: "stall-02", name: "Nasi Lemak" },
+    { id: "stall-03", name: "Drinks" },
+    { id: "stall-04", name: "Curry" },
+    { id: "stall-05", name: "Thai Food" }
+  ];
 
-    setActiveNav("inspection");
+  //  Feature B: LocalStorage key (shared storage across pages)
+  const INSPECTIONS_KEY = "hygiene_inspections";
 
-    const stallSelect = document.getElementById("stallSelect");
-    const dateInput = document.getElementById("dateInput");
-    const scoreInput = document.getElementById("scoreInput");
-    const remarks = document.getElementById("remarks");
-    const msg = document.getElementById("msg");
-    const gradeRow = document.getElementById("gradeRow");
-    let selectedGrade = "";
+  //  DOM elements
+  const stallSelect = document.getElementById("stallSelect");
+  const dateInput = document.getElementById("dateInput");
+  const scoreInput = document.getElementById("scoreInput");
+  const remarks = document.getElementById("remarks");
+  const msg = document.getElementById("msg");
+  const gradeRow = document.getElementById("gradeRow");
 
-    const params = new URLSearchParams(location.search);
-    const qsStall = params.get("stall");
+  //  Track user-selected grade
+  let selectedGrade = "";
 
-    fillStallSelect(stallSelect, { useRemembered:true });
-    if(qsStall) stallSelect.value = qsStall;
+  /* ---------- Feature C: Fill stall dropdown ---------- */
+  function fillStallSelect(){
+    stallSelect.innerHTML = "";
 
-    function setMsg(type, text){
-      msg.innerHTML = "";
-      const div = document.createElement("div");
-      div.className = "alert " + (type === "error" ? "error" : "success");
-      div.textContent = text;
-      msg.appendChild(div);
+    const ph = document.createElement("option");
+    ph.value = "";
+    ph.textContent = "Choose a Stall...";
+    stallSelect.appendChild(ph);
+
+    stalls.forEach(s => {
+      const op = document.createElement("option");
+      op.value = s.id;
+      op.textContent = s.name;
+      stallSelect.appendChild(op);
+    });
+  }
+
+  /* ---------- Feature D: Score → auto grade suggestion ---------- */
+  function scoreToGrade(score){
+    const s = Number(score);
+    if(Number.isNaN(s)) return "";
+    if(s >= 90) return "A";
+    if(s >= 80) return "B";
+    if(s >= 70) return "C";
+    return "D";
+  }
+
+  /* ---------- Feature E: Show success/error message ---------- */
+  function setMsg(type, text){
+    msg.innerHTML = "";
+    const div = document.createElement("div");
+    div.className = "alert " + (type === "error" ? "error" : "success");
+    div.textContent = text;
+    msg.appendChild(div);
+  }
+
+  /* ---------- Feature F: Select grade button UI ---------- */
+  function selectGrade(g){
+    selectedGrade = g;
+    gradeRow.querySelectorAll(".gradeBtn").forEach(b => {
+      b.classList.toggle("selected", b.dataset.grade === g);
+    });
+  }
+
+  gradeRow.addEventListener("click", (e) => {
+    const btn = e.target.closest(".gradeBtn");
+    if(!btn) return;
+    selectGrade(btn.dataset.grade);
+  });
+
+  // Auto select grade when score is typed
+  scoreInput.addEventListener("input", () => {
+    if(scoreInput.value === "") return;
+    selectGrade(scoreToGrade(scoreInput.value));
+  });
+
+  /* ---------- Feature G: Load + Save localStorage inspections ---------- */
+  function loadInspections(){
+    const raw = localStorage.getItem(INSPECTIONS_KEY);
+    try{
+      return raw ? JSON.parse(raw) : [];
+    }catch{
+      return [];
+    }
+  }
+
+  function saveInspections(list){
+    localStorage.setItem(INSPECTIONS_KEY, JSON.stringify(list));
+  }
+
+  /* ---------- Feature H: Submit inspection ---------- */
+  document.getElementById("submitBtn").addEventListener("click", () => {
+    const stallId = stallSelect.value;
+    const scoreVal = scoreInput.value;
+
+    // Validation 1: must choose stall
+    if(!stallId){
+      setMsg("error","Please choose a stall.");
+      return;
     }
 
-    function selectGrade(g){
-      selectedGrade = g;
-      const btns = gradeRow.querySelectorAll(".gradeBtn");
-      btns.forEach(b => b.classList.toggle("selected", b.dataset.grade === g));
+    // Validation 2: score must be a number
+    if(scoreVal === "" || Number.isNaN(Number(scoreVal))){
+      setMsg("error","Please enter a valid score (0–100).");
+      return;
     }
 
-    gradeRow.addEventListener("click", (e) => {
-      const btn = e.target.closest(".gradeBtn");
-      if(!btn) return;
-      selectGrade(btn.dataset.grade);
-    });
+    // Validation 3: score range check
+    const score = Number(scoreVal);
+    if(score < 0 || score > 100){
+      setMsg("error","Score must be between 0 and 100.");
+      return;
+    }
 
-    stallSelect.addEventListener("change", () => rememberStall(stallSelect.value));
+    // Grade is either chosen by user or auto from score
+    const grade = selectedGrade || scoreToGrade(score);
+    if(!grade){
+      setMsg("error","Please select a grade.");
+      return;
+    }
 
-    scoreInput.addEventListener("input", () => {
-      const v = scoreInput.value;
-      if(v === "") return;
-      const g = scoreToGrade(v);
-      selectGrade(g);
-    });
+    // Date defaults to today if blank
+    const date = dateInput.value || new Date().toISOString().slice(0,10);
 
-    document.getElementById("submitBtn").addEventListener("click", () => {
-      const stallId = stallSelect.value;
-      const date = dateInput.value;
-      const scoreVal = scoreInput.value;
+    // Build new record object (what we store in localStorage)
+    const record = {
+      stallId,
+      date,
+      grade,
+      score,
+      remarks: remarks.value.trim()
+    };
 
-      if(!stallId){
-        setMsg("error","Please choose a stall.");
-        return;
-      }
+    // Save record into localStorage array
+    const list = loadInspections();
+    list.push(record);
+    saveInspections(list);
 
-      if(scoreVal === "" || Number.isNaN(Number(scoreVal))){
-        setMsg("error","Please enter a valid score (0–100).");
-        return;
-      }
+    // Remember stall selection for other pages
+    localStorage.setItem("selected_stall_id", stallId);
 
-      const score = Number(scoreVal);
-      if(score < 0 || score > 100){
-        setMsg("error","Score must be between 0 and 100.");
-        return;
-      }
+    setMsg("success","Saved! Inspection record added.");
 
-      const grade = selectedGrade || scoreToGrade(score);
+    // Redirect to history page so user can see new record immediately
+    setTimeout(() => {
+      location.href = "hygiene-history.html?stall=" + encodeURIComponent(stallId);
+    }, 650);
+  });
 
-      if(!grade){
-        setMsg("error","Please select a grade.");
-        return;
-      }
+  /* ---------- Init: populate dropdown + apply query string ---------- */
+  fillStallSelect();
 
-      addInspection({
-        stallId,
-        date,
-        grade,
-        score,
-        remarks: remarks.value.trim()
-      });
+  // If we came from inspection page, it passes stall via ?stall=
+  const params = new URLSearchParams(location.search);
+  const qsStall = params.get("stall");
+  const remembered = localStorage.getItem("selected_stall_id") || "";
 
-      setMsg("success","Saved! Inspection record added.");
-      rememberStall(stallId);
+  if(qsStall){
+    stallSelect.value = qsStall;
+  }else if(remembered){
+    stallSelect.value = remembered;
+  }
+</script>
 
-      setTimeout(() => {
-        location.href = "hygiene-history.html?stall=" + encodeURIComponent(stallId);
-      }, 650);
-    });
-
-    document.getElementById("viewHistoryBtn").addEventListener("click", () => {
-      const id = stallSelect.value || "";
-      location.href = "hygiene-history.html" + (id ? `?stall=${encodeURIComponent(id)}` : "");
-    });
-  </script>
+<!--  Bootstrap JS (needed for mobile navbar toggle) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
