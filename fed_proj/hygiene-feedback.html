@@ -4,40 +4,47 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Hygiene Feedback | SG Hawker Centre</title>
-  <link rel="stylesheet" href="css/hygiene.css"/>
+  <link rel="stylesheet" href="./hygiene.css"/>
 </head>
 <body>
   <header class="topbar">
     <div class="brand">🍜 SG Hawker Centre</div>
     <nav class="nav">
       <a href="index.html">Home</a>
-      <a href="#" >Stall</a>
-      <a href="#" >Orders</a>
-      <a href="#" >Feedback</a>
+      <a href="#">Stall</a>
+      <a href="#">Orders</a>
+      <a href="#">Feedback</a>
       <a href="hygiene-inspection.html" data-nav="inspection">Hygiene info</a>
-      <a href="#" >Analytics</a>
+      <a href="#">Analytics</a>
     </nav>
   </header>
 
   <main class="container">
     <div class="card">
-      <h2>Hygiene Feedback</h2>
-      <div class="small">Submit a new inspection record for a stall.</div>
 
-      <div class="hr"></div>
+      <div class="feedbackHeader">
+        <div>
+          <h2 style="margin:0">Hygiene Feedback</h2>
+          <div class="small">Submit a new inspection record for a stall.</div>
+        </div>
+        <div class="badgeChip">🧾 Hygiene Officer Form</div>
+      </div>
 
       <div class="twoCol">
         
-        <div>
+        <div class="panel">
+          <div class="panelTitle">Inspection Details</div>
+
           <label for="stallSelect">Choose a Stall</label>
           <select id="stallSelect"></select>
 
-          <div style="height:10px"></div>
+          <div style="height:12px"></div>
 
           <label for="dateInput">Date of inspection</label>
           <input id="dateInput" type="date"/>
+          <div class="hint">If blank, today will be used.</div>
 
-          <div style="height:10px"></div>
+          <div style="height:12px"></div>
 
           <label>Grade</label>
           <div class="gradeRow" id="gradeRow">
@@ -47,14 +54,13 @@
             <button class="gradeBtn" type="button" data-grade="D">D</button>
           </div>
 
-          <div style="height:10px"></div>
+          <div style="height:12px"></div>
 
           <label for="scoreInput">Score (0–100)</label>
           <input id="scoreInput" type="number" min="0" max="100" placeholder="e.g. 95"/>
+          <div class="hint">Typing a score auto-selects a grade.</div>
 
-          <div class="hr"></div>
-
-          <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <div class="actionsRow">
             <button class="btn primary" id="submitBtn">Submit</button>
             <button class="btn" id="viewHistoryBtn">View History</button>
             <a class="btn" href="hygiene-inspection.html" style="text-decoration:none">Back</a>
@@ -65,14 +71,17 @@
         </div>
 
         
-        <div>
+        <div class="panel">
+          <div class="panelTitle">Remarks & Guide</div>
+
           <label for="remarks">Remarks</label>
           <textarea id="remarks" placeholder="Write short notes..."></textarea>
+          <div class="hint">Optional — short and clear is best.</div>
 
           <div class="hr"></div>
 
           <div class="alert">
-            <div style="font-weight:800;margin-bottom:6px">Legend</div>
+            <div style="font-weight:900;margin-bottom:6px">Legend</div>
             <div class="small">A: 90–100 (Excellence)</div>
             <div class="small">B: 80–89 (Good)</div>
             <div class="small">C: 70–79 (Fair)</div>
@@ -82,16 +91,13 @@
           <div style="height:10px"></div>
 
           <div class="alert">
-            <div style="font-weight:800;margin-bottom:6px">Auto helper</div>
-            <div class="small">
-              Enter a score to auto-suggest grade (A/B/C/D).
-            </div>
+            <div style="font-weight:900;margin-bottom:6px">Tip</div>
+            <div class="small">Enter a score to auto-suggest grade (A/B/C/D).</div>
           </div>
         </div>
       </div>
     </div>
   </main>
-
 
   <script type="module">
     import { setActiveNav, fillStallSelect, rememberStall, scoreToGrade } from "./js/hygiene-ui.js";

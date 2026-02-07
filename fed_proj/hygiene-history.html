@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Inspection History | SG Hawker Centre</title>
+  <link rel="stylesheet" href="./hygiene.css"/>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🍜 SG Hawker Centre</div>
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="#">Stall</a>
+      <a href="#">Orders</a>
+      <a href="#">Feedback</a>
+      <a href="hygiene-inspection.html" data-nav="inspection">Hygiene info</a>
+      <a href="#">Analytics</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <h2>Inspection History</h2>
+
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+          <select id="stallSelect" style="max-width:260px"></select>
+          <a class="btn" href="hygiene-inspection.html" style="text-decoration:none">Back</a>
+        </div>
+      </div>
+
+      <div class="hr"></div>
+
+      <div id="emptyState" class="alert" style="display:none">
+        No inspection records found for this stall yet.
+      </div>
+
+      <table class="table" id="historyTable">
+        <thead>
+          <tr>
+            <th style="width:110px">Date</th>
+            <th style="width:80px">Grade</th>
+            <th style="width:90px">Score</th>
+            <th>Remarks</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+
+      <div class="legend">
+        <div class="item"><div class="mini">A</div><div class="small">90–100: Excellence</div></div>
+        <div class="item"><div class="mini">B</div><div class="small">80–89: Good</div></div>
+        <div class="item"><div class="mini">C</div><div class="small">70–79: Fair</div></div>
+        <div class="item"><div class="mini">D</div><div class="small">Below 70: Poor</div></div>
+      </div>
+    </div>
+  </main>
+
+  <script type="module">
+    import { setActiveNav, fillStallSelect, rememberStall, prettyDate } from "./js/hygiene-ui.js";
+    import { getInspectionHistoryForStall } from "./js/hygiene-store.js";
+
+    setActiveNav("inspection");
+
+    const stallSelect = document.getElementById("stallSelect");
+    const tbody = document.getElementById("tbody");
+    const emptyState = document.getElementById("emptyState");
+    const table = document.getElementById("historyTable");
+
+    const params = new URLSearchParams(location.search);
+    const qsStall = params.get("stall");
+
+    fillStallSelect(stallSelect, { useRemembered:true });
+
+    
+    setTimeout(() => {
+      if(qsStall) stallSelect.value = qsStall;
+      render();
+    }, 0);
+
+    function render(){
+      const stallId = stallSelect.value;
+      rememberStall(stallId);
+
+      tbody.innerHTML = "";
+
+      if(!stallId){
+        emptyState.style.display = "block";
+        emptyState.textContent = "Please choose a stall to view inspection history.";
+        table.style.display = "none";
+        return;
+      }
+
+      const list = getInspectionHistoryForStall(stallId);
+
+      if(list.length === 0){
+        emptyState.style.display = "block";
+        emptyState.textContent = "No inspection records found for this stall yet.";
+        table.style.display = "none";
+        return;
+      }
+
+      emptyState.style.display = "none";
+      table.style.display = "table";
+
+      list.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${prettyDate(item.date)}</td>
+          <td><span class="pill">${item.grade}</span></td>
+          <td>${item.score}/100</td>
+          <td class="muted">${item.remarks || "-"}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    stallSelect.addEventListener("change", render);
+  </script>
+</body>
+</html>
