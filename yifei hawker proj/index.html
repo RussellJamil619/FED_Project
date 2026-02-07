@@ -1,140 +1,153 @@
-<!-- =========================
-     index.html (UPDATED)
-     ✅ New stall names in dropdown
-========================= -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SG Hawker Centre</title>
+  
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Group's shared navbar styles -->
+  <link rel="stylesheet" href="../assets/style.css">
+  <!-- Yifei's page styles -->
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">🍜 SG Hawker Centre</div>
+<!-- NAVBAR (Consistent with group style) -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
 
-  <nav class="nav">
-    <button class="navlink is-active" id="navHome">Home</button>
-    <button class="navlink" id="navStall">Stall</button>
-    <button class="navlink" id="navOrders">Orders</button>
-    <button class="navlink">Feedback</button>
-    <button class="navlink">Hygiene info</button>
-    <button class="navlink">Analytics</button>
-  </nav>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-  <button class="cartbtn" id="topCartBtn">
-    🛒 <span id="cartCount">0</span>
-  </button>
-</header>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link nav-pill" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill active" href="index.html">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" href="../orders.html">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="../sg-hawker-project-leslie/feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="../hygiene.html">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link" href="../sg-hawker-project-leslie/analytics.html">Analytics</a></li>
+
+        <li class="nav-item ms-lg-2">
+          <button class="nav-link icon-btn" id="topCartBtn">
+            <i class="fa-solid fa-cart-shopping"></i> 
+            <span id="cartCount" class="badge bg-danger">0</span>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
 <main>
 
-<!-- HOME -->
-<section class="page show" id="home">
-  <div class="hero">
-    <div class="hero-left">
-      <img src="images/hero-food.jpg" class="hero-img" alt="Hawker food">
-    </div>
+<!-- STALL PAGE (Shows by default) -->
+<section class="page show" id="menu">
+  <div class="container my-4">
+    <div class="stall-top mb-4">
+      <label class="stall-label fw-bold mb-2" for="stallSelect">Choose a stall...</label>
 
-    <div class="hero-right">
-      <h1>Happy With Delicious Food And Get New Experiences With Hawker Food</h1>
-      <p>Delicious, Cheap Local Food.</p>
-
-      <button class="big-cart" id="homeShopBtn">🛒</button>
-    </div>
-  </div>
-</section>
-
-<!-- STALL (DROPDOWN PAGE) -->
-<section class="page" id="menu">
-  <div class="panel">
-    <div class="stall-top">
-      <label class="stall-label" for="stallSelect">Choose a stall...</label>
-
-      <select id="stallSelect" class="stall-select">
+      <select id="stallSelect" class="form-select">
         <option value="" selected>Choose a stall...</option>
-        <option value="Uncle Tan's Chicken Rice">Uncle Tan's Chicken Rice</option>
-        <option value="Aunty Rose's Curry House">Aunty Rose's Curry House</option>
-        <option value="Bangkok Street Thai">Bangkok Street Thai</option>
-        <option value="Malay Corner Nasi Lemak">Malay Corner Nasi Lemak</option>
-        <option value="Kopi & Teh Station">Kopi & Teh Station</option>
+        <option value="Ah Meng's Chicken Rice">Ah Meng's Chicken Rice</option>
+        <option value="Laksa Paradise">Laksa Paradise</option>
+        <option value="Roti Prata Corner">Roti Prata Corner</option>
+        <option value="Satay King">Satay King</option>
+        <option value="Char Kway Teow House">Char Kway Teow House</option>
+        <option value="Nasi Lemak Delight">Nasi Lemak Delight</option>
       </select>
     </div>
 
-    <!-- This area shows the selected stall name -->
-    <h2 class="stall-title" id="stallTitle">Please select a stall</h2>
+    <h2 class="stall-title mb-4" id="stallTitle">Please select a stall</h2>
 
-    <!-- Food grid will be populated by JavaScript -->
-    <div class="food-grid" id="foodGrid"></div>
+    <div class="stall-grid" id="foodGrid"></div>
 
-    <button class="floating-cart" id="floatCartBtn">🛒</button>
+    <button class="floating-cart" id="floatCartBtn">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </button>
   </div>
 </section>
 
 <!-- CART -->
 <section class="page" id="cart">
-  <div class="panel">
-    <h2>Shopping Cart</h2>
+  <div class="container my-4">
+    <div class="panel">
+      <h2>Shopping Cart</h2>
 
-    <div class="cart-header">
-      <span>Food</span>
-      <span>Qty</span>
-      <span>Price</span>
+      <div class="carthead">
+        <span>Food</span>
+        <span>Qty</span>
+        <span>Price</span>
+      </div>
+
+      <div class="cartlist" id="cartList"></div>
+
+      <div class="cartfoot">
+        <span>Total:</span>
+        <strong id="total">$0.00</strong>
+      </div>
+
+      <button class="btn checkout" id="checkoutBtn">Checkout</button>
     </div>
-
-    <div id="cartList"></div>
-
-    <p>Total: <strong id="total">$0.00</strong></p>
-
-    <button id="checkoutBtn">Checkout</button>
   </div>
 </section>
 
 <!-- PAYMENT METHOD -->
 <section class="page" id="paymethod">
-  <div class="panel">
-    <h2>Payment method</h2>
+  <div class="container my-4">
+    <div class="panel">
+      <h2>Payment method</h2>
 
-    <button class="payBtn">PayNow</button>
-    <button class="payBtn">Apple Pay</button>
-    <button class="payBtn">GPay</button>
-    <button class="payBtn" id="cardBtn">Card</button>
+      <div class="payrow">
+        <button class="paychip">PayNow</button>
+        <button class="paychip">Apple Pay</button>
+        <button class="paychip">GPay</button>
+        <button class="paychip" id="cardBtn">Card</button>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- PAYMENT -->
 <section class="page" id="payment">
-  <div class="panel">
-    <h2>Payment</h2>
+  <div class="container my-4">
+    <div class="panel">
+      <h2>Payment</h2>
 
-    <form id="payForm">
-      <input placeholder="Card Number">
-      <input placeholder="MM/YY">
-      <input placeholder="CVV">
-      <input placeholder="Card Holder Name">
-      <button>Pay Now</button>
-    </form>
+      <form id="payForm">
+        <input placeholder="Card Number" required>
+        <input placeholder="MM/YY" required>
+        <input placeholder="CVV" required>
+        <input placeholder="Card Holder Name" required>
+        <button class="btn pay">Pay Now</button>
+      </form>
+    </div>
   </div>
 </section>
 
 <!-- THANK YOU -->
 <section class="page" id="thankyou">
-  <div class="panel center">
-    <h2>Thank you for ordering from us!</h2>
-    <p>Your order number is</p>
-    <div id="orderNo">#0000</div>
+  <div class="container my-4">
+    <div class="panel center">
+      <h2>Thank you for ordering from us!</h2>
+      <p class="muted">Your order number is</p>
+      <div id="orderNo">#0000</div>
+      <a href="index.html" class="btn btn-orange mt-4">Order Again</a>
+    </div>
   </div>
 </section>
 
 </main>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="./app.js"></script>
 </body>
 </html>
-
-
-
-
-
