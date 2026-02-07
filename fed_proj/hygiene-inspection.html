@@ -110,6 +110,9 @@
 </main>
 
 <script>
+  // FORCE login every time (demo / presentation mode)
+localStorage.removeItem("hygiene_logged_in");
+
   /* =========================================================
      HYGIENE INSPECTION (MANUAL LOCALSTORAGE VERSION)
      ========================================================= */
@@ -243,13 +246,20 @@
     const id = stallSelect.value || "";
     if(!id) return;
 
-    // optional: if you have login, you can redirect to login first
-    // localStorage.setItem("after_login_redirect", "hygiene-feedback.html?stall=" + encodeURIComponent(id));
-    // location.href = "hygiene-login.html";
+    const loggedIn = localStorage.getItem("hygiene_logged_in") === "true";
 
-    // if no login needed, go directly:
+    if(!loggedIn){
+      // go login first, then return to feedback with stall selected
+      location.href =
+        "hygiene-login.html?redirect=hygiene-feedback.html&stall=" +
+        encodeURIComponent(id);
+      return;
+    }
+
+    // already logged in -> go straight to feedback
     location.href = "hygiene-feedback.html?stall=" + encodeURIComponent(id);
   });
+
 
   //  Feature G: go to history page (passes stall id)
   document.getElementById("goHistory").addEventListener("click", () => {
