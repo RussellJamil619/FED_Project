@@ -25,16 +25,24 @@ let foodByCategory = {
     { name: "Nasi Lemak Special", price: 6.50, img: "images/nasilemak4.jpg", store: "Malay Corner Nasi Lemak" }
   ],
   traditional: [
-    { name: "Kueh Lapis", price: 3.00, img: "images/chicken1.jpg", store: "Kopi & Teh Station" },
-    { name: "Ondeh Ondeh", price: 2.50, img: "images/chicken2.jpg", store: "Kopi & Teh Station" },
-    { name: "Ang Ku Kueh", price: 2.00, img: "images/chicken3.jpg", store: "Kopi & Teh Station" },
-    { name: "Pulut Hitam", price: 3.50, img: "images/chicken4.jpg", store: "Kopi & Teh Station" }
+    { name: "Kueh Lapis", price: 3.00, img: "images/traditional1.jpg", store: "Kopi & Teh Station" },
+    { name: "Ondeh Ondeh", price: 2.50, img: "images/traditional2.jpg", store: "Kopi & Teh Station" },
+    { name: "Ang Ku Kueh", price: 2.00, img: "images/traditional3.jpg", store: "Kopi & Teh Station" },
+    { name: "Pulut Hitam", price: 3.50, img: "images/traditional4.jpg", store: "Kopi & Teh Station" },
+    { name: "Chendol", price: 2.50, img: "images/traditional1.jpg", store: "Kopi & Teh Station" },
+    { name: "Ice Kacang", price: 3.00, img: "images/traditional2.jpg", store: "Kopi & Teh Station" },
+    { name: "Kueh Dadar", price: 2.00, img: "images/traditional3.jpg", store: "Kopi & Teh Station" },
+    { name: "Tau Suan", price: 2.50, img: "images/traditional4.jpg", store: "Kopi & Teh Station" }
   ],
   drinks: [
     { name: "Teh Tarik", price: 1.50, img: "images/drinks1.jpg", store: "Kopi & Teh Station" },
     { name: "Kopi O", price: 1.20, img: "images/drinks2.jpg", store: "Kopi & Teh Station" },
     { name: "Milo Dinosaur", price: 2.50, img: "images/drinks3.jpg", store: "Kopi & Teh Station" },
-    { name: "Bandung", price: 2.00, img: "images/drinks4.jpg", store: "Kopi & Teh Station" }
+    { name: "Bandung", price: 2.00, img: "images/drinks4.jpg", store: "Kopi & Teh Station" },
+    { name: "Iced Lemon Tea", price: 1.80, img: "images/drinks1.jpg", store: "Kopi & Teh Station" },
+    { name: "Barley Water", price: 1.50, img: "images/drinks2.jpg", store: "Kopi & Teh Station" },
+    { name: "Lime Juice", price: 2.00, img: "images/drinks3.jpg", store: "Kopi & Teh Station" },
+    { name: "Soya Bean Milk", price: 1.80, img: "images/drinks4.jpg", store: "Kopi & Teh Station" }
   ]
 };
 
@@ -405,28 +413,40 @@ function createFoodCard(food) {
     </div>
     <div class="food-name">${food.name}</div>
     <div class="food-price">$${food.price.toFixed(2)}</div>
-    <button class="add-to-cart-btn" onclick='addToCart(${JSON.stringify(food)})'>
+    <button class="add-to-cart-btn">
       Add to Cart
     </button>
   `;
+  
+  // Add event listener to the button
+  const addBtn = card.querySelector('.add-to-cart-btn');
+  addBtn.addEventListener('click', function() {
+    addToCart(food);
+  });
   
   return card;
 }
 
 // ===== ADD TO CART =====
 function addToCart(food) {
+  console.log('Adding to cart:', food);
+  
   const existingItem = cart.find(item => item.name === food.name);
   
   if (existingItem) {
     existingItem.qty += 1;
+    console.log('Increased quantity:', existingItem);
   } else {
-    cart.push({
+    const cartItem = {
       name: food.name,
       price: food.price,
       qty: 1
-    });
+    };
+    cart.push(cartItem);
+    console.log('Added new item:', cartItem);
   }
   
+  console.log('Current cart:', cart);
   alert(`${food.name} added to cart!`);
 }
 
