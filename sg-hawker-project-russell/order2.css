@@ -1,6 +1,15 @@
 /* ===== VENDOR ORDERS PAGE STYLES ===== */
 /* This file should be saved as order2.css */
 
+/* makes the "order" green background */
+nav a[href="order2.html"] {
+  background: #dff5df;
+  color: #111;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 600;
+}
+
 /* Vendor Controls */
 .vendor-controls {
   display: flex;
