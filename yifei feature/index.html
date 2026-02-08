@@ -1,0 +1,281 @@
+(<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stalls - SG Hawker Centre</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+        <li class="nav-item">
+          <a class="nav-link" href="../index.html">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link active-link" href="index.html">Stall</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="#" id="navOrders">Orders</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../sg-hawker-project-leslie/feedback.html">Feedback</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../fed_proj/hygiene-inspection.html">Hygiene info</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="../sg-hawker-project-leslie/analytics.html">Analytics</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link profile-icon" href="../sg-hawker-project-russell/1st log in page (Plan B)/login1.html">
+            <i class="fa-solid fa-circle-user"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<!-- STALL PAGE - Food Categories -->
+<section class="page show" id="menu">
+  <div class="container-fluid menu-container">
+    
+    <!-- Store Header with Dropdown Only -->
+    <div class="store-header">
+      <div class="store-dropdown-header">
+        <label class="stall-label" for="stallSelect">Choose a stall...</label>
+        <select id="stallSelect" class="store-dropdown-select">
+          <option value="" selected>Choose a stall...</option>
+          <option value="Uncle Tan's Chicken Rice">Uncle Tan's Chicken Rice</option>
+          <option value="Aunty Rose's Curry House">Aunty Rose's Curry House</option>
+          <option value="Bangkok Street Thai">Bangkok Street Thai</option>
+          <option value="Malay Corner Nasi Lemak">Malay Corner Nasi Lemak</option>
+          <option value="Kopi & Teh Station">Kopi & Teh Station</option>
+        </select>
+      </div>
+      <h2 id="currentStoreName">Please select a stall</h2>
+    </div>
+
+    <!-- Food Cards Container -->
+    <div class="food-cards-container" id="foodCardsContainer">
+      <!-- Food cards will be loaded here by JavaScript -->
+    </div>
+
+    <!-- Shopping Cart Button (Fixed) -->
+    <button class="cart-button" id="cartBtn">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </button>
+
+    <!-- Hawker Login Button (Fixed) -->
+    <button class="hawker-login-button" id="hawkerLoginBtn" title="Hawker Login">
+      <i class="fa-solid fa-store"></i>
+    </button>
+
+  </div>
+</section>
+
+<!-- PROFILE PAGE -->
+<section class="page" id="profile">
+  <div class="container py-5">
+    <div class="cart-panel">
+      <h2>User Profile</h2>
+      <div class="profile-content">
+        <div class="profile-avatar">
+          <i class="fa-solid fa-circle-user"></i>
+        </div>
+        <div class="profile-info">
+          <h3 id="userName">Guest User</h3>
+          <p class="muted">Member since 2024</p>
+        </div>
+        <div class="profile-actions">
+          <button class="btn-profile" onclick="showPage('menu')">Back to Menu</button>
+          <button class="btn-profile" onclick="showPage('orders')">View Orders</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HAWKER LOGIN PAGE -->
+<section class="page" id="hawkerLogin">
+  <div class="container py-5">
+    <div class="cart-panel center">
+      <div class="login-container">
+        <h2>🔐 Store Owner Login</h2>
+        <p class="muted">Login to manage your stall menu</p>
+        
+        <form id="hawkerLoginForm" class="login-form">
+          <input type="text" id="hawkerUsername" placeholder="Username" required>
+          <input type="password" id="hawkerPassword" placeholder="Password" required>
+          <button type="submit" class="btn-login">Login</button>
+        </form>
+        
+        <p class="login-hint">Demo: username: <strong>admin</strong>, password: <strong>admin123</strong></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STORE MANAGEMENT PAGE -->
+<section class="page" id="storeManagement">
+  <div class="container-fluid py-4">
+    <div class="panel">
+      <div class="management-header">
+        <h2>🏪 Store Management</h2>
+        <button class="btn-logout" id="hawkerLogoutBtn">Logout</button>
+      </div>
+      
+      <p class="muted">Welcome, <strong id="loggedInUser">Admin</strong>! Manage your store menu below.</p>
+      
+      <!-- Select Store -->
+      <div class="store-select-section">
+        <h3>Select Your Store</h3>
+        <select id="manageStoreSelect" class="store-dropdown">
+          <option value="">Choose a store to manage...</option>
+          <option value="Uncle Tan's Chicken Rice">Uncle Tan's Chicken Rice</option>
+          <option value="Aunty Rose's Curry House">Aunty Rose's Curry House</option>
+          <option value="Bangkok Street Thai">Bangkok Street Thai</option>
+          <option value="Malay Corner Nasi Lemak">Malay Corner Nasi Lemak</option>
+          <option value="Kopi & Teh Station">Kopi & Teh Station</option>
+        </select>
+      </div>
+      
+      <!-- Current Menu Items -->
+      <div id="currentMenuSection" style="display:none;">
+        <h3>Current Menu Items</h3>
+        <div id="currentMenuItems" class="menu-items-list"></div>
+        
+        <!-- Add New Item Form -->
+        <div class="add-item-section">
+          <h3>Add New Menu Item</h3>
+          <form id="addItemForm" class="add-item-form">
+            <select id="newItemCategory" required style="padding: 12px; border: 2px solid #ddd; border-radius: 8px; font-size: 15px;">
+              <option value="">Select Category</option>
+              <option value="chicken">Chicken Rice</option>
+              <option value="curry">Curry</option>
+              <option value="thai">Thai Food</option>
+              <option value="nasi">Nasi Lemak</option>
+              <option value="traditional">Traditional Desserts</option>
+              <option value="drinks">Drinks</option>
+            </select>
+            <input type="text" id="newItemName" placeholder="Item Name (e.g., Chicken Rice)" required>
+            <input type="number" id="newItemPrice" placeholder="Price (e.g., 5.00)" step="0.01" min="0" required>
+            <input type="text" id="newItemImage" placeholder="Image filename (e.g., chicken1.jpg)" required>
+            <button type="submit" class="btn-add-item">Add Item</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CART PAGE -->
+<section class="page" id="cart">
+  <div class="container py-5">
+    <div class="cart-panel">
+      <h2>Shopping Cart</h2>
+      
+      <div class="cart-header">
+        <span>Food</span>
+        <span>Qty</span>
+        <span>Price</span>
+      </div>
+      
+      <div id="cartList"></div>
+      
+      <div class="cart-total">
+        <span>Total:</span>
+        <strong id="total">$0.00</strong>
+      </div>
+      
+      <button class="btn-checkout" id="checkoutBtn">Checkout</button>
+    </div>
+  </div>
+</section>
+
+<!-- ORDERS HISTORY -->
+<section class="page" id="orders">
+  <div class="container py-5">
+    <div class="cart-panel">
+      <h2>Order History</h2>
+      <p class="muted">Your past orders are saved locally on this device</p>
+      <div id="orderList"></div>
+      <button class="btn-clear" onclick="clearOrders()">Clear Order History</button>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT METHOD -->
+<section class="page" id="paymethod">
+  <div class="container py-5">
+    <div class="cart-panel">
+      <h2>Payment method</h2>
+      <div class="payment-methods">
+        <button class="payment-btn">PayNow</button>
+        <button class="payment-btn">Apple Pay</button>
+        <button class="payment-btn">GPay</button>
+        <button class="payment-btn" id="cardBtn">Card</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PAYMENT -->
+<section class="page" id="payment">
+  <div class="container py-5">
+    <div class="cart-panel">
+      <h2>Payment</h2>
+      <form id="payForm">
+        <input type="text" placeholder="Card Number" required>
+        <input type="text" placeholder="MM/YY" required>
+        <input type="text" placeholder="CVV" required>
+        <input type="text" placeholder="Card Holder Name" required>
+        <button type="submit" class="btn-pay">Pay Now</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- THANK YOU -->
+<section class="page" id="thankyou">
+  <div class="container py-5">
+    <div class="cart-panel text-center">
+      <h2>Thank you for ordering from us!</h2>
+      <p>Your order number is</p>
+      <div id="orderNo">#0000</div>
+      <button class="btn-back" onclick="showPage('menu')">Order Again</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

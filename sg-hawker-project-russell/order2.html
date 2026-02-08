@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders Management - SG Hawker Centre</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="order2.css">
+</head>
+<body>
+
+<!-- MASTER NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link nav-pill" href="..\index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="..\yifei feature\index.html">Stall</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill active" href="order2.html">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="..\sg-hawker-project-leslie\feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="..\fed_proj\hygiene-inspection.html">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill" href="..\sg-hawker-project-leslie\analytics.html">Analytics</a></li>
+
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link icon-btn" href="#"><i class="fa-regular fa-user"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- VENDOR ORDERS PAGE -->
+  <section class="page show" id="vendorOrders">
+    <div class="container-fluid py-4">
+      <div class="panel">
+        <div class="management-header">
+          <h2>Orders Management</h2>
+          <div class="vendor-controls">
+            <select id="storeFilter" class="store-filter">
+              <option value="">All Stores</option>
+              <option value="Uncle Tan's Chicken Rice">Uncle Tan's Chicken Rice</option>
+              <option value="Aunty Rose's Curry House">Aunty Rose's Curry House</option>
+              <option value="Bangkok Street Thai">Bangkok Street Thai</option>
+              <option value="Malay Corner Nasi Lemak">Malay Corner Nasi Lemak</option>
+              <option value="Kopi & Teh Station">Kopi & Teh Station</option>
+              <option value="General Store">General Store</option>
+            </select>
+          </div>
+        </div>
+        
+        <p class="muted">Manage and track all customer orders. Auto-refreshes every 15 seconds.</p>
+        
+        <!-- Order Statistics -->
+        <div class="order-stats">
+          <div class="stat-card">
+            <div class="stat-number" id="totalOrders">0</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="pendingOrders">0</div>
+            <div class="stat-label">Pending</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="preparingOrders">0</div>
+            <div class="stat-label">Preparing</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="readyOrders">0</div>
+            <div class="stat-label">Ready</div>
+          </div>
+        </div>
+        
+        <!-- Orders Table -->
+        <div class="orders-table-container">
+          <div class="orders-table-header">
+            <h3>Recent Orders</h3>
+            <div class="table-controls">
+              <button class="btn-table-nav" id="prevPage" disabled>
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <span class="page-indicator">Page <span id="currentPage">1</span></span>
+              <button class="btn-table-nav" id="nextPage" disabled>
+                <i class="fas fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+          
+          <div class="table-responsive">
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Store</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Orders will be loaded here -->
+                <tr id="noOrdersRow">
+                  <td colspan="7" class="text-center muted">
+                    <i class="fas fa-clipboard-list fa-2x mb-3" style="opacity: 0.5;"></i>
+                    <p>No orders yet. Orders will appear here when customers make purchases.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Order Details Modal -->
+        <div class="modal fade" id="orderDetailsModal" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Order Details - <span id="modalOrderNumber"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="order-info-grid">
+                  <div class="info-item">
+                    <label>Order #:</label>
+                    <span id="modalOrderNumber2"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>Store:</label>
+                    <span id="modalStore"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>Order Time:</label>
+                    <span id="modalTime"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>Status:</label>
+                    <span id="modalStatus"></span>
+                  </div>
+                </div>
+                
+                <h6 class="mt-4 mb-3">Order Items</h6>
+                <div class="modal-items-list" id="modalItemsList"></div>
+                
+                <div class="modal-total">
+                  <strong>Total: </strong>
+                  <span id="modalTotal">$0.00</span>
+                </div>
+                
+                <div class="status-controls mt-4">
+                  <label>Update Status:</label>
+                  <div class="status-buttons">
+                    <button class="btn-status pending" data-status="Pending">Pending</button>
+                    <button class="btn-status preparing" data-status="Preparing">Preparing</button>
+                    <button class="btn-status ready" data-status="Ready">Ready-to-collect</button>
+                    <button class="btn-status completed" data-status="Completed">Completed</button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="deleteOrderBtn">
+                  <i class="fas fa-trash"></i> Delete Order
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveStatus">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="order2.js"></script>
+</body>
+</html>

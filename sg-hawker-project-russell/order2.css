@@ -1,0 +1,492 @@
+/* ===== VENDOR ORDERS PAGE STYLES ===== */
+/* This file should be saved as order2.css */
+
+/* makes the "order" green background */
+nav a[href="order2.html"] {
+  background: #dff5df;
+  color: #111;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 600;
+}
+
+/* Vendor Controls */
+.vendor-controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.store-filter {
+  padding: 10px 16px;
+  border: 2px solid #f2c100;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 500;
+  background: white;
+  cursor: pointer;
+  min-width: 180px;
+}
+
+.store-filter:focus {
+  outline: none;
+  border-color: #d4a700;
+  box-shadow: 0 0 0 3px rgba(242, 193, 0, 0.2);
+}
+
+/* Order Statistics */
+.order-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin: 30px 0;
+}
+
+.stat-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.stat-number {
+  font-size: 36px;
+  font-weight: 800;
+  color: #111;
+  margin-bottom: 8px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #666;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Orders Table Container */
+.orders-table-container {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  margin-top: 30px;
+}
+
+.orders-table-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.orders-table-header h3 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.table-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn-table-nav {
+  width: 36px;
+  height: 36px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  background: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.btn-table-nav:hover:not(:disabled) {
+  border-color: #f2c100;
+  background: #f2c100;
+}
+
+.btn-table-nav:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-indicator {
+  font-weight: 600;
+  color: #111;
+}
+
+/* Table Styles */
+.orders-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.orders-table th {
+  background: #f8f8f8;
+  padding: 16px;
+  text-align: left;
+  font-weight: 700;
+  color: #111;
+  border-bottom: 2px solid #e0e0e0;
+  white-space: nowrap;
+}
+
+.orders-table td {
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+  vertical-align: middle;
+}
+
+.orders-table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+.orders-table tbody tr:hover {
+  background-color: #f9f9f9;
+}
+
+.orders-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+/* Store Display */
+.store-display {
+  font-weight: 600;
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.store-display.single-store {
+  color: #111;
+}
+
+.store-display.general-store {
+  color: #dc3545;
+  font-style: italic;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffeaa7;
+}
+
+.status-preparing {
+  background: #cce5ff;
+  color: #004085;
+  border: 1px solid #b8daff;
+}
+
+.status-ready {
+  background: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.status-completed {
+  background: #d1ecf1;
+  color: #0c5460;
+  border: 1px solid #bee5eb;
+}
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-view {
+  padding: 6px 12px;
+  background: #f2c100;
+  color: #111;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-view:hover {
+  background: #d4a700;
+  transform: translateY(-2px);
+}
+
+.btn-update {
+  padding: 6px 12px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-update:hover {
+  background: #0056b3;
+  transform: translateY(-2px);
+}
+
+.btn-delete {
+  padding: 6px 12px;
+  background: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-delete:hover {
+  background: #c82333;
+  transform: translateY(-2px);
+}
+
+/* Modal Styles */
+.order-info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item label {
+  font-size: 12px;
+  color: #666;
+  font-weight: 600;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.info-item span {
+  font-size: 16px;
+  font-weight: 600;
+  color: #111;
+}
+
+.modal-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.modal-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.modal-item-store {
+  font-size: 11px;
+  color: #666;
+  margin-top: 4px;
+  font-style: italic;
+}
+
+.modal-total {
+  text-align: right;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 16px;
+  border-top: 2px solid #e0e0e0;
+  margin-top: 16px;
+}
+
+.status-controls {
+  padding: 20px;
+  background: #f8f8f8;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.status-controls label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 600;
+  color: #111;
+}
+
+.status-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.btn-status {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-status.pending {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.btn-status.preparing {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.btn-status.ready {
+  background: #d4edda;
+  color: #155724;
+}
+
+.btn-status.completed {
+  background: #d1ecf1;
+  color: #0c5460;
+}
+
+.btn-status:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.btn-status.active {
+  border: 2px solid #111;
+}
+
+/* Empty State */
+#noOrdersRow td {
+  padding: 60px 20px !important;
+}
+
+#noOrdersRow i {
+  font-size: 48px;
+  margin-bottom: 20px;
+  display: block;
+}
+
+#noOrdersRow p {
+  font-size: 16px;
+  color: #666;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+/* Last Updated Indicator */
+.last-updated {
+  font-size: 12px;
+  color: #666;
+  text-align: right;
+  margin-top: 10px;
+  font-style: italic;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .order-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .vendor-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .store-filter {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-stats {
+    grid-template-columns: 1fr;
+  }
+  
+  .orders-table-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .orders-table th,
+  .orders-table td {
+    padding: 12px 8px;
+    font-size: 14px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+  }
+  
+  .modal-item {
+    grid-template-columns: 1fr;
+  }
+  
+  .status-buttons {
+    flex-direction: column;
+  }
+  
+  .btn-status {
+    width: 100%;
+  }
+  
+  /* Hide less important columns on mobile */
+  .orders-table th:nth-child(3), /* Items */
+  .orders-table td:nth-child(3),
+  .orders-table th:nth-child(6), /* Time */
+  .orders-table td:nth-child(6) {
+    display: none;
+  }
+}

@@ -3,194 +3,469 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Hygiene Inspection | SG Hawker Centre</title>
-
-  <!-- Bootstrap + icons -->
+<<<<<<< HEAD
+  <title>Hygiene Feedback | SG Hawker Centre</title>
+  
+  <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-
-  <!-- Shared navbar styles (if your group uses it) -->
+  
+  <!-- Shared navbar styles -->
   <link rel="stylesheet" href="assets/style.css">
+  <!-- Hygiene page styles -->
+  <link rel="stylesheet" href="css/hygiene.css"/>
+=======
 
-  <!-- Hygiene theme CSS (your orange aesthetic) -->
+  <title>Hygiene Inspection | SG Hawker Centre</title>
+
+  <!--  Bootstrap + icons (same style as main page navbar) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!--  Our hygiene theme CSS (orange aesthetic) -->
   <link rel="stylesheet" href="./hygiene.css">
+>>>>>>> 71943a77e997bc2ed9f71870ed321425f2ec8538
 </head>
 
 <body>
-  <!-- NAVBAR -->
-  <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
+<<<<<<< HEAD
+
+  <!-- NAVBAR (Consistent with group) -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="mainNav">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-          <li class="nav-item"><a class="nav-link nav-pill" href="../index.html">Home</a></li>
-          <li class="nav-item"><a class="nav-link" href="../yifei hawker proj/index.html">Stall</a></li>
-          <li class="nav-item"><a class="nav-link" href="../orders.html">Orders</a></li>
-          <li class="nav-item"><a class="nav-link" href="../sg-hawker-project-leslie/feedback.html">Feedback</a></li>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <!-- Go UP one level (../) to reach root -->
+        <li class="nav-item"><a class="nav-link nav-pill" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="../yifei hawker proj/index.html">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" href="../orders.html">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="../sg-hawker-project-leslie/feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill active" href="hygiene-inspection.html">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link" href="../sg-hawker-project-leslie/analytics.html">Analytics</a></li>
 
-          <li class="nav-item">
-            <a class="nav-link nav-pill active" href="hygiene-inspection.html">Hygiene info</a>
-          </li>
-
-          <li class="nav-item"><a class="nav-link" href="../sg-hawker-project-leslie/analytics.html">Analytics</a></li>
-
-          <li class="nav-item ms-lg-2">
-            <a class="nav-link icon-btn" href="#"><i class="fa-regular fa-user"></i></a>
-          </li>
-        </ul>
-      </div>
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link icon-btn" href="#">
+            <i class="fa-regular fa-user"></i>
+          </a>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>
 
   <main class="container">
     <div class="card">
-      <h2>Hygiene Inspection</h2>
-      <div class="small">Select a stall to view the latest hygiene grade and navigate to forms/history.</div>
+      <h2>Hygiene Feedback</h2>
+      <div class="small">Submit a new inspection record for a stall.</div>
 
       <div class="hr"></div>
 
-      <div class="gradeGrid">
+      <div class="twoCol">
+        
         <div>
           <label for="stallSelect">Choose a Stall</label>
           <select id="stallSelect"></select>
 
+          <div style="height:10px"></div>
+
+          <label for="dateInput">Date of inspection</label>
+          <input id="dateInput" type="date"/>
+
+          <div style="height:10px"></div>
+
+          <label>Grade</label>
+          <div class="gradeRow" id="gradeRow">
+            <button class="gradeBtn" type="button" data-grade="A">A</button>
+            <button class="gradeBtn" type="button" data-grade="B">B</button>
+            <button class="gradeBtn" type="button" data-grade="C">C</button>
+            <button class="gradeBtn" type="button" data-grade="D">D</button>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <label for="scoreInput">Score (0–100)</label>
+          <input id="scoreInput" type="number" min="0" max="100" placeholder="e.g. 95"/>
+
           <div class="hr"></div>
 
-          <button class="btn primary" id="goFeedback">Hygiene Form</button>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <button class="btn primary" id="submitBtn">Submit</button>
+            <button class="btn" id="viewHistoryBtn">View History</button>
+            <a class="btn" href="hygiene-inspection.html" style="text-decoration:none">Back</a>
+          </div>
+
+          <div style="height:12px"></div>
+          <div id="msg"></div>
         </div>
 
-        <div class="gradePanel">
-          <div class="small">Current Hygiene Grade</div>
-          <div class="badge" id="gradeBadge">-</div>
-          <div class="gradeMeaning" id="gradeMeaning">-</div>
-          <div class="gradeDate">Last inspected - <span id="lastInspected">-</span></div>
+        
+        <div>
+          <label for="remarks">Remarks</label>
+          <textarea id="remarks" placeholder="Write short notes..."></textarea>
+
+          <div class="hr"></div>
+
+          <div class="alert">
+            <div style="font-weight:800;margin-bottom:6px">Legend</div>
+            <div class="small">A: 90–100 (Excellence)</div>
+            <div class="small">B: 80–89 (Good)</div>
+            <div class="small">C: 70–79 (Fair)</div>
+            <div class="small">D: Below 70 (Poor)</div>
+          </div>
+
+          <div style="height:10px"></div>
+
+          <div class="alert">
+            <div style="font-weight:800;margin-bottom:6px">Auto helper</div>
+            <div class="small">
+              Enter a score to auto-suggest grade (A/B/C/D).
+            </div>
+          </div>
         </div>
       </div>
+=======
 
-      <div class="hr"></div>
+<!--  Shared Navbar (same design as main page) -->
+<nav class="navbar navbar-expand-lg bg-light border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">🍜 SG Hawker Centre</a>
 
-      <button class="btn" id="goHistory">Inspection History</button>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-      <div class="legend">
-        <div class="item"><div class="mini">A</div><div class="small">90–100: Excellence</div></div>
-        <div class="item"><div class="mini">B</div><div class="small">80–89: Good</div></div>
-        <div class="item"><div class="mini">C</div><div class="small">70–79: Fair</div></div>
-        <div class="item"><div class="mini">D</div><div class="small">Below 70: Poor</div></div>
-      </div>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 gap-lg-2 align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Stall</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Feedback</a></li>
+
+        <!--  Active tab for hygiene section -->
+        <li class="nav-item">
+          <a class="nav-link active-tag" href="hygiene-inspection.html">Hygiene info</a>
+        </li>
+
+        <li class="nav-item"><a class="nav-link" href="#">Analytics</a></li>
+
+        <li class="nav-item ms-lg-3">
+          <a class="nav-link profile-icon" href="#" title="Profile">
+            <i class="fa-solid fa-user"></i>
+          </a>
+        </li>
+      </ul>
     </div>
-  </main>
+  </div>
+</nav>
 
+<main class="container">
+  <div class="card">
+    <h2>Hygiene Inspection</h2>
+    <div class="small">Select a stall to view the latest hygiene grade and navigate to forms/history.</div>
+
+    <div class="hr"></div>
+
+    <div class="gradeGrid">
+      <!--  LEFT SIDE: stall selection + action buttons -->
+      <div>
+        <!-- Feature 1: Stall Dropdown -->
+        <label for="stallSelect">Choose a Stall</label>
+        <select id="stallSelect"></select>
+        <div class="hint">This dropdown is populated by our stall list.</div>
+
+        <div class="hr"></div>
+
+        <!-- Feature 2: Go to feedback form -->
+        <button class="btn primary" id="goFeedback">Hygiene Form</button>
+        <div class="hint">Opens the inspection submission form for the selected stall.</div>
+      </div>
+
+      <!--  RIGHT SIDE: latest hygiene grade panel -->
+      <div class="gradePanel">
+        <div class="small">Current Hygiene Grade</div>
+
+        <!-- Feature 3: Grade badge updates dynamically -->
+        <div class="badge" id="gradeBadge">-</div>
+
+        <!-- Feature 4: Grade meaning text -->
+        <div class="gradeMeaning" id="gradeMeaning">-</div>
+
+        <!-- Feature 5: Latest inspected date -->
+        <div class="gradeDate">
+          Last inspected - <span id="lastInspected">-</span>
+        </div>
+
+        <div class="hint" style="text-align:center">
+          These values are pulled from <b>localStorage</b> based on inspection records.
+        </div>
+      </div>
+>>>>>>> 71943a77e997bc2ed9f71870ed321425f2ec8538
+    </div>
+
+<<<<<<< HEAD
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
-  <!-- IMPORTANT: load your storage + AppData functions -->
-  <script src="./hygiene.js"></script>
+  <script type="module">
+    import { setActiveNav, fillStallSelect, rememberStall, scoreToGrade } from "./js/hygiene-ui.js";
+    import { addInspection } from "./js/hygiene-store.js";
 
-  <!-- Page logic (NO module imports) -->
-  <script>
-    function prettyDate(iso) {
-      if (!iso) return "-";
-      const d = new Date(iso);
-      if (Number.isNaN(d.getTime())) return iso;
-      return d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit" });
+    setActiveNav("inspection");
+
+    const stallSelect = document.getElementById("stallSelect");
+    const dateInput = document.getElementById("dateInput");
+    const scoreInput = document.getElementById("scoreInput");
+    const remarks = document.getElementById("remarks");
+    const msg = document.getElementById("msg");
+    const gradeRow = document.getElementById("gradeRow");
+    let selectedGrade = "";
+
+    const params = new URLSearchParams(location.search);
+    const qsStall = params.get("stall");
+
+    fillStallSelect(stallSelect, { useRemembered:true });
+    if(qsStall) stallSelect.value = qsStall;
+
+    function setMsg(type, text){
+      msg.innerHTML = "";
+      const div = document.createElement("div");
+      div.className = "alert " + (type === "error" ? "error" : "success");
+      div.textContent = text;
+      msg.appendChild(div);
     }
 
-    function gradeMeaning(grade) {
-      const g = String(grade || "").toUpperCase();
-      if (g === "A") return "90–100: Excellence";
-      if (g === "B") return "80–89: Good";
-      if (g === "C") return "70–79: Fair";
-      if (g === "D") return "Below 70: Poor";
-      return "-";
+    function selectGrade(g){
+      selectedGrade = g;
+      const btns = gradeRow.querySelectorAll(".gradeBtn");
+      btns.forEach(b => b.classList.toggle("selected", b.dataset.grade === g));
     }
 
-    function rememberStall(stallId) {
-      try { localStorage.setItem("hygiene_selected_stall", stallId || ""); } catch (e) {}
+    gradeRow.addEventListener("click", (e) => {
+      const btn = e.target.closest(".gradeBtn");
+      if(!btn) return;
+      selectGrade(btn.dataset.grade);
+=======
+    <div class="hr"></div>
+
+    <!-- Feature 6: Navigate to inspection history -->
+    <button class="btn" id="goHistory">Inspection History</button>
+    <div class="hint">Shows all saved inspection records for the selected stall.</div>
+
+    <div class="legend">
+      <!-- Feature 7: Grade legend helps user understand grading scale -->
+      <div class="item"><div class="mini">A</div><div class="small">90–100: Excellence</div></div>
+      <div class="item"><div class="mini">B</div><div class="small">80–89: Good</div></div>
+      <div class="item"><div class="mini">C</div><div class="small">70–79: Fair</div></div>
+      <div class="item"><div class="mini">D</div><div class="small">Below 70: Poor</div></div>
+    </div>
+  </div>
+</main>
+
+<script>
+  // FORCE login every time (demo / presentation mode)
+localStorage.removeItem("hygiene_logged_in");
+
+  /* =========================================================
+     HYGIENE INSPECTION (MANUAL LOCALSTORAGE VERSION)
+     ========================================================= */
+
+  //  Feature A: Shared stall list (must match feedback/history pages)
+  const stalls = [
+    { id: "stall-01", name: "Chicken Rice" },
+    { id: "stall-02", name: "Nasi Lemak" },
+    { id: "stall-03", name: "Drinks" },
+    { id: "stall-04", name: "Curry" },
+    { id: "stall-05", name: "Thai Food" }
+  ];
+
+  //  Feature B: LocalStorage key for storing all inspection records
+  // This is the same key used in the manual feedback page.
+  const INSPECTIONS_KEY = "hygiene_inspections";
+
+  // DOM references (connect HTML elements to JS)
+  const stallSelect = document.getElementById("stallSelect");
+  const gradeBadge = document.getElementById("gradeBadge");
+  const gradeMeaningEl = document.getElementById("gradeMeaning");
+  const lastInspectedEl = document.getElementById("lastInspected");
+
+  //  Utility: read inspection list from localStorage safely
+  function loadInspections(){
+    const raw = localStorage.getItem(INSPECTIONS_KEY);
+    try{
+      return raw ? JSON.parse(raw) : [];
+    }catch{
+      return [];
     }
+  }
 
-    function getRememberedStall() {
-      try { return localStorage.getItem("hygiene_selected_stall") || ""; } catch (e) { return ""; }
-    }
+  //  Utility: format YYYY-MM-DD into dd/mm/yy (presentation friendly)
+  function prettyDate(iso){
+    if(!iso) return "-";
+    const [y,m,d] = String(iso).split("-");
+    if(!y || !m || !d) return String(iso);
+    return `${d}/${m}/${y.slice(2)}`;
+  }
 
-    function fillStallSelect(selectEl, opts) {
-      const useRemembered = opts && opts.useRemembered;
+  //  Utility: map grade to text meaning
+  function gradeMeaning(grade){
+    const map = {
+      A: "Excellence – Outstanding hygiene standard",
+      B: "Good – Meets hygiene standard",
+      C: "Fair – Needs improvement",
+      D: "Poor – Below hygiene standard"
+    };
+    return map[String(grade || "").toUpperCase()] || "-";
+  }
 
-      const stalls = (window.AppData && AppData.getStalls) ? AppData.getStalls() : [];
-      selectEl.innerHTML = "";
+  //  Feature C: populate stall dropdown
+  function fillStallSelect(){
+    stallSelect.innerHTML = "";
 
       const placeholder = document.createElement("option");
       placeholder.value = "";
       placeholder.textContent = "-- Select a stall --";
       selectEl.appendChild(placeholder);
 
-      for (const s of stalls) {
-        const opt = document.createElement("option");
-        opt.value = s.id;
-        opt.textContent = s.name;
-        selectEl.appendChild(opt);
+    stalls.forEach(s => {
+      const option = document.createElement("option");
+      option.value = s.id;
+      option.textContent = s.name;
+      stallSelect.appendChild(option);
+>>>>>>> 71943a77e997bc2ed9f71870ed321425f2ec8538
+    });
+  }
+
+<<<<<<< HEAD
+    stallSelect.addEventListener("change", () => rememberStall(stallSelect.value));
+
+    scoreInput.addEventListener("input", () => {
+      const v = scoreInput.value;
+      if(v === "") return;
+      const g = scoreToGrade(v);
+      selectGrade(g);
+    });
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+      const stallId = stallSelect.value;
+      const date = dateInput.value;
+      const scoreVal = scoreInput.value;
+
+      if(!stallId){
+        setMsg("error","Please choose a stall.");
+        return;
       }
 
-      if (useRemembered) {
-        const remembered = getRememberedStall();
-        if (remembered) selectEl.value = remembered;
+      if(scoreVal === "" || Number.isNaN(Number(scoreVal))){
+        setMsg("error","Please enter a valid score (0–100).");
+        return;
       }
+
+      const score = Number(scoreVal);
+      if(score < 0 || score > 100){
+        setMsg("error","Score must be between 0 and 100.");
+        return;
+      }
+
+      const grade = selectedGrade || scoreToGrade(score);
+
+      if(!grade){
+        setMsg("error","Please select a grade.");
+        return;
+      }
+
+      addInspection({
+        stallId,
+        date,
+        grade,
+        score,
+        remarks: remarks.value.trim()
+      });
+
+      setMsg("success","Saved! Inspection record added.");
+      rememberStall(stallId);
+
+      setTimeout(() => {
+        location.href = "hygiene-history.html?stall=" + encodeURIComponent(stallId);
+      }, 650);
+    });
+
+    document.getElementById("viewHistoryBtn").addEventListener("click", () => {
+      const id = stallSelect.value || "";
+      location.href = "hygiene-history.html" + (id ? `?stall=${encodeURIComponent(id)}` : "");
+    });
+  </script>
+=======
+  //  Feature D: find latest inspection for a stall
+  function getLatestInspectionForStall(stallId){
+    const list = loadInspections()
+      .filter(x => x.stallId === stallId)
+      .sort((a,b) => String(b.date).localeCompare(String(a.date)));
+    return list.length ? list[0] : null;
+  }
+
+  //  Feature E: render grade panel whenever stall changes
+  function render(){
+    const stallId = stallSelect.value;
+
+    // save selected stall so other pages can remember it
+    localStorage.setItem("selected_stall_id", stallId || "");
+
+    if(!stallId){
+      gradeBadge.textContent = "-";
+      gradeMeaningEl.textContent = "-";
+      lastInspectedEl.textContent = "-";
+      return;
     }
-
-    function getLatestInspectionForStall(stallId) {
-      if (!window.AppData || !AppData.getLatestInspectionForStall) return null;
-      return AppData.getLatestInspectionForStall(stallId);
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const stallSelect = document.getElementById("stallSelect");
-      const gradeBadge = document.getElementById("gradeBadge");
-      const gradeMeaningEl = document.getElementById("gradeMeaning");
-      const lastInspectedEl = document.getElementById("lastInspected");
-
-      const params = new URLSearchParams(location.search);
-      const qsStall = params.get("stall");
-
-      fillStallSelect(stallSelect, { useRemembered: true });
-
-      if (qsStall) stallSelect.value = qsStall;
-
-      function render() {
-        const stallId = stallSelect.value;
-        rememberStall(stallId);
-
-        if (!stallId) {
-          gradeBadge.textContent = "-";
-          gradeMeaningEl.textContent = "-";
-          lastInspectedEl.textContent = "-";
-          return;
-        }
 
         const latest = getLatestInspectionForStall(stallId);
 
-        if (!latest) {
-          gradeBadge.textContent = "-";
-          gradeMeaningEl.textContent = "No inspection record yet";
-          lastInspectedEl.textContent = "-";
-          return;
-        }
+    // if no record exists yet
+    if(!latest){
+      gradeBadge.textContent = "-";
+      gradeMeaningEl.textContent = "No inspection record yet";
+      lastInspectedEl.textContent = "-";
+      return;
+    }
 
-        gradeBadge.textContent = latest.grade;
-        gradeMeaningEl.textContent = gradeMeaning(latest.grade);
-        lastInspectedEl.textContent = prettyDate(latest.date);
-      }
+    // update UI from latest saved inspection
+    gradeBadge.textContent = latest.grade;
+    gradeMeaningEl.textContent = gradeMeaning(latest.grade);
+    lastInspectedEl.textContent = prettyDate(latest.date);
+  }
 
-      render();
-      stallSelect.addEventListener("change", render);
+  //  Init: fill dropdown + auto-select remembered stall / query string
+  fillStallSelect();
 
-      document.getElementById("goFeedback").addEventListener("click", () => {
-        const id = stallSelect.value || "";
-        if (!id) return;
+  const params = new URLSearchParams(location.search);
+  const qsStall = params.get("stall");
+  const remembered = localStorage.getItem("selected_stall_id") || "";
+
+  if(qsStall){
+    stallSelect.value = qsStall;
+  }else if(remembered){
+    stallSelect.value = remembered;
+  }
+
+  // update panel immediately
+  render();
+
+  // update panel when user changes stall
+  stallSelect.addEventListener("change", render);
+
+  /* ================== Navigation buttons ================== */
+
+  //  Feature F: go to feedback form (passes stall id via query string)
+  document.getElementById("goFeedback").addEventListener("click", () => {
+    const id = stallSelect.value || "";
+    if(!id) return;
 
         const loggedIn = sessionStorage.getItem("hygiene_logged_in") === "true";
         if (!loggedIn) {
@@ -201,12 +476,17 @@
         location.href = "hygiene-feedback.html?stall=" + encodeURIComponent(id);
       });
 
-      document.getElementById("goHistory").addEventListener("click", () => {
-        const id = stallSelect.value || "";
-        if (!id) return;
-        location.href = "hygiene-history.html?stall=" + encodeURIComponent(id);
-      });
-    });
-  </script>
+
+  //  Feature G: go to history page (passes stall id)
+  document.getElementById("goHistory").addEventListener("click", () => {
+    const id = stallSelect.value || "";
+    if(!id) return;
+    location.href = "hygiene-history.html?stall=" + encodeURIComponent(id);
+  });
+</script>
+
+<!--  Bootstrap JS required for mobile navbar toggle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+>>>>>>> 71943a77e997bc2ed9f71870ed321425f2ec8538
 </body>
 </html>
