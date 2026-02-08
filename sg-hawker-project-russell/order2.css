@@ -1,5 +1,4 @@
-/* ===== VENDOR ORDERS PAGE STYLES ===== */
-/* This file should be saved as order2.css */
+
 
 /* makes the "order" green background */
 nav a[href="order2.html"] {
@@ -483,9 +482,9 @@ nav a[href="order2.html"] {
   }
   
   /* Hide less important columns on mobile */
-  .orders-table th:nth-child(3), /* Items */
+  .orders-table th:nth-child(3), 
   .orders-table td:nth-child(3),
-  .orders-table th:nth-child(6), /* Time */
+  .orders-table th:nth-child(6),
   .orders-table td:nth-child(6) {
     display: none;
   }

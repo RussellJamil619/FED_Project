@@ -1,5 +1,5 @@
-// ===== VENDOR ORDERS MANAGEMENT =====
-// This file should be saved as order2.js
+
+
 
 // Orders data
 let vendorOrders = [];

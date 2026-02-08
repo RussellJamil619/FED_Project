@@ -1,4 +1,4 @@
-// SIMPLE VERSION WITH YOUR NEW API KEY
+
 const signInBtn = document.getElementById('signInBtn');
 const createAccountBtn = document.getElementById('createAccountBtn');
 const signInModal = document.getElementById('signInModal');
@@ -8,7 +8,7 @@ const signInForm = document.getElementById('signInForm');
 const createAccountForm = document.getElementById('createAccountForm');
 const successMessage = document.getElementById('successMessage');
 
-// ============ YOUR NEW FIREBASE CONFIG ============
+// ============ FIREBASE CONFIG ============
 const firebaseConfig = {
   apiKey: "AIzaSyAQJ_5bvld7FvcJAgex7RPO0rPyXLxZOjc",
   authDomain: "russellfedproject.firebaseapp.com",
