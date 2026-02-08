@@ -1,246 +1,190 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Orders Management | SG Hawker Centre</title>
-    
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
-    <!-- Inter Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Our CSS -->
-    <link rel="stylesheet" href="order2.css">
-    
-    <!-- Print Styles -->
-    <style>
-        @media print {
-            .navbar, .filter-section, .table-actions, .action-buttons {
-                display: none !important;
-            }
-            
-            .orders-container {
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-            }
-            
-            .page-header {
-                margin-bottom: 10px !important;
-                padding: 10px 0 !important;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orders Management - SG Hawker Centre</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="order2.css">
 </head>
 <body>
-    <!-- NAVBAR -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" href="index.html">
-                <i class="fas fa-utensils"></i> SG Hawker Centre
-            </a>
-            
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">
-                            <i class="fas fa-home me-1"></i> Home
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="stall.html">
-                            <i class="fas fa-store me-1"></i> Stall
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="orders.html">
-                            <i class="fas fa-shopping-cart me-1"></i> Orders
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="feedback.html">
-                            <i class="fas fa-comment-alt me-1"></i> Feedback
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="hygiene.html">
-                            <i class="fas fa-clipboard-check me-1"></i> Hygiene
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="analytics.html">
-                            <i class="fas fa-chart-line me-1"></i> Analytics
-                        </a>
-                    </li>
-                    
-                    <li class="nav-item ms-3">
-                        <a class="icon-btn" href="#" title="User Profile">
-                            <i class="fas fa-user"></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <!-- MAIN CONTENT -->
-    <main class="container">
-        <!-- Page Header -->
-        <div class="page-header">
-            <h1 class="page-title">Orders Management</h1>
-            <p class="page-subtitle">Monitor, update, and manage customer orders in real-time</p>
-            
-            <div class="d-flex gap-3 mt-3">
-                <button class="btn btn-primary" onclick="addSampleOrder()">
-                    <i class="fas fa-plus me-2"></i> Add Sample Order
-                </button>
-                <button class="btn btn-outline-secondary" onclick="location.reload()">
-                    <i class="fas fa-sync-alt me-2"></i> Refresh
-                </button>
-            </div>
-        </div>
+<!-- MASTER NAVBAR -->
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="../index.html">🍜 SG Hawker Centre</a>
 
-        <!-- Statistics Cards -->
-        <div class="stats-row">
-            <div class="stat-card">
-                <div class="stat-value">18</div>
-                <div class="stat-label">Total Orders Today</div>
-                <span class="stat-change positive">
-                    <i class="fas fa-arrow-up me-1"></i> 12% from yesterday
-                </span>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">3</div>
-                <div class="stat-label">Pending Orders</div>
-                <span class="stat-change negative">
-                    <i class="fas fa-arrow-down me-1"></i> 2 from last hour
-                </span>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">8</div>
-                <div class="stat-label">Preparing</div>
-                <span class="stat-change positive">
-                    <i class="fas fa-arrow-up me-1"></i> 3 in progress
-                </span>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">7</div>
-                <div class="stat-label">Ready to Collect</div>
-                <span class="stat-change positive">
-                    <i class="fas fa-check me-1"></i> All on time
-                </span>
-            </div>
-        </div>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <!-- Filters Section -->
-        <div class="filter-section">
-            <div class="filter-row">
-                <div class="filter-group">
-                    <div class="filter-label">Order Status</div>
-                    <select class="form-select" id="statusFilter">
-                        <option value="all">All Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="preparing">Preparing</option>
-                        <option value="ready">Ready to Collect</option>
-                        <option value="completed">Completed</option>
-                        <option value="cancelled">Cancelled</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <div class="filter-label">Date Range</div>
-                    <input type="date" class="form-control" id="dateFilter" value="2024-01-15">
-                </div>
-                
-                <div class="filter-group">
-                    <div class="filter-label">Search Orders</div>
-                    <input type="text" class="form-control" id="searchFilter" placeholder="Order ID, Customer, or Items...">
-                </div>
-                
-                <div class="filter-group d-flex gap-2">
-                    <button class="btn-filter w-100" id="applyFilters">
-                        <i class="fas fa-filter me-2"></i> Apply Filters
-                    </button>
-                    <button class="btn-reset" id="resetFilters">
-                        <i class="fas fa-redo me-2"></i> Reset
-                    </button>
-                </div>
-            </div>
-        </div>
+    <div class="collapse navbar-collapse" id="mainNav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link nav-pill" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="../stall.html">Stall</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill active" href="order2.html">Orders</a></li>
+        <li class="nav-item"><a class="nav-link" href="feedback.html">Feedback</a></li>
+        <li class="nav-item"><a class="nav-link" href="../hygiene.html">Hygiene info</a></li>
+        <li class="nav-item"><a class="nav-link nav-pill" href="analytics(leslie).html">Analytics</a></li>
 
+        <li class="nav-item ms-lg-2">
+          <a class="nav-link icon-btn" href="#"><i class="fa-regular fa-user"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <!-- VENDOR ORDERS PAGE -->
+  <section class="page show" id="vendorOrders">
+    <div class="container-fluid py-4">
+      <div class="panel">
+        <div class="management-header">
+          <h2>Orders Management</h2>
+          <div class="vendor-controls">
+            <select id="storeFilter" class="store-filter">
+              <option value="">All Stores</option>
+              <option value="Uncle Tan's Chicken Rice">Uncle Tan's Chicken Rice</option>
+              <option value="Aunty Rose's Curry House">Aunty Rose's Curry House</option>
+              <option value="Bangkok Street Thai">Bangkok Street Thai</option>
+              <option value="Malay Corner Nasi Lemak">Malay Corner Nasi Lemak</option>
+              <option value="Kopi & Teh Station">Kopi & Teh Station</option>
+              <option value="General Store">General Store</option>
+            </select>
+          </div>
+        </div>
+        
+        <p class="muted">Manage and track all customer orders. Auto-refreshes every 15 seconds.</p>
+        
+        <!-- Order Statistics -->
+        <div class="order-stats">
+          <div class="stat-card">
+            <div class="stat-number" id="totalOrders">0</div>
+            <div class="stat-label">Total Orders</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="pendingOrders">0</div>
+            <div class="stat-label">Pending</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="preparingOrders">0</div>
+            <div class="stat-label">Preparing</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="readyOrders">0</div>
+            <div class="stat-label">Ready</div>
+          </div>
+        </div>
+        
         <!-- Orders Table -->
-        <div class="orders-container">
-            <div class="table-header">
-                <div class="table-title">Recent Orders</div>
-                <div class="table-actions">
-                    <button class="btn-icon" id="exportCSV">
-                        <i class="fas fa-file-export"></i> Export CSV
-                    </button>
-                    <button class="btn-icon" id="printOrders">
-                        <i class="fas fa-print"></i> Print
-                    </button>
-                </div>
+        <div class="orders-table-container">
+          <div class="orders-table-header">
+            <h3>Recent Orders</h3>
+            <div class="table-controls">
+              <button class="btn-table-nav" id="prevPage" disabled>
+                <i class="fas fa-chevron-left"></i>
+              </button>
+              <span class="page-indicator">Page <span id="currentPage">1</span></span>
+              <button class="btn-table-nav" id="nextPage" disabled>
+                <i class="fas fa-chevron-right"></i>
+              </button>
             </div>
-            
+          </div>
+          
+          <div class="table-responsive">
             <table class="orders-table">
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Customer</th>
-                        <th>Items</th>
-                        <th>Status</th>
-                        <th>Total</th>
-                        <th>Time</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="loading">
-                        <td><strong>ORD001</strong></td>
-                        <td>John Cena</td>
-                        <td>Chicken Rice (x1), Coke (x1)</td>
-                        <td><span class="status-badge status-ready">Ready to Collect</span></td>
-                        <td><strong>$6.50</strong></td>
-                        <td>10:30 AM</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-action btn-view">
-                                    <i class="fas fa-eye"></i> View
-                                </button>
-                                <button class="btn-action btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <button class="btn-action btn-delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr>
-                    
-                    <tr class="loading">
-                        <td><strong>ORD002</strong></td>
-                        <td>Speed</td>
-                        <td>Laksa (x2), Teh Tarik (x1)</td>
-                        <td><span class="status-badge status-preparing">Preparing</span></td>
-                        <td><strong>$14.00</strong></td>
-                        <td>11:15 AM</td>
-                        <td>
-                            <div class="action-buttons">
-                                <button class="btn-action btn-view">
-                                    <i class="fas fa-eye"></i> View
-                                </button>
-                                <button class="btn-action btn-edit">
-                                    <i class="fas fa-edit"></i> Edit
-                                </button>
-                                <button class="btn-action btn-delete">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                            </div>
-                        </td>
-                    </tr
+              <thead>
+                <tr>
+                  <th>Order #</th>
+                  <th>Store</th>
+                  <th>Items</th>
+                  <th>Total</th>
+                  <th>Status</th>
+                  <th>Time</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Orders will be loaded here -->
+                <tr id="noOrdersRow">
+                  <td colspan="7" class="text-center muted">
+                    <i class="fas fa-clipboard-list fa-2x mb-3" style="opacity: 0.5;"></i>
+                    <p>No orders yet. Orders will appear here when customers make purchases.</p>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        <!-- Order Details Modal -->
+        <div class="modal fade" id="orderDetailsModal" tabindex="-1">
+          <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Order Details - <span id="modalOrderNumber"></span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+              </div>
+              <div class="modal-body">
+                <div class="order-info-grid">
+                  <div class="info-item">
+                    <label>Order #:</label>
+                    <span id="modalOrderNumber2"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>Store:</label>
+                    <span id="modalStore"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>Order Time:</label>
+                    <span id="modalTime"></span>
+                  </div>
+                  <div class="info-item">
+                    <label>Status:</label>
+                    <span id="modalStatus"></span>
+                  </div>
+                </div>
+                
+                <h6 class="mt-4 mb-3">Order Items</h6>
+                <div class="modal-items-list" id="modalItemsList"></div>
+                
+                <div class="modal-total">
+                  <strong>Total: </strong>
+                  <span id="modalTotal">$0.00</span>
+                </div>
+                
+                <div class="status-controls mt-4">
+                  <label>Update Status:</label>
+                  <div class="status-buttons">
+                    <button class="btn-status pending" data-status="Pending">Pending</button>
+                    <button class="btn-status preparing" data-status="Preparing">Preparing</button>
+                    <button class="btn-status ready" data-status="Ready">Ready-to-collect</button>
+                    <button class="btn-status completed" data-status="Completed">Completed</button>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" id="deleteOrderBtn">
+                  <i class="fas fa-trash"></i> Delete Order
+                </button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" id="saveStatus">Save Changes</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="order2.js"></script>
+</body>
+</html>
