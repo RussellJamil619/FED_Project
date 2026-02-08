@@ -147,24 +147,9 @@
   </div>
 </main>
 
+<script src="./hygiene.js"></script>
+
 <script>
-  /* =========================================================
-     HYGIENE FEEDBACK (MANUAL LOCALSTORAGE VERSION)
-     ========================================================= */
-
-  //  Feature A: Shared stall list (must match inspection + history pages)
-  const stalls = [
-    { id: "stall-01", name: "Chicken Rice" },
-    { id: "stall-02", name: "Nasi Lemak" },
-    { id: "stall-03", name: "Drinks" },
-    { id: "stall-04", name: "Curry" },
-    { id: "stall-05", name: "Thai Food" }
-  ];
-
-  //  Feature B: LocalStorage key (shared storage across pages)
-  const INSPECTIONS_KEY = "hygiene_inspections";
-
-  //  DOM elements
   const stallSelect = document.getElementById("stallSelect");
   const dateInput = document.getElementById("dateInput");
   const scoreInput = document.getElementById("scoreInput");
@@ -172,11 +157,40 @@
   const msg = document.getElementById("msg");
   const gradeRow = document.getElementById("gradeRow");
 
-  //  Track user-selected grade
   let selectedGrade = "";
 
-  /* ---------- Feature C: Fill stall dropdown ---------- */
-  function fillStallSelect(){
+  function scoreToGrade(score) {
+    const s = Number(score);
+    if (Number.isNaN(s)) return "";
+    if (s >= 90) return "A";
+    if (s >= 80) return "B";
+    if (s >= 70) return "C";
+    return "D";
+  }
+
+  function setMsg(type, text) {
+    msg.innerHTML = "";
+    const div = document.createElement("div");
+    div.className = "alert " + (type === "error" ? "error" : "success");
+    div.textContent = text;
+    msg.appendChild(div);
+  }
+
+  function selectGrade(g) {
+    selectedGrade = g;
+    gradeRow.querySelectorAll(".gradeBtn").forEach(b => {
+      b.classList.toggle("selected", b.dataset.grade === g);
+    });
+  }
+
+  function fillStallSelect() {
+    if (!window.AppData) {
+      setMsg("error", "AppData not found. Check script.js path.");
+      stallSelect.innerHTML = `<option value="">-- Error loading stalls --</option>`;
+      return;
+    }
+
+    const stalls = AppData.getStalls();
     stallSelect.innerHTML = "";
 
     const ph = document.createElement("option");
@@ -192,131 +206,71 @@
     });
   }
 
-  /* ---------- Feature D: Score → auto grade suggestion ---------- */
-  function scoreToGrade(score){
-    const s = Number(score);
-    if(Number.isNaN(s)) return "";
-    if(s >= 90) return "A";
-    if(s >= 80) return "B";
-    if(s >= 70) return "C";
-    return "D";
-  }
-
-  /* ---------- Feature E: Show success/error message ---------- */
-  function setMsg(type, text){
-    msg.innerHTML = "";
-    const div = document.createElement("div");
-    div.className = "alert " + (type === "error" ? "error" : "success");
-    div.textContent = text;
-    msg.appendChild(div);
-  }
-
-  /* ---------- Feature F: Select grade button UI ---------- */
-  function selectGrade(g){
-    selectedGrade = g;
-    gradeRow.querySelectorAll(".gradeBtn").forEach(b => {
-      b.classList.toggle("selected", b.dataset.grade === g);
-    });
-  }
-
   gradeRow.addEventListener("click", (e) => {
     const btn = e.target.closest(".gradeBtn");
-    if(!btn) return;
+    if (!btn) return;
     selectGrade(btn.dataset.grade);
   });
 
-  // Auto select grade when score is typed
   scoreInput.addEventListener("input", () => {
-    if(scoreInput.value === "") return;
+    if (scoreInput.value === "") return;
     selectGrade(scoreToGrade(scoreInput.value));
   });
 
-  /* ---------- Feature G: Load + Save localStorage inspections ---------- */
-  function loadInspections(){
-    const raw = localStorage.getItem(INSPECTIONS_KEY);
-    try{
-      return raw ? JSON.parse(raw) : [];
-    }catch{
-      return [];
-    }
-  }
-
-  function saveInspections(list){
-    localStorage.setItem(INSPECTIONS_KEY, JSON.stringify(list));
-  }
-
-  /* ---------- Feature H: Submit inspection ---------- */
   document.getElementById("submitBtn").addEventListener("click", () => {
     const stallId = stallSelect.value;
     const scoreVal = scoreInput.value;
 
-    // Validation 1: must choose stall
-    if(!stallId){
-      setMsg("error","Please choose a stall.");
+    if (!stallId) {
+      setMsg("error", "Please choose a stall.");
       return;
     }
 
-    // Validation 2: score must be a number
-    if(scoreVal === "" || Number.isNaN(Number(scoreVal))){
-      setMsg("error","Please enter a valid score (0–100).");
+    if (scoreVal === "" || Number.isNaN(Number(scoreVal))) {
+      setMsg("error", "Please enter a valid score (0–100).");
       return;
     }
 
-    // Validation 3: score range check
     const score = Number(scoreVal);
-    if(score < 0 || score > 100){
-      setMsg("error","Score must be between 0 and 100.");
+    if (score < 0 || score > 100) {
+      setMsg("error", "Score must be between 0 and 100.");
       return;
     }
 
-    // Grade is either chosen by user or auto from score
-    const grade = selectedGrade || scoreToGrade(score);
-    if(!grade){
-      setMsg("error","Please select a grade.");
+    const grade = (selectedGrade || scoreToGrade(score)).toUpperCase();
+    if (!grade) {
+      setMsg("error", "Please select a grade.");
       return;
     }
 
-    // Date defaults to today if blank
-    const date = dateInput.value || new Date().toISOString().slice(0,10);
+    const date = dateInput.value || new Date().toISOString().slice(0, 10);
 
-    // Build new record object (what we store in localStorage)
-    const record = {
+    AppData.addInspection({
       stallId,
       date,
       grade,
       score,
       remarks: remarks.value.trim()
-    };
+    });
 
-    // Save record into localStorage array
-    const list = loadInspections();
-    list.push(record);
-    saveInspections(list);
+    localStorage.setItem("hygiene_selected_stall", stallId);
 
-    // Remember stall selection for other pages
-    localStorage.setItem("selected_stall_id", stallId);
+    setMsg("success", "Saved! Inspection record added.");
 
-    setMsg("success","Saved! Inspection record added.");
-
-    // Redirect to history page so user can see new record immediately
     setTimeout(() => {
       location.href = "hygiene-history.html?stall=" + encodeURIComponent(stallId);
     }, 650);
   });
 
-  /* ---------- Init: populate dropdown + apply query string ---------- */
+  // Init
   fillStallSelect();
 
-  // If we came from inspection page, it passes stall via ?stall=
   const params = new URLSearchParams(location.search);
   const qsStall = params.get("stall");
-  const remembered = localStorage.getItem("selected_stall_id") || "";
+  const remembered = localStorage.getItem("hygiene_selected_stall") || "";
 
-  if(qsStall){
-    stallSelect.value = qsStall;
-  }else if(remembered){
-    stallSelect.value = remembered;
-  }
+  if (qsStall) stallSelect.value = qsStall;
+  else if (remembered) stallSelect.value = remembered;
 </script>
 
 <!-- Bootstrap JS (REQUIRED for mobile menu) -->
