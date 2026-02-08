@@ -6,7 +6,7 @@
 
   <title>Hygiene Officer Login | SG Hawker Centre</title>
 
-  <!-- Bootstrap and icons (same as main page) -->
+  <!-- Bootstrap and icons -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -18,11 +18,11 @@
 <body>
 
 <!-- Shared navigation bar -->
-<nav class="navbar navbar-expand-lg bg-light border-bottom">
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
   <div class="container">
     <a class="navbar-brand fw-bold" href="index.html">🍜 SG Hawker Centre</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav" aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
@@ -45,7 +45,6 @@
 <main class="container">
   <div class="card" style="max-width:520px;margin:24px auto">
 
-    <!-- Page heading -->
     <h2 style="text-align:center;margin-bottom:6px">Hygiene Officer Sign In</h2>
     <div class="small" style="text-align:center">
       Demo login: officer@sg-hawker.com / password123
@@ -53,45 +52,36 @@
 
     <div class="hr"></div>
 
-    <!-- Email input -->
     <label for="email">Email Address</label>
     <input id="email" type="email" placeholder="e.g. officer@sg-hawker.com"/>
 
     <div style="height:10px"></div>
 
-    <!-- Password input -->
     <label for="pw">Password</label>
     <input id="pw" type="password" placeholder="Enter password"/>
 
     <div style="height:12px"></div>
 
-    <!-- Login button -->
-    <button class="btn primary" id="loginBtn" style="width:100%">Login</button>
+    <button class="btn primary" id="loginBtn" style="width:100%" type="button">Login</button>
 
     <div style="height:10px"></div>
-    <a href="#" class="small">Forgot password?</a>
+    <a id="forgotLink" href="hygiene-reset.html" class="small">Forgot password?</a>
 
     <div style="height:12px"></div>
 
-    <!-- Message area -->
     <div id="msg"></div>
   </div>
 </main>
 
+<!-- Load hygiene data/auth store -->
+<script src="./hygiene.js"></script>
+
 <script>
-  /*
-    Simple demo login system
-    This is NOT real authentication, only for presentation purposes
-  */
-
-  const DEMO_EMAIL = "officer@sg-hawker.com";
-  const DEMO_PASSWORD = "password123";
-
   const emailInput = document.getElementById("email");
   const pwInput = document.getElementById("pw");
   const msg = document.getElementById("msg");
+  const forgotLink = document.getElementById("forgotLink");
 
-  /* Display success or error messages */
   function setMsg(type, text){
     msg.innerHTML = "";
     const div = document.createElement("div");
@@ -100,10 +90,35 @@
     msg.appendChild(div);
   }
 
-  /* Handle login button click */
-  document.getElementById("loginBtn").addEventListener("click", (e) => {
-    e.preventDefault();
+  function buildRedirectUrl(){
+    const params = new URLSearchParams(location.search);
+    const redirect = params.get("redirect") || "hygiene-inspection.html";
+    const stall = params.get("stall");
 
+    if(stall){
+      return redirect + (redirect.includes("?") ? "&" : "?") + "stall=" + encodeURIComponent(stall);
+    }
+    return redirect;
+  }
+
+  // Keep redirect context when user clicks "Forgot password?"
+  (function initForgotLink(){
+    const params = new URLSearchParams(location.search);
+    const redirect = params.get("redirect");
+    const stall = params.get("stall");
+
+    let url = "hygiene-reset.html";
+    const q = new URLSearchParams();
+    if(redirect) q.set("redirect", redirect);
+    if(stall) q.set("stall", stall);
+
+    const qs = q.toString();
+    if(qs) url += "?" + qs;
+
+    forgotLink.href = url;
+  })();
+
+  document.getElementById("loginBtn").addEventListener("click", () => {
     const email = emailInput.value.trim();
     const pw = pwInput.value;
 
@@ -112,23 +127,26 @@
       return;
     }
 
-    if(email !== DEMO_EMAIL || pw !== DEMO_PASSWORD){
+    if(!window.AppData){
+      setMsg("error", "System error: AppData not found. Check script.js path.");
+      return;
+    }
+
+    const ok = AppData.verifyLogin(email, pw);
+    if(!ok){
       setMsg("error", "Invalid login credentials.");
       return;
     }
 
-    /* Mark user as logged in (stored locally) */
-    localStorage.setItem("hygiene_logged_in", "true");
+    //  session-based login
+    sessionStorage.setItem("hygiene_logged_in", "true");
 
     setMsg("success", "Login successful. Redirecting...");
 
-    /* Redirect user back to intended page */
-    const redirect = localStorage.getItem("after_login_redirect") || "hygiene-feedback.html";
-    localStorage.removeItem("after_login_redirect");
-
+    const redirectUrl = buildRedirectUrl();
     setTimeout(() => {
-      window.location.href = redirect;
-    }, 600);
+      window.location.href = redirectUrl;
+    }, 400);
   });
 </script>
 
